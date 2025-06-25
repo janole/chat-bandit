@@ -352,22 +352,6 @@ const createBaseTheme = (mode: PaletteMode, variant?: ThemeOptions) => createThe
     }, variant),
 );
 
-// const Color1: ThemeOptions = {
-//     palette: {
-//         // mode: "light",
-//         primary: {
-//             main: '#3f51b5',
-//         },
-//         secondary: {
-//             main: '#f50057',
-//         },
-//         // background: {
-//         //     default: '#FEFEFE',
-//         //     paper: '#FFFFFF',
-//         // },
-//     },
-// };
-
 interface UseAppThemeProps
 {
     onThemeChange?: (theme: Theme) => void;

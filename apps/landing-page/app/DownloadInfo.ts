@@ -21,9 +21,7 @@ export default function useDownloadInfo()
             .then(res => res.text())
             .then(yaml =>
             {
-                console.log(yaml);
                 const info = YAML.parse(yaml);
-                console.log(info);
 
                 const file: any = info.files.find((f: any) => f.url.endsWith(".dmg"));
 

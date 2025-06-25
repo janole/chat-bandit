@@ -42,6 +42,7 @@ interface GridProps extends MuiGridProps
 {
     maxWidth?: TBreakpointName;
     breakpoints?: { [key: string]: number };
+    children?: ReactNode;
 }
 
 export default function AutoGrid(props: GridProps)
@@ -79,7 +80,7 @@ export function GridAutoWidth(props: GridProps)
 {
     const { maxWidth, breakpoints = defaultBreakpoints, ...remain } = props;
 
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLElement>(null!);
     const { width = 0 } = useResizeObserver({
         ref,
         box: "border-box",

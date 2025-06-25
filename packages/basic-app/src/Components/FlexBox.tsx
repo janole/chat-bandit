@@ -1,4 +1,4 @@
-import { ReactNode, RefObject } from "react";
+import { RefObject } from "react";
 import { Box, BoxProps } from "@mui/material";
 
 interface FlexBoxProps
@@ -6,7 +6,7 @@ interface FlexBoxProps
     resizeRef?: RefObject<HTMLDivElement> | null;
     animate?: string;
 
-    children?: ReactNode;
+    children?: BoxProps["children"];
     gap?: number;
     backgroundColor?: string;
     borderRadius?: string | number;

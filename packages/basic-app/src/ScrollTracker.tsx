@@ -47,12 +47,12 @@ export function useScrollTracker(props: UseScrollTrackerProps)
                 }
             };
 
-            scrollRef.current.addEventListener('scroll', handleScroll);
+            scrollRef.current.addEventListener("scroll", handleScroll);
 
             // Clean up the event listener on component unmount
             return () =>
             {
-                scrollRef.current?.removeEventListener('scroll', handleScroll);
+                scrollRef.current?.removeEventListener("scroll", handleScroll);
             };
         }
 

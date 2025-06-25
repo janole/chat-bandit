@@ -3,13 +3,14 @@
 import { createContext, useContext } from 'react';
 import { IconButton } from '@mui/material';
 import { DarkMode, InsertLink, LightMode } from '@mui/icons-material';
-import { TernaryDarkMode, useTernaryDarkMode } from 'usehooks-ts';
+import { TernaryDarkMode, useMediaQuery, useTernaryDarkMode } from 'usehooks-ts';
 
-const DarkModeContext = createContext<IUseDarkModeToggleResult>({});
+const DarkModeContext = createContext<IUseDarkModeToggleResult>({ isDarkMode: false, mode: "light" });
 
 export interface IUseDarkModeToggleResult
 {
-    isDarkMode?: boolean;
+    mode: "dark" | "light";
+    isDarkMode: boolean;
     ternaryDarkMode?: TernaryDarkMode;
     setTernaryDarkMode?: React.Dispatch<React.SetStateAction<TernaryDarkMode>>;
     toggleTernaryDarkMode?: () => void;
@@ -17,6 +18,8 @@ export interface IUseDarkModeToggleResult
 
 export function useDarkModeToggle(): IUseDarkModeToggleResult
 {
+    const mode = useMediaQuery("(prefers-color-scheme: dark)") ? "dark" : "light";
+
     const { isDarkMode, ternaryDarkMode, setTernaryDarkMode, toggleTernaryDarkMode } = useTernaryDarkMode({
         defaultValue: "system",
         initializeWithValue: true,
@@ -24,7 +27,8 @@ export function useDarkModeToggle(): IUseDarkModeToggleResult
     });
 
     return {
-        isDarkMode,
+        mode: ternaryDarkMode === "system" ? mode : ternaryDarkMode,
+        isDarkMode: ternaryDarkMode === "system" ? mode === "dark" : isDarkMode,
         ternaryDarkMode,
         setTernaryDarkMode,
         toggleTernaryDarkMode,

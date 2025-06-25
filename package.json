@@ -1,8 +1,8 @@
 {
-  "name": "chat-bandit-monorepo",
-  "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+    "name": "@janole/chat-bandit",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ]
 }

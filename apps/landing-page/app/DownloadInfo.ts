@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import YAML from "yaml";
 
-export interface IDownloadInfo
+const fileExtension = {
+    mac: ".dmg",
+};
+
+interface IDownloadInfo
 {
     version: string;
     fileName: string;
@@ -11,19 +15,19 @@ export interface IDownloadInfo
     fileData: string;
 }
 
-export default function useDownloadInfo()
+export default function useDownloadInfo(variant: keyof typeof fileExtension)
 {
     const [info, setInfo] = useState<IDownloadInfo>();
 
     useEffect(() =>
     {
-        fetch('/downloads/latest-mac.yml')
+        fetch(`/downloads/latest-${variant}.yml`)
             .then(res => res.text())
             .then(yaml =>
             {
                 const info = YAML.parse(yaml);
 
-                const file: any = info.files.find((f: any) => f.url.endsWith(".dmg"));
+                const file: any = info.files.find((f: any) => f.url.endsWith(fileExtension[variant]));
 
                 setInfo({
                     version: info.version,
@@ -33,7 +37,9 @@ export default function useDownloadInfo()
                 });
             })
             .catch(e => console.error(e));
-    }, []);
+    }, [
+        variant,
+    ]);
 
     return info;
 }

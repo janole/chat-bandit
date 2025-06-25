@@ -366,18 +366,18 @@ interface UseAppThemeResult
 
 export function useAppTheme(props: UseAppThemeProps): UseAppThemeResult
 {
-    const darkMode = useDarkModeToggle(props.fixedTernaryDarkMode);
+    const darkMode = useDarkModeToggle();
 
     const theme = useMemo(() => 
     {
-        const baseTheme = createBaseTheme(darkMode.isDarkMode ? "dark" : "light");
+        const baseTheme = createBaseTheme(darkMode.mode);
         const theme = responsiveFontSizes(createThemedComponents(baseTheme));
 
         props.onThemeChange?.(theme);
 
         return theme;
     }, [
-        darkMode.isDarkMode,
+        darkMode.mode,
         props.onThemeChange,
     ]);
 

@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start:electron": "# npm --prefix apps/electron-app start",
+    "start:next": "# npm --prefix apps/next-download-page dev"
+  }
+}

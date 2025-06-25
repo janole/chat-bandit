@@ -1,3 +1,5 @@
+"use client";
+
 import { ReactNode, createContext, useContext, useMemo, useRef } from "react";
 import { Grid as MuiGrid, GridProps as MuiGridProps, Box } from "@mui/material";
 import { useResizeObserver } from "usehooks-ts";

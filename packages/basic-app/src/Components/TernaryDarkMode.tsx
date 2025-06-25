@@ -1,3 +1,5 @@
+"use client";
+
 import { createContext, useContext } from 'react';
 import { IconButton } from '@mui/material';
 import { DarkMode, InsertLink, LightMode } from '@mui/icons-material';

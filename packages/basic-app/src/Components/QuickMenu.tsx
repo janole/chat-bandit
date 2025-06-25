@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef, useState } from "react";
 import { Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, SxProps } from "@mui/material";
 import { MoreHoriz } from "@mui/icons-material";

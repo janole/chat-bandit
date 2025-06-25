@@ -1,3 +1,5 @@
+"use client";
+
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { alpha, Box, BoxProps, CssBaseline, Drawer, IconButton, Theme } from "@mui/material";
 import { ImperativePanelGroupHandle, ImperativePanelHandle, Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";

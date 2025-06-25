@@ -14,8 +14,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@janole/basic-app": [
-        "./packages/basic-app/src"
+      "@janole/*": [
+        "packages/basic-app/src/*"
       ]
     }
   },

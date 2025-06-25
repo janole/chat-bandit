@@ -15,12 +15,12 @@ export interface IUseDarkModeToggleResult
     toggleTernaryDarkMode?: () => void;
 }
 
-export function useDarkModeToggle(fixedTernaryDarkMode?: TernaryDarkMode): IUseDarkModeToggleResult
+export function useDarkModeToggle(): IUseDarkModeToggleResult
 {
     const { isDarkMode, ternaryDarkMode, setTernaryDarkMode, toggleTernaryDarkMode } = useTernaryDarkMode({
-        defaultValue: fixedTernaryDarkMode ?? "system",
+        defaultValue: "system",
         initializeWithValue: true,
-        localStorageKey: fixedTernaryDarkMode ? "fixed-dark-mode-" + fixedTernaryDarkMode : "dark-mode",
+        localStorageKey: "dark-mode",
     });
 
     return {

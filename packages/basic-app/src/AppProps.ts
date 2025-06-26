@@ -1,5 +1,5 @@
 import { JSX, ReactNode } from "react";
-import { Theme } from "@mui/material";
+import { Theme, ThemeOptions } from "@mui/material";
 import { TernaryDarkMode } from "usehooks-ts";
 
 export interface AppProps
@@ -25,5 +25,6 @@ export interface AppProps
 
     // TODO: refactor to remove dependency on MUI
     onThemeChange?: (theme: Theme) => void;
+    themeOptions?: ThemeOptions;
     fixedTernaryDarkMode?: TernaryDarkMode;
 }

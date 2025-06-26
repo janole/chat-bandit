@@ -152,13 +152,14 @@ export default function PanelApp(props: AppProps)
         handleRightToolbarVisibilityChange,
         rightDrawer,
         onThemeChange,
+        themeOptions,
         fixedTernaryDarkMode,
         contentScrollId,
     } = props;
 
     const mainPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
 
-    const { theme, darkMode } = useAppTheme({ onThemeChange, fixedTernaryDarkMode });
+    const { theme, darkMode } = useAppTheme({ onThemeChange, themeOptions, fixedTernaryDarkMode });
 
     const [dragging, setDragging] = useState(false);
     const [showRightDrawer, setShowRightDrawer] = useState(false);

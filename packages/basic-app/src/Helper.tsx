@@ -1,16 +1,8 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { alpha, Breakpoint, createTheme, darken, lighten, PaletteColor, PaletteMode, responsiveFontSizes, Shadows, SimplePaletteColorOptions, Theme, ThemeOptions, ThemeProvider, useMediaQuery, useTheme } from '@mui/material';
 import { deepmerge } from '@mui/utils';
 import { TernaryDarkMode } from 'usehooks-ts';
 import { IUseDarkModeToggleResult, TernaryDarkModeProvider, useDarkModeToggle } from './Components/TernaryDarkMode';
-
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import '@fontsource/roboto/900.css';
-
-import '@fontsource/instrument-serif/400.css';
 
 const defaultTheme = createTheme();
 
@@ -345,7 +337,7 @@ const createBaseTheme = (mode: PaletteMode, variant?: ThemeOptions) => createThe
             },
         },
         typography: {
-            fontFamily: "Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif",
+            fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Ubuntu, Cantarell, 'Helvetica Neue', Arial, Roboto, sans-serif",
         },
         colorSchemes: {
         },
@@ -355,6 +347,7 @@ const createBaseTheme = (mode: PaletteMode, variant?: ThemeOptions) => createThe
 interface UseAppThemeProps
 {
     onThemeChange?: (theme: Theme) => void;
+    themeOptions?: ThemeOptions;
     fixedTernaryDarkMode?: TernaryDarkMode;
 }
 
@@ -370,7 +363,7 @@ export function useAppTheme(props: UseAppThemeProps): UseAppThemeResult
 
     const theme = useMemo(() => 
     {
-        const baseTheme = createBaseTheme(darkMode.mode);
+        const baseTheme = createBaseTheme(darkMode.mode, props.themeOptions);
         const theme = responsiveFontSizes(createThemedComponents(baseTheme));
 
         props.onThemeChange?.(theme);
@@ -378,6 +371,7 @@ export function useAppTheme(props: UseAppThemeProps): UseAppThemeResult
         return theme;
     }, [
         darkMode.mode,
+        props.themeOptions,
         props.onThemeChange,
     ]);
 

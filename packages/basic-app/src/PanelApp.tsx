@@ -155,6 +155,7 @@ export default function PanelApp(props: AppProps)
         themeOptions,
         fixedTernaryDarkMode,
         contentScrollId,
+        toolbarLeftOffset,
     } = props;
 
     const mainPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);
@@ -336,16 +337,13 @@ export default function PanelApp(props: AppProps)
                             bottom: 0,
                             backgroundColor: padding ? theme.palette.background.contentTopBar : undefined,
                             borderRadius: "8px 8px 0px 0px",
-                            // backdropFilter: "blur(4px)",
-                            mt: 1,
-                            mx: 1,
                             zIndex: -1,
                         }}
                     />
 
-                    <FlexBox width="80px" flexShrink={0} />
+                    <FlexBox width={toolbarLeftOffset} flexShrink={0} />
 
-                    <FlexBox minWidth={`calc(${layout[0]}vw - 80px + 8px)`} flexShrink={0}>
+                    <FlexBox minWidth={`calc(${layout[0]}vw - ${toolbarLeftOffset ?? "0px"} + 8px)`} flexShrink={0}>
                         {leftToolbarTop}
                     </FlexBox>
 

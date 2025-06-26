@@ -21,6 +21,13 @@ export function Block(props: BoxProps)
 export function Section(props: BoxProps)
 {
     return (
-        <Block {...props} component="section" minHeight="90vh" flexDirection="column" />
+        <Block gap={{ md: 4, sm: 3, xs: 3 }} component="section" flexDirection="column" {...props} />
+    );
+}
+
+export function Page(props: BoxProps)
+{
+    return (
+        <Section minHeight="90vh" {...props} />
     );
 }

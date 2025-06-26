@@ -1,11 +1,11 @@
 import { Box, CardContent, CardHeader, Grid, GridProps, IconButton } from "@mui/material";
-import { Block } from "./Block";
+import { Block, Section } from "./Block";
 import Card from "./Card";
 
 export function FeatureGrid(props: GridProps)
 {
     return (
-        <Grid {...props} container spacing={4} />
+        <Grid {...props} container spacing={{ xs: 2, sm: 2, md: 4 }} />
     );
 }
 
@@ -49,26 +49,28 @@ export function FeatureBox(props: FeatureBoxProps)
 
     return (
         <WobbleGrid>
-            <Card>
+            <Card sx={{ height: "100%" }}>
                 <CardHeader
-                    sx={{ textAlign: align, pl: 2, pt: 2, pb: 0 }}
+                    sx={{ textAlign: align, p: { xs: 1, sm: 1, md: 2 } }}
                     title={
                         <IconButton className={`icon bg-gradient-to-r ${color}`} sx={{ borderRadius: 3, p: 1.5, color: "#fff", alignItems: "flex-start" }}>
                             {icon}
                         </IconButton>
                     }
                 />
-                <CardContent>
-                    <Block py={1} sx={{ justifySelf: align }}>
-                        <Box width="100%" typography="h6" fontWeight={600} textAlign={align}>
-                            {title}
-                        </Box>
-                    </Block>
-                    <Block py={1} sx={{ justifySelf: align }}>
-                        <Box width="100%" typography="subtitle1" fontWeight={400} color="text.secondary" textAlign={align}>
-                            {description}
-                        </Box>
-                    </Block>
+                <CardContent sx={{ p: { xs: 1, sm: 1, md: 2 } }}>
+                    <Section gap={1}>
+                        <Block sx={{ justifySelf: align }}>
+                            <Box width="100%" typography="h6" fontWeight={600} textAlign={align}>
+                                {title}
+                            </Box>
+                        </Block>
+                        <Block sx={{ justifySelf: align }}>
+                            <Box width="100%" typography="subtitle1" fontWeight={400} color="text.secondary" textAlign={align}>
+                                {description}
+                            </Box>
+                        </Block>
+                    </Section>
                 </CardContent>
             </Card>
         </WobbleGrid>

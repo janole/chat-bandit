@@ -27,4 +27,6 @@ export interface AppProps
     onThemeChange?: (theme: Theme) => void;
     themeOptions?: ThemeOptions;
     fixedTernaryDarkMode?: TernaryDarkMode;
+
+    toolbarLeftOffset?: string;
 }

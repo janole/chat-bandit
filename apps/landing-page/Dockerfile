@@ -1,3 +1,12 @@
+FROM node:24-alpine AS builder
+
+# Copy standalone app
+COPY .next/standalone /app
+# Copy public folder
+COPY public /app/apps/landing-page/public
+# Copy static assets
+COPY .next/static /app/apps/landing-page/.next/static
+
 FROM node:24-alpine
 
 WORKDIR /app
@@ -5,10 +14,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Only copy necessary files
-COPY .next/standalone /app
-COPY public /app/apps/landing-page/public
-COPY .next/static /app/apps/landing-page/.next/static
+COPY --from=builder /app /app
 
 # Port Next.js listens on
 EXPOSE 3000

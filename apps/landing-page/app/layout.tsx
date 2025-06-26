@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     applicationName: "Chat Bandit Landing Page",
     keywords: ["Chat Bandit", "AI", "Chatbot", "LLM", "Ollama", "llama.cpp"],
     icons: {
-        icon: "/public/icon.png",
+        icon: "/icon.png",
     },
     twitter: {
         card: "summary_large_image",
-        images: "/public/screenshot-light.png",
+        images: "/screenshot-light.png",
         site: "@mobileways",
         creator: "@janole",
     },

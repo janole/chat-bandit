@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { alpha, Breakpoint, createTheme, darken, lighten, PaletteColor, PaletteMode, responsiveFontSizes, Shadows, SimplePaletteColorOptions, Theme, ThemeOptions, ThemeProvider, useMediaQuery, useTheme } from '@mui/material';
 import { deepmerge } from '@mui/utils';
 import { TernaryDarkMode } from 'usehooks-ts';
@@ -381,6 +381,19 @@ export function useAppTheme(props: UseAppThemeProps): UseAppThemeResult
     };
 }
 
+function HydrationHackWrapperForNextJS(props: { children?: ReactNode })
+{
+    const [mode, setMode] = useState<"dark" | "light">();
+
+    useEffect(() =>
+    {
+        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        setMode(prefersDarkMode ? 'dark' : 'light');
+    }, []);
+
+    return mode ? props.children : null;
+}
+
 interface AppThemeProviderProps extends UseAppThemeResult
 {
     children?: any;
@@ -389,11 +402,13 @@ interface AppThemeProviderProps extends UseAppThemeResult
 export function AppThemeProvider(props: AppThemeProviderProps)
 {
     return (
-        <ThemeProvider theme={props.theme}>
-            <TernaryDarkModeProvider {...props.darkMode}>
-                {props.children}
-            </TernaryDarkModeProvider>
-        </ThemeProvider>
+        <HydrationHackWrapperForNextJS>
+            <ThemeProvider theme={props.theme}>
+                <TernaryDarkModeProvider {...props.darkMode}>
+                    {props.children}
+                </TernaryDarkModeProvider>
+            </ThemeProvider>
+        </HydrationHackWrapperForNextJS>
     );
 }
 

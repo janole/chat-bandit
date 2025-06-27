@@ -14,9 +14,6 @@ interface ILayout
 
     panels: { [key: string]: TPanelState };
     setPanelState: (name: string, state: TPanelState) => void;
-
-    // layout: number[];
-    // setLayout: (layout: number[]) => void;
 }
 
 export const useLayoutStore = create<ILayout>()(
@@ -27,9 +24,6 @@ export const useLayoutStore = create<ILayout>()(
 
             panels: {},
             setPanelState: (name, panelState) => set(state => ({ ...state, panels: { ...state.panels, [name]: panelState } })),
-
-            // layout: [15, 70, 15],
-            // setLayout: (layout) => set(state => ({ ...state, layout })),
         }),
         {
             name: "layout-storage",

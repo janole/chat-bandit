@@ -421,7 +421,7 @@ const Footer = () =>
             { name: "GitHub Issues", href: "https://github.com/janole/chat-bandit/issues" }
         ],
         company: [
-            { name: "About" },
+            { name: "About", href: undefined },
             { name: "Privacy" },
             { name: "Terms" },
             { name: "Contact" }

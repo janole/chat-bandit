@@ -1,5 +1,6 @@
-export { default as PanelApp } from './PanelApp';
 export type { AppProps } from './AppProps';
+export { default as FullscreenApp } from './FullscreenApp';
+export { default as PanelApp } from './PanelApp';
 
 export { default as FlexBox } from './Components/FlexBox';
 export { default as SplitButton } from './Components/SplitButton';

@@ -63,17 +63,22 @@ export default function useResizeWatcher(props: UseResizeWatcherProps)
 
     useEffect(() =>
     {
-        updateSizes();
+        let observer: ResizeObserver;
 
-        const observer = new ResizeObserver(updateSizes);
+        const initObserver = () => 
+        {
+            updateSizes();
 
-        const elements = Object.values(refs).map(ref => ref.current).filter(e => e) as HTMLElement[];
+            observer = new ResizeObserver(updateSizes);
 
-        elements.forEach(element => observer.observe(element));
+            const elements = Object.values(refs).map(ref => ref.current).filter(e => e) as HTMLElement[];
 
-        elements.length = 0;
+            elements.forEach(element => observer.observe(element));
+        };
 
-        return () => { observer.disconnect(); };
+        const id = requestAnimationFrame(initObserver);
+
+        return () => { cancelAnimationFrame(id); observer?.disconnect(); };
     }, [
         updateSizes,
     ]);

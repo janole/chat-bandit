@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Button, Divider, StyledEngineProvider, useTheme, Typography, ThemeOptions, CardHeader, IconButton, CardContent, Grid, SxProps, ButtonProps, BoxProps, Link } from "@mui/material";
+import { Box, Button, Divider, StyledEngineProvider, useTheme, Typography, ThemeOptions, CardHeader, IconButton, CardContent, Grid, BoxProps, Link } from "@mui/material";
 import { Brain, Download, Zap, Shield, Cpu, Globe, Settings, Heart, MessageCircle, Sparkles, ShieldCheck, Computer, Bug } from "lucide-react";
 import { SiGithub, SiApple, SiX, SiLinux } from "@icons-pack/react-simple-icons";
-import { ContentContainer, FlexBox, PanelApp, useLayoutStore } from "@janole/basic-app";
+import { BasicApp, ContentContainer, FlexBox } from "@janole/basic-app";
 import useDownloadInfo, { IDownloadInfo } from "./Components/DownloadInfo";
 import ColorText, { sxColorTextGradient } from "./Components/ColorText";
 import BackgroundEffects from "./Components/BackgroundEffects";
@@ -513,7 +513,7 @@ const Footer = () =>
 export default function LandingPage()
 {
     return (
-        <PanelApp
+        <BasicApp
             themeOptions={themeOptions}
             contentTop={
                 <Header />
@@ -551,6 +551,6 @@ export default function LandingPage()
                     </ContentContainer>
                 </Box>
             </StyledEngineProvider>
-        </PanelApp>
+        </BasicApp>
     );
 }

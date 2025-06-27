@@ -35,6 +35,10 @@ export function Section(props: BoxProps)
 export function Page(props: BoxProps)
 {
     return (
-        <Section minHeight="90vh" {...props} />
+        <Section
+            minHeight="90vh"
+            {...props}
+            pt={8} mt={-8} // TODO: temporary hack for scroll-to-section and floating navbar
+        />
     );
 }

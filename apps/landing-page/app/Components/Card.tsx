@@ -19,6 +19,7 @@ export default function Card(props: CardProps)
                 pt: 2,
                 px: 2,
                 borderRadius: 3,
+                overflow: "hidden",
                 ...sx,
             }}
         >

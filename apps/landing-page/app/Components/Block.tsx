@@ -18,6 +18,13 @@ export function Block(props: BoxProps)
     );
 }
 
+export function TextBlock(props: BoxProps)
+{
+    return (
+        <Block gap={{ md: 4, sm: 3, xs: 3 }} component="section" display="block" textAlign="left" {...props} />
+    );
+}
+
 export function Section(props: BoxProps)
 {
     return (

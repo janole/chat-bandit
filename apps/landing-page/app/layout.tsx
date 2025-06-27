@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_BASE_URL || "https://chat-bandit.janole.com"),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_BASE_URL || "https://chatbandit.de"),
     authors: [{ name: "Jan Ole Suhr", url: "https://janole.com" }],
     creator: "Jan Ole Suhr",
     title: "Chat Bandit",

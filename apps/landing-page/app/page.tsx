@@ -467,7 +467,7 @@ const Footer = () =>
             </Grid>
 
             <Grid container size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }} spacing={2}>
-                <Grid size={{ xs: 12, sm: 4 }} textAlign="left">
+                <Grid size={{ xs: 4 }} textAlign="left">
                     <h4 className="font-semibold mb-4">Product</h4>
                     <ul className="space-y-2">
                         {links.product.map((link, index) => (
@@ -480,8 +480,8 @@ const Footer = () =>
                     </ul>
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 4 }} textAlign="right">
-                    <h4 className="font-semibold  mb-4">Support</h4>
+                <Grid size={{ xs: 4 }} textAlign="right">
+                    <h4 className="font-semibold mb-4">Support</h4>
                     <ul className="space-y-2">
                         {links.support.map((link, index) => (
                             <li key={index}>
@@ -493,7 +493,7 @@ const Footer = () =>
                     </ul>
                 </Grid>
 
-                <Grid size={{ xs: 12, sm: 4 }} textAlign="right">
+                <Grid size={{ xs: 4 }} textAlign="right">
                     <h4 className="font-semibold mb-4">Company</h4>
                     <ul className="space-y-2">
                         {links.company.map((link, index) => (
@@ -532,7 +532,7 @@ export default function LandingPage()
             }
         >
             <StyledEngineProvider injectFirst>
-                <ContentContainer maxWidth="xl" px={4} py={2}>
+                <ContentContainer maxWidth="xl" px={4} py={2} sx={{ overflow: "hidden" }}>
                     <Hero />
 
                     <Box pb={{ xs: 4, sm: 4, md: 10 }} />
@@ -542,8 +542,10 @@ export default function LandingPage()
                     <Box pb={{ xs: 4, sm: 4, md: 10 }} />
 
                     <DownloadSection />
+
+                    <Box pb={2} />
                 </ContentContainer>
-                <Box bgcolor="background.panel" pt={4} mt={2} pb={8} mb={-8} borderTop="1px dashed" borderColor="divider">
+                <Box bgcolor="background.panel" pt={4} pb={8} mb={-8} borderTop="1px dashed" borderColor="divider">
                     <ContentContainer maxWidth="md">
                         <Footer />
                     </ContentContainer>

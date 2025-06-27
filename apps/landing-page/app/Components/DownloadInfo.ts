@@ -7,12 +7,13 @@ const fileExtension = {
     mac: ".dmg",
 };
 
-interface IDownloadInfo
+export interface IDownloadInfo
 {
+    variant: keyof typeof fileExtension;
     version: string;
     fileName: string;
     fileSize: number;
-    fileData: string;
+    fileDate: string;
 }
 
 export default function useDownloadInfo(variant: keyof typeof fileExtension)
@@ -30,10 +31,11 @@ export default function useDownloadInfo(variant: keyof typeof fileExtension)
                 const file: any = info.files.find((f: any) => f.url.endsWith(fileExtension[variant]));
 
                 setInfo({
+                    variant,
                     version: info.version,
                     fileName: file?.url,
                     fileSize: file?.size,
-                    fileData: info.releaseDate,
+                    fileDate: info.releaseDate,
                 });
             })
             .catch(e => console.error(e));

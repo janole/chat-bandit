@@ -1,13 +1,11 @@
 "use client";
 
-import { RefObject, useRef, useState } from "react";
-import { alpha, Box, BoxProps, CssBaseline, Drawer, Theme } from "@mui/material";
+import { useRef, useState } from "react";
+import { alpha, Box, BoxProps, CssBaseline, Drawer } from "@mui/material";
 import { AppThemeProvider, useAppTheme } from "./Helper";
 import useResizeWatcher, { useLayoutStore } from "./ResizeWatcher";
 import FlexBox from "./Components/FlexBox";
 import { AppProps } from "./AppProps";
-
-const zIndexFab = (theme: Theme) => theme.zIndex.fab;
 
 interface PaddingProps extends BoxProps
 {
@@ -35,7 +33,6 @@ export default function App(props: AppProps)
         onThemeChange,
         themeOptions,
         fixedTernaryDarkMode,
-        contentScrollId,
     } = props;
 
     const { theme, darkMode } = useAppTheme({ onThemeChange, themeOptions, fixedTernaryDarkMode });
@@ -46,8 +43,6 @@ export default function App(props: AppProps)
     const contentContainer = useRef<HTMLDivElement>(null);
     const contentBottomBar = useRef<HTMLDivElement>(null);
     useResizeWatcher({ refs: { contentTopBar, contentBottomBar, contentContainer } });
-
-    // const { scrollRef: contentScrollContainer } = useScrollTracker({ scrollId: contentScrollId });
 
     return (
         <AppThemeProvider

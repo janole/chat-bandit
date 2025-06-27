@@ -1,4 +1,5 @@
 export type { AppProps } from './AppProps';
+export { default as BasicApp } from './App';
 export { default as FullscreenApp } from './FullscreenApp';
 export { default as PanelApp } from './PanelApp';
 

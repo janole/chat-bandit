@@ -417,14 +417,14 @@ const Footer = () =>
         support: [
             { name: "Documentation" },
             { name: "Community", href: "https://github.com/janole/chat-bandit/discussions" },
-            { name: "Discord", href: "#" },
-            { name: "GitHub Issues", href: "#" }
+            { name: "Discord", },
+            { name: "GitHub Issues", href: "https://github.com/janole/chat-bandit/issues" }
         ],
         company: [
-            { name: "About", href: "#" },
-            { name: "Privacy", href: "#" },
-            { name: "Terms", href: "#" },
-            { name: "Contact", href: "#" }
+            { name: "About" },
+            { name: "Privacy" },
+            { name: "Terms" },
+            { name: "Contact" }
         ]
     };
 
@@ -472,7 +472,7 @@ const Footer = () =>
                     <ul className="space-y-2">
                         {links.product.map((link, index) => (
                             <li key={index}>
-                                <Link href={link.href} underline="hover" disabled={!link.href}>
+                                <Link component={link.href ? "a" : "button"} href={link.href} underline="hover" disabled={!link.href}>
                                     {link.name}
                                 </Link>
                             </li>
@@ -485,9 +485,9 @@ const Footer = () =>
                     <ul className="space-y-2">
                         {links.support.map((link, index) => (
                             <li key={index}>
-                                <a href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                                <Link component={link.href ? "a" : "button"} href={link.href} underline="hover" disabled={!link.href}>
                                     {link.name}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -498,9 +498,9 @@ const Footer = () =>
                     <ul className="space-y-2">
                         {links.company.map((link, index) => (
                             <li key={index}>
-                                <a href={link.href} className="text-gray-400 hover:text-white transition-colors">
+                                <Link component={link.href ? "a" : "button"} href={link.href} underline="hover" disabled={!link.href}>
                                     {link.name}
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>

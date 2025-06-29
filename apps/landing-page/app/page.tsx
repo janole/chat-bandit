@@ -181,7 +181,7 @@ const Hero = () =>
 
                 {!!info &&
                     <Typography variant="caption" color="textSecondary">
-                        {info.fileName}, {(info.fileSize / 1024 / 1024).toFixed(0)} MB
+                        {info.fileName}, {(info.fileSize / 1024 / 1000).toFixed(0)} MB
                         —
                         Version: {info.version} / {new Date(info.fileDate).toLocaleDateString()}
                     </Typography>
@@ -327,7 +327,7 @@ function DownloadInfoBox(props: DownloadInfoBoxProps)
                                         <Block display={{ md: "flex", sm: "none", xs: "none" }} pl={1} gap={2}>
                                             <Divider flexItem orientation="vertical" sx={{ borderWidth: 1, borderColor: "inherit", opacity: 0.5 }} />
                                             <TextBlock sx={{ gap: 1 }} typography="body2" fontWeight={500}>
-                                                ~{(info.fileSize / 1024 / 1024).toFixed(0)} MB
+                                                ~{(info.fileSize / 1024 / 1000).toFixed(0)} MB
                                             </TextBlock>
                                         </Block>
                                     }

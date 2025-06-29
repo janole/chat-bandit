@@ -1,39 +1,37 @@
 {
-  "name": "@janole/basic-app",
-  "version": "0.0.1",
-  "description": "",
-  "main": "src/index.tsx",
-  "types": "src/index.tsx",
-  "exports": {
-    ".": {
-      "import": "./src/index.tsx"
+    "name": "@janole/basic-app",
+    "version": "0.0.1",
+    "description": "",
+    "main": "src/index.tsx",
+    "types": "src/index.tsx",
+    "exports": {
+        ".": {
+            "import": "./src/index.tsx"
+        }
+    },
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "peerDependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.0",
+        "@fontsource/instrument-serif": "^5.2.6",
+        "@fontsource/roboto": "^5.2.6",
+        "@mui/icons-material": "^7.1.2",
+        "@mui/material": "^7.1.2",
+        "lucide-react": "^0.523.0",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-resizable-panels": "^3.0.3",
+        "usehooks-ts": "^3.1.1",
+        "zustand": "^5.0.5"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.23",
+        "@types/react-dom": "^18.3.7",
+        "tsup": "^8.5.0",
+        "typescript": "^5.8.3"
     }
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "peerDependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@fontsource/instrument-serif": "^5.2.6",
-    "@fontsource/roboto": "^5.2.6",
-    "@mui/icons-material": "^7.1.2",
-    "@mui/material": "^7.1.2",
-    "lucide-react": "^0.523.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-resizable-panels": "^3.0.3",
-    "usehooks-ts": "^3.1.1",
-    "zustand": "^5.0.5"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.23",
-    "@types/react-dom": "^18.3.7",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.3"
-  }
 }

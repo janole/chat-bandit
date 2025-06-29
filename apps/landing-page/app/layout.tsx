@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 
+const SITE_URL = process.env.NEXT_PUBLIC_METADATA_BASE_URL || "https://chatbandit.de";
+
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_METADATA_BASE_URL || "https://chatbandit.de"),
+    metadataBase: new URL(SITE_URL),
     authors: [{ name: "Jan Ole Suhr", url: "https://janole.com" }],
     creator: "Jan Ole Suhr",
     title: "Chat Bandit",
@@ -15,9 +17,16 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        images: "/screenshot-light.png",
+        images: [{ url: "/screenshot-light.png" }],
         site: "@ChatBanditApp",
         creator: "@janole",
+    },
+    openGraph: {
+        type: "website",
+        url: SITE_URL,
+        title: "Chat Bandit - The friendly and powerful desktop AI chatbot supporting both local and cloud AI models.",
+        description: "Chat with Local and Cloud AI. The ultimate desktop AI companion. Run local models with Ollama & llama.cpp, or connect to OpenAI, OpenRouter, Google AI and many more. Privacy-focused, lightning-fast, and infinitely customizable.",
+        images: [{ url: "/screenshot-light.png" }],
     },
     robots: "index, follow",
 };

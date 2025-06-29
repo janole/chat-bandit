@@ -11,6 +11,8 @@
         "clean": "npx -y rimraf .next out",
         "predocker:build": "npm run clean && npm run build",
         "docker:build": "docker buildx build --pull --platform linux/amd64,linux/arm64 -t $(npm run --silent docker:image) .",
+        "predocker:test": "npm run docker:build",
+        "docker:test": "docker run --rm -p 3000:3000 $(npm run --silent docker:image)",
         "predocker:push": "npm run docker:build",
         "docker:push": "docker push $(npm run --silent docker:image)",
         "docker:image": "echo ${DOCKER_IMAGE_NAME:-$(echo $npm_package_config_docker_image_name)}:${DOCKER_IMAGE_VERSION:-$(npm run --silent version)}",

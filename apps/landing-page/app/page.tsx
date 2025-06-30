@@ -4,14 +4,14 @@ import { Box, Button, Divider, StyledEngineProvider, useTheme, Typography, Theme
 import { Brain, Download, Zap, Shield, Cpu, Globe, Settings, Heart, MessageCircle, Sparkles, ShieldCheck, Computer, Bug } from "lucide-react";
 import { SiGithub, SiApple, SiX, SiLinux } from "@icons-pack/react-simple-icons";
 import { BasicApp, ContentContainer, FlexBox } from "@janole/basic-app";
-import useDownloadInfo, { IDownloadInfo } from "./Components/DownloadInfo";
-import ColorText, { sxColorTextGradient } from "./Components/ColorText";
-import BackgroundEffects from "./Components/BackgroundEffects";
-import { Block, Page, Section, TextBlock } from "./Components/Block";
-import HeroHeadline from "./Components/HeroHeadline";
-import Badge from "./Components/Badge";
-import { FeatureBox, FeatureGrid, WobbleGrid } from "./Components/Feature";
-import Card from "./Components/Card";
+import useDownloadInfo, { IDownloadInfo } from "../components/DownloadInfo";
+import ColorText, { sxColorTextGradient } from "../components/ColorText";
+import BackgroundEffects from "../components/BackgroundEffects";
+import { Block, Page, Section, TextBlock } from "../components/Block";
+import HeroHeadline from "../components/HeroHeadline";
+import Badge from "../components/Badge";
+import { FeatureBox, FeatureGrid, WobbleGrid } from "../components/Feature";
+import Card from "../components/Card";
 import { ReactNode } from "react";
 
 const appName = "Chat Bandit";

@@ -1,0 +1,21 @@
+{
+    "name": "@janole/try-catch",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "types": "src/index.ts",
+    "exports": {
+        ".": {
+            "import": "./src/index.ts"
+        }
+    },
+    "scripts": {},
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "devDependencies": {
+        "tsup": "^8.5.0",
+        "typescript": "^5.8.3"
+    }
+}

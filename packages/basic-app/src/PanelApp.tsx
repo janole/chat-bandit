@@ -153,7 +153,7 @@ export default function PanelApp(props: AppProps)
         themeOptions,
         fixedTernaryDarkMode,
         contentScrollId,
-        toolbarLeftOffset,
+        toolbarLeftOffset = "12px",
     } = props;
 
     const mainPanelGroupRef = useRef<ImperativePanelGroupHandle>(null);

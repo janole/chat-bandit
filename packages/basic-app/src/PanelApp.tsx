@@ -325,19 +325,21 @@ export default function PanelApp(props: AppProps)
                     position="relative"
                     pt={padding ? "8px" : 0}
                 >
-                    <Box
-                        ref={padding ? contentTopBar : undefined}
-                        sx={{
-                            position: "absolute",
-                            left: `${layout[0]}vw`,
-                            right: `${layout[2]}vw`,
-                            top: 0,
-                            bottom: 0,
-                            backgroundColor: padding ? theme.palette.background.contentTopBar : undefined,
-                            borderRadius: "8px 8px 0px 0px",
-                            zIndex: -1,
-                        }}
-                    />
+                    {padding &&
+                        <Box
+                            ref={padding ? contentTopBar : undefined}
+                            sx={{
+                                position: "absolute",
+                                left: `calc(${layout[0]}vw + 8px)`,
+                                right: `calc(${layout[2]}vw + 8px)`,
+                                top: "8px",
+                                bottom: 0,
+                                backgroundColor: theme.palette.background.contentTopBar,
+                                borderRadius: "8px 8px 0px 0px",
+                                zIndex: -1,
+                            }}
+                        />
+                    }
 
                     <FlexBox width={toolbarLeftOffset} flexShrink={0} />
 

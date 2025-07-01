@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createHashRouter, RouterProvider } from 'react-router-dom';
-import { VoiceProvider } from './Voice/VoiceContext';
 
 import "./main.css";
 
@@ -30,8 +29,6 @@ const router = createHashRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
-        <VoiceProvider>
-            <RouterProvider router={router} />
-        </VoiceProvider>
+        <RouterProvider router={router} />
     </React.StrictMode>
 )

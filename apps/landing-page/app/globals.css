@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@layer base {
+    p {
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+    }
+}
+
 :root {
     --background: #ffffff;
     --foreground: #171717;

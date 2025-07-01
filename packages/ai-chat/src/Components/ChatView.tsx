@@ -5,7 +5,6 @@ import ReactCodeMirror, { EditorView, placeholder } from "@uiw/react-codemirror"
 import { json } from "@codemirror/lang-json";
 import { markdown } from "@codemirror/lang-markdown";
 import { IChatMessage, useChatStore, useChatClient } from "@janole/ai-core";
-// import Speak from "@renderer/Voice/Speak";
 import { useLayoutStore, SplitButton, NavBar } from "@janole/basic-app";
 import { MemoMarkdown } from "./Markdown";
 import { SystemPromptIcon } from "./Icons";

@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media print {
+    .keep-together {
+        break-inside: avoid;
+        /* for older browsers */
+        page-break-inside: avoid;
+    }
+}

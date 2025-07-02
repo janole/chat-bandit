@@ -1,12 +1,11 @@
-import { useCallback, useEffect } from 'react';
-import { ElectronAPI } from '@electron-toolkit/preload';
-import { useNavigate } from 'react-router-dom';
-import { ulid } from 'ulid';
-import { useChatModelConfigStore, useChatStore, useChatTitle } from './ChatStore';
-import { duplicateChat, IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel } from './types';
-import { TDownloadStatus, TDownloadStatusMap, TReturn } from './types-electron';
-import { useDownloadStore } from './DownloadStore';
-import { create } from 'zustand';
+import { ReactNode, useCallback, useEffect, useMemo } from "react";
+import { ElectronAPI } from "@electron-toolkit/preload";
+import { ulid } from "ulid";
+import { create, createStore } from "zustand";
+import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, IChatStore, createChatStore } from "@janole/ai-core";
+import { useDownloadStore } from "./DownloadStore";
+
+const chatStore = createStore<IChatStore>(createChatStore);
 
 /** Invokes an Electron IPC channel with the given arguments and returns a promise that resolves to the result. */
 function invoke<T>(channel: string, ...args: any[])
@@ -43,18 +42,17 @@ declare global
     }
 }
 
-/** Loads chats from the backend and sets them in the chat store. */
+/** Loads chats from the backend and stores them in the chat store. */
 invoke<IChat[]>("load-chats").then(chats =>
 {
     // TODO: refactor (deletedAt ...)
-    chats && useChatStore.setState({ chatsLoaded: true, chats: chats.filter((chat: IChat) => !!chat.id && chat.deletedAt !== "deleted").reduce((chats, chat) => (chats[chat.id] = chat, chats), {}) });
+    chats && chatStore.setState({ chatsLoaded: true, chats: chats.filter((chat: IChat) => !!chat.id && chat.deletedAt !== "deleted").reduce((chats, chat) => (chats[chat.id] = chat, chats), {}) });
 });
 
-/** Loads chat models from the backend and sets them in the chat store. */
+/** Loads chat models from the backend and stores them in the chat store. */
 const loadChatModels = () => invoke<IChatModel[]>("load-chat-models").then(models =>
 {
-    console.log("CHAT MODELS", models);
-    useChatStore.setState({ modelsLoaded: true, models });
+    chatStore.setState({ modelsLoaded: true, models });
 });
 
 /** Initializes loading of chat models and sets up an event listener to reload them when the window gains focus. */
@@ -71,19 +69,19 @@ invoke<TDownloadStatusMap>("get-download-status").then(status =>
 /** Updates a chat in the chat store when an "update-chat" event is received from the backend. */
 registerListener("update-chat", (_event, chat: IChat) =>
 {
-    useChatStore.setState(state => ({ chats: { ...state.chats, [chat.id]: chat } }));
+    chatStore.setState(state => ({ chats: { ...state.chats, [chat.id]: chat } }));
 });
 
 /** Sets a chat summary in the chat store when a "set-chat-summary" event is received from the backend. */
 registerListener("set-chat-summary", (_event, chatId: string, generatedSummary: string) =>
 {
-    useChatStore.setState(state => ({ chats: { ...state.chats, [chatId]: { ...state.chats[chatId], generatedSummary } } }));
+    chatStore.setState(state => ({ chats: { ...state.chats, [chatId]: { ...state.chats[chatId], generatedSummary } } }));
 });
 
 /** Updates a chat message in the chat store when a "chat-message" event is received from the backend. */
 registerListener("chat-message", (_event, chatId: string, index: number, chatMessage: IChatMessage) =>
 {
-    useChatStore.setState(state => ({
+    chatStore.setState(state => ({
         chats: {
             ...state.chats,
             [chatId]: {
@@ -102,7 +100,7 @@ registerListener("chat-message", (_event, chatId: string, index: number, chatMes
 /** Updates the chat state in the chat store when a "chat-state" event is received from the backend. */
 registerListener("chat-state", (_event, chatId: string, chatState: TChatState) =>
 {
-    useChatStore.setState(state => ({
+    chatStore.setState(state => ({
         chats: {
             ...state.chats,
             [chatId]: {
@@ -130,16 +128,16 @@ registerListener("download-status", (_event, status: TDownloadStatusMap, state?:
 // TODO: refactor ...
 let lastUpdated1 = Date.now();
 let lastUpdated2 = Date.now();
-let timerId;
+let timerId: NodeJS.Timeout | string | number | undefined;
 setInterval(() =>
 {
-    if (Object.values(useChatStore.getState().chats).find(chat => chat.updatedAt && chat.updatedAt > lastUpdated1))
+    if (Object.values(chatStore.getState().chats).find(chat => chat.updatedAt && chat.updatedAt > lastUpdated1))
     {
         console.log("SET TIMEOUT FOR SAVE");
         clearTimeout(timerId);
         timerId = setTimeout(() =>
         {
-            Object.values(useChatStore.getState().chats).filter(chat => chat.updatedAt && chat.updatedAt > lastUpdated2).forEach(chat =>
+            Object.values(chatStore.getState().chats).filter(chat => chat.updatedAt && chat.updatedAt > lastUpdated2).forEach(chat =>
             {
                 console.log("SAVE ...", JSON.stringify({ chat }).length);
                 invoke("save-chat", chat);
@@ -159,7 +157,7 @@ const generateChatResponse = (chat: IChat, messageIndex: number) =>
 }
 
 /** Aborts the current chat with the given ID. */
-const abortChat = (chatId: string) => invoke("abort-chat", chatId).finally(() => useChatStore.getState().stopChat(chatId));
+const abortChat = (chatId: string) => invoke("abort-chat", chatId).finally(() => chatStore.getState().stopChat(chatId));
 
 /** Shows the chat file for the given chat ID in the file manager. */
 const showChatFileInFileManager = (chatId: string) => invoke("show-chat-file-in-file-manager", chatId);
@@ -200,9 +198,9 @@ const openModelManagerWindow = () => invoke("create-window", "model-manager", "/
 /** Shows the file in the file manager. */
 const showFileInFileManager = (file: string) => invoke("show-file-in-file-manager", file);
 
-export function useChatClient()
+/* export */ function useChatClient(props: UseChatClientProps)
 {
-    const setChat = useChatStore(state => state.setChat);
+    // const setChat = useChatStore(state => state.setChat);
 
     /** Gets the current download status from the backend and sets it in the download store. */
     const getDownloadStatus = useCallback(() =>
@@ -214,8 +212,10 @@ export function useChatClient()
             });
     }, []);
 
-    return {
-        setChat,
+    const { newChat, branchChat } = useNewChat(props);
+
+    return useMemo(() => ({
+        // setChat,
         generateChatResponse,
         abortChat,
         showChatFileInFileManager,
@@ -233,7 +233,19 @@ export function useChatClient()
         openModelManagerWindow,
 
         showFileInFileManager,
-    };
+
+        newChat,
+        branchChat,
+
+        ...props
+    }), [
+        // setChat,
+        getDownloadStatus,
+        props.currentChatId,
+        props.setCurrentChat,
+        newChat,
+        branchChat,
+    ]);
 }
 
 export function useCountTokens()
@@ -244,10 +256,8 @@ export function useCountTokens()
     };
 }
 
-export function useNewChat()
+/* export */ function useNewChat(props: { setCurrentChat?: UseChatClientProps["setCurrentChat"] })
 {
-    const navigate = useNavigate();
-
     const setChat = useChatStore(state => state.setChat);
     const getModels = useChatStore(state => state.getModels);
 
@@ -256,10 +266,10 @@ export function useNewChat()
     const addChat = useCallback((chat: IChat) =>
     {
         setChat(chat);
-        navigate(`/chat/${chat.id}`);
+        props.setCurrentChat?.(chat.id);
         invoke("focus-main-window");
     }, [
-        navigate,
+        props.setCurrentChat,
         setChat,
         getModels,
         defaultChatModelId,
@@ -342,4 +352,32 @@ export function downloadUpdate()
 export function installUpdate()
 {
     invoke("restart-and-install-update");
+}
+
+interface UseChatClientProps
+{
+    setCurrentChat?: IChatClient["setCurrentChat"];
+    currentChatId?: IChat["id"];
+}
+
+interface ElectronChatClientProviderProps extends UseChatClientProps
+{
+    children?: ReactNode;
+}
+
+export function ElectronChatClientProvider(props: ElectronChatClientProviderProps)
+{
+    const { children, ...useChatClientProps } = props;
+
+    const chatClient = useChatClient(useChatClientProps);
+
+    console.log("CWS", chatStore);
+
+    return (
+        <ChatStoreContext.Provider value={chatStore}>
+            <ChatClientContext.Provider value={chatClient}>
+                {children}
+            </ChatClientContext.Provider>
+        </ChatStoreContext.Provider>
+    );
 }

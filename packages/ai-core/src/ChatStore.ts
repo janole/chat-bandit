@@ -1,9 +1,9 @@
-import { create } from 'zustand';
+import { create, createStore, StateCreator, StoreApi, useStore } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { shared } from 'use-broadcast-ts';
 import { ulid } from 'ulid';
 import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage } from './types';
-// import { electronStorage } from '../electron-store/zustand';
+import { createContext, useContext } from 'react';
 
 export interface IChatStore
 {
@@ -31,71 +31,112 @@ export interface IChatStore
 
     getModels: () => IChatModel[];
     setModels: (models: IChatModel[]) => void;
+
+    // chatClient?: IChatClient;
+    // setChatClient: (chatClient: IChatClient) => void;
 }
 
-export const useChatStore = create<IChatStore>()(
-    (set, get) => ({
-        chats: {},
-        chatsLoaded: false,
+const chatStoreCreator: StateCreator<IChatStore> = (set, get) => ({
+    chats: {},
+    chatsLoaded: false,
 
-        models: [],
-        modelsLoaded: false,
+    models: [],
+    modelsLoaded: false,
 
-        setChats: (chats: IChat[]) => 
-        {
-            set({ chats: chats.reduce((chats, chat) => (chats[chat.id] = chat, chats), {} as IChatStore["chats"]) });
-        },
+    setChats: (chats: IChat[]) => 
+    {
+        set({ chats: chats.reduce((chats, chat) => (chats[chat.id] = chat, chats), {} as IChatStore["chats"]) });
+    },
 
-        getChat: (chatId: string) => 
+    getChat: (chatId: string) => 
+    {
+        return get().chats[chatId];
+    },
+    setChat: (chat: IChat) =>
+    {
+        set((state) => ({ chats: { ...state.chats, [chat.id]: { ...chat, updatedAt: Date.now() } } }));
+    },
+    deleteChat: (chatId: string) => 
+    {
+        set((state) => 
         {
-            return get().chats[chatId];
-        },
-        setChat: (chat: IChat) =>
+            const deletedAt: IChat["deletedAt"] = state.chats[chatId]?.deletedAt ? "deleted" : Date.now();
+            return { chats: { ...state.chats, [chatId]: { ...state.chats[chatId], deletedAt, updatedAt: Date.now() } } };
+        });
+    },
+    undeleteChat: (chatId: string) => 
+    {
+        set((state) => 
         {
-            set((state) => ({ chats: { ...state.chats, [chat.id]: { ...chat, updatedAt: Date.now() } } }));
-        },
-        deleteChat: (chatId: string) => 
-        {
-            set((state) => 
+            if (!state.chats[chatId]?.deletedAt)
             {
-                const deletedAt: IChat["deletedAt"] = state.chats[chatId]?.deletedAt ? "deleted" : Date.now();
-                return { chats: { ...state.chats, [chatId]: { ...state.chats[chatId], deletedAt, updatedAt: Date.now() } } };
-            });
-        },
-        undeleteChat: (chatId: string) => 
-        {
-            set((state) => 
-            {
-                if (!state.chats[chatId]?.deletedAt)
-                {
-                    return state;
-                }
+                return state;
+            }
 
-                return { chats: { ...state.chats, [chatId]: { ...state.chats[chatId], deletedAt: undefined, updatedAt: Date.now() } } };
-            });
-        },
+            return { chats: { ...state.chats, [chatId]: { ...state.chats[chatId], deletedAt: undefined, updatedAt: Date.now() } } };
+        });
+    },
 
-        setChatMessage: (chatId: string, index: number, chatMessage: IChatMessage) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        messages: [
-                            ...state.chats[chatId].messages.slice(0, index),
-                            { ...chatMessage, showThinking: state.chats[chatId].messages[index].showThinking },
-                            ...state.chats[chatId].messages.slice(index + 1),
-                        ],
-                        updatedAt: Date.now(),
-                    },
+    setChatMessage: (chatId: string, index: number, chatMessage: IChatMessage) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    messages: [
+                        ...state.chats[chatId].messages.slice(0, index),
+                        { ...chatMessage, showThinking: state.chats[chatId].messages[index].showThinking },
+                        ...state.chats[chatId].messages.slice(index + 1),
+                    ],
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        setChatMessageHistoryIndex: (chatId: string, messageIndex: number, historyIndex: number) =>
+    setChatMessageHistoryIndex: (chatId: string, messageIndex: number, historyIndex: number) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    messages: [
+                        ...state.chats[chatId].messages.slice(0, messageIndex),
+                        {
+                            // copy message
+                            ...state.chats[chatId].messages[messageIndex],
+                            historyIndex,
+                            // TODO: prevent overflow!
+                            ...pluckMessage(state.chats[chatId].messages[messageIndex].history?.[historyIndex]),
+                        },
+                        ...state.chats[chatId].messages.slice(messageIndex + 1),
+                    ],
+                    updatedAt: Date.now(),
+                },
+            },
+        }));
+    },
+    deleteChatMessage: (chatId: string, messageIndex: number, historyIndex: number) =>
+    {
+        set(state => 
         {
-            set(state => ({
+            const message = state.chats[chatId].messages[messageIndex];
+
+            if (message.history?.length < 2 || historyIndex < 0 || historyIndex >= message.history.length)
+            {
+                return state;
+            }
+
+            const history = [
+                ...message.history.slice(0, historyIndex),
+                ...message.history.slice(historyIndex + 1),
+            ];
+
+            const newHistoryIndex = Math.min(history.length - 1, historyIndex);
+
+            return {
                 chats: {
                     ...state.chats,
                     [chatId]: {
@@ -103,173 +144,151 @@ export const useChatStore = create<IChatStore>()(
                         messages: [
                             ...state.chats[chatId].messages.slice(0, messageIndex),
                             {
-                                // copy message
-                                ...state.chats[chatId].messages[messageIndex],
-                                historyIndex,
-                                // TODO: prevent overflow!
-                                ...pluckMessage(state.chats[chatId].messages[messageIndex].history?.[historyIndex]),
+                                ...message,
+                                history,
+                                historyIndex: newHistoryIndex,
+                                // copy history item to message
+                                ...pluckMessage(history[newHistoryIndex]),
                             },
                             ...state.chats[chatId].messages.slice(messageIndex + 1),
                         ],
                         updatedAt: Date.now(),
-                    },
-                },
-            }));
-        },
-        deleteChatMessage: (chatId: string, messageIndex: number, historyIndex: number) =>
-        {
-            set(state => 
-            {
-                const message = state.chats[chatId].messages[messageIndex];
-
-                if (message.history?.length < 2 || historyIndex < 0 || historyIndex >= message.history.length)
-                {
-                    return state;
-                }
-
-                const history = [
-                    ...message.history.slice(0, historyIndex),
-                    ...message.history.slice(historyIndex + 1),
-                ];
-
-                const newHistoryIndex = Math.min(history.length - 1, historyIndex);
-
-                return {
-                    chats: {
-                        ...state.chats,
-                        [chatId]: {
-                            ...state.chats[chatId],
-                            messages: [
-                                ...state.chats[chatId].messages.slice(0, messageIndex),
-                                {
-                                    ...message,
-                                    history,
-                                    historyIndex: newHistoryIndex,
-                                    // copy history item to message
-                                    ...pluckMessage(history[newHistoryIndex]),
-                                },
-                                ...state.chats[chatId].messages.slice(messageIndex + 1),
-                            ],
-                            updatedAt: Date.now(),
-                        }
                     }
-                };
-            });
-        },
+                }
+            };
+        });
+    },
 
-        stopChat: (chatId: string) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        state: "done",
-                        messages: state.chats[chatId].messages?.map(m => ({ ...m, state: m.state === "working" ? "stopped" : m.state })),
-                        updatedAt: Date.now(),
-                    },
+    stopChat: (chatId: string) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    state: "done",
+                    messages: state.chats[chatId].messages?.map(m => ({ ...m, state: m.state === "working" ? "stopped" : m.state })),
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        setChatModel: (chatId: string, model: IChatModel) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        model,
-                        updatedAt: Date.now(),
-                    },
+    setChatModel: (chatId: string, model: IChatModel) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    model,
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
-        setChatModelOptions: (chatId: string, options: IChatModelOptions) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        options,
-                        updatedAt: Date.now(),
-                    },
+            },
+        }));
+    },
+    setChatModelOptions: (chatId: string, options: IChatModelOptions) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    options,
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        toggleShowThinking: (chatId: string, index: number) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        messages: [
-                            ...state.chats[chatId].messages.slice(0, index),
-                            { ...state.chats[chatId].messages[index], showThinking: !state.chats[chatId].messages[index].showThinking },
-                            ...state.chats[chatId].messages.slice(index + 1),
-                        ],
-                        updatedAt: Date.now(),
-                    },
+    toggleShowThinking: (chatId: string, index: number) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    messages: [
+                        ...state.chats[chatId].messages.slice(0, index),
+                        { ...state.chats[chatId].messages[index], showThinking: !state.chats[chatId].messages[index].showThinking },
+                        ...state.chats[chatId].messages.slice(index + 1),
+                    ],
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        setScrollPos: (chatId: string, scrollPos: number) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        scrollPos,
-                        updatedAt: Date.now(),
-                    },
+    setScrollPos: (chatId: string, scrollPos: number) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    scrollPos,
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        setFavorite: (chatId: string, favorite: boolean) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        favorite,
-                        updatedAt: Date.now(),
-                    },
+    setFavorite: (chatId: string, favorite: boolean) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    favorite,
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        setUseSystemPrompt: (chatId: string, useSystemPrompt: boolean) =>
-        {
-            set(state => ({
-                chats: {
-                    ...state.chats,
-                    [chatId]: {
-                        ...state.chats[chatId],
-                        messages: state.chats[chatId].messages[0]?.role !== "system" ? [{ role: "system", content: "", createdAt: Date.now(), history: [], historyIndex: 0 }, ...state.chats[chatId].messages] : state.chats[chatId].messages,
-                        useSystemPrompt,
-                        updatedAt: Date.now(),
-                    },
+    setUseSystemPrompt: (chatId: string, useSystemPrompt: boolean) =>
+    {
+        set(state => ({
+            chats: {
+                ...state.chats,
+                [chatId]: {
+                    ...state.chats[chatId],
+                    messages: state.chats[chatId].messages[0]?.role !== "system" ? [{ role: "system", content: "", createdAt: Date.now(), history: [], historyIndex: 0 }, ...state.chats[chatId].messages] : state.chats[chatId].messages,
+                    useSystemPrompt,
+                    updatedAt: Date.now(),
                 },
-            }));
-        },
+            },
+        }));
+    },
 
-        getModels: () => 
-        {
-            return get().models ?? [];
-        },
-        setModels: (models: IChatModel[]) =>
-        {
-            set({ models });
-        },
-    }),
-);
+    getModels: () => 
+    {
+        return get().models ?? [];
+    },
+    setModels: (models: IChatModel[]) =>
+    {
+        set({ models });
+    },
+
+    // setChatClient: (chatClient: IChatClient) => 
+    // {
+    //     set({ chatClient });
+    // },
+});
+
+export const createChatStore = () => createStore<IChatStore>(chatStoreCreator);
+
+type IChatStoreC = StoreApi<IChatStore>;
+
+export const ChatStoreContext = createContext<IChatStoreC | null>(null);
+
+export const useChatStore = <T,>(selector: (state: IChatStore) => T): T =>
+{
+    const store = useContext(ChatStoreContext);
+    if (!store) throw new Error('ChatStoreContext not found');
+    return useStore(store, selector);
+};
 
 export function useChatTitle(chatId: string)
 {

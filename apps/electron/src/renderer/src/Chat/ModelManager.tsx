@@ -20,6 +20,7 @@ function ModelManager()
         <AiModelManager
             themeOptions={themeOptions}
             toolbarLeftOffset="80px"
+            fixedTernaryDarkMode="system"
         />
     );
 }

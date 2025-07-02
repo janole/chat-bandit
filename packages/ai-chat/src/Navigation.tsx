@@ -115,8 +115,6 @@ function ChatListItem(props: { id: string })
         return null;
     }
 
-    const pathname = `/chat/${chatId}`;
-
     const text = chat.generatedSummary || chat.messages.find(m => m.role === "user")?.content || (chat.messages[0]?.content || "New Chat");
 
     const selected = location?.pathname.includes(pathname);

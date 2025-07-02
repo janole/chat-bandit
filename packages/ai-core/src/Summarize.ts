@@ -1,6 +1,6 @@
 import { IChat } from "./types";
 
-function ellipsize(text, maxLength)
+function ellipsize(text: string, maxLength: number)
 {
     return (text.length <= maxLength) ? text : text.slice(0, maxLength - 3) + '...';
 }

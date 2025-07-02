@@ -59,6 +59,9 @@ function Header(props: HeaderProps)
 // Interface for the navigation store
 export interface INavigationStore
 {
+    currentChatId?: IChat["id"];
+    setCurrentChatId: (currentChatId: IChat["id"]) => void;
+
     search: string;
     searchResult: IChat["id"][];
     setSearch: (search: string) => void;
@@ -77,6 +80,8 @@ export interface INavigationStore
 // Zustand store for navigation-related state
 export const useNavigationStore = create<INavigationStore>()(
     (set) => ({
+        setCurrentChatId: (currentChatId: IChat["id"]) => set({ currentChatId }),
+
         search: "",
         searchResult: [],
         setSearch: (search: string) => set({ search /*, searchRegExp: createRegExpFromString(search) */ }),
@@ -104,10 +109,7 @@ function ChatListItem(props: { id: string })
     const deleteChat = useChatStore(state => state.deleteChat);
     const undeleteChat = useChatStore(state => state.undeleteChat);
 
-    // TODO: fix1
-    // const navigate = useNavigate();
-    // let location = useLocation();
-
+    const selected = useNavigationStore(state => state.currentChatId === chatId);
     const hidden = useNavigationStore(state => state.search && !state.searchResult.includes(chatId));
 
     if (hidden)
@@ -117,8 +119,6 @@ function ChatListItem(props: { id: string })
 
     const text = chat.generatedSummary || chat.messages.find(m => m.role === "user")?.content || (chat.messages[0]?.content || "New Chat");
 
-    // TODO: fix1
-    const selected = false; // currentChatId === chatId; // location?.pathname.includes(pathname);
     const deleted = !!chat.deletedAt || undefined;
 
     return (

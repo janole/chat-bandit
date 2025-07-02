@@ -13,16 +13,21 @@ export interface IChatClient
 
     //
 
+    setCurrentChat?: (chatId: IChat["id"]) => void;
+    // getCurrentChatId?: IChat["id"];
+
+    //
+
     countChatTokens?: (chatId: IChat["id"]) => Promise<number | undefined>;
     countTokens?: (text: string) => Promise<number | undefined>;
 
     //
 
-    addAccount?: (params: TAddAccount) => Promise<void>;
+    addAccount?: (params: TAddAccount) => Promise<any>;
 
     //
 
-    downloadChatModel?: (modelUri: string) => Promise<void>;
+    downloadChatModel?: (modelUri: string) => Promise<any>;
 
     //
 

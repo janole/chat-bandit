@@ -4,16 +4,14 @@ import { existsSync, mkdirSync } from 'fs';
 import { readFile } from 'fs/promises';
 import writeFileAtomic from 'write-file-atomic';
 import { glob } from 'glob';
-import { IChat, TAddAccount, TAddChatModel, TRemoveAccount, TRemoveChatModel } from './types';
-import LlamaCppProvider from './LlamaCppProvider';
-import OllamaProvider from './OllamaProvider';
-import OpenAiProvider from './OpenAiProvider';
-import GoogleAiProvider from './GoogleAiProvider';
 import { getEncoding } from 'js-tiktoken';
-import { Semaphore } from './Semaphore';
 import tryCatch from '@janole/try-catch';
+import { IChat, TAddAccount, TAddChatModel, TRemoveAccount, TRemoveChatModel, Semaphore, TSendFunc } from '@janole/ai-core';
 import { getDownloadStatus, removeDownload, startDownload, stopDownload } from './ElectronDownloader';
-import { TSendFunc } from './types-electron';
+import LlamaCppProvider from './provider/LlamaCppProvider';
+import OllamaProvider from './provider/OllamaProvider';
+import OpenAiProvider from './provider/OpenAiProvider';
+import GoogleAiProvider from './provider/GoogleAiProvider';
 
 const abortControllers = new Map<string, AbortController>();
 

@@ -7,7 +7,7 @@ import { List, PanelLeftClose, PanelRightClose, SquarePen } from 'lucide-react';
 import ReactCodeMirror, { EditorView, placeholder } from '@uiw/react-codemirror';
 import { markdown } from '@codemirror/lang-markdown';
 import { IChat } from "@janole/ai-core";
-import { PanelApp, ContentContainer, Grid, FlexBox, SplitButton, CancelButton, NavBar } from '@janole/basic-app';
+import { PanelApp, ContentContainer, Grid, FlexBox, SplitButton, CancelButton, NavBar, AppProps } from '@janole/basic-app';
 import { useChatStore, useChatClient, useChatTitle } from "@janole/ai-core";
 import ChatView, { MemoChatSourceView } from './Components/ChatView';
 import ChatOptions from './Components/ChatOptions';
@@ -457,15 +457,14 @@ function SystemPromptIconButton(props: { chatId: string })
     );
 }
 
-interface ChatProps
+interface ChatProps extends AppProps
 {
-    id: string;
-    themeOptions?: ThemeOptions;
+    id?: string;
 }
 
 export default function Chat(props: ChatProps): JSX.Element
 {
-    const { id, themeOptions } = props;
+    const { id, ...appProps } = props;
 
     const [showNavigation, setShowNavigation] = useState(true);
 
@@ -488,7 +487,7 @@ export default function Chat(props: ChatProps): JSX.Element
 
     return (
         <PanelApp
-            themeOptions={themeOptions}
+            {...appProps}
             leftToolbarTop={
                 <FlexBox gap={1} flexGrow={1} pr={1.5}>
                     {chatId &&

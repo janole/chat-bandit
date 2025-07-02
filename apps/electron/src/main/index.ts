@@ -92,10 +92,6 @@ app.whenReady().then(() =>
 
     createMainWindow();
 
-    // createBrowser("google-search-browser", "https://www.google.com", {
-    //     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0",
-    // });
-
     app.on("activate", function ()
     {
         // On macOS it's common to re-create a window in the app when the

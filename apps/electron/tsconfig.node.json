@@ -5,7 +5,6 @@
         "env.d.ts",
         "src/main/**/*",
         "src/preload/**/*",
-        "src/libraries/**/*",
         "src/shared/**/*",
         "../../packages/**/*",
     ],

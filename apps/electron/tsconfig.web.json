@@ -5,7 +5,6 @@
         "src/renderer/src/**/*",
         "src/renderer/src/**/*.tsx",
         "src/preload/*.d.ts",
-        "src/libraries/**/*",
         "src/shared/**/*",
         "../../packages/**/*",
     ],
@@ -16,9 +15,6 @@
         "paths": {
             "@renderer/*": [
                 "src/renderer/src/*"
-            ],
-            "@libraries/*": [
-                "src/libraries/*"
             ],
             "@shared/*": [
                 "src/shared/*"

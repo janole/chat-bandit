@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PanelApp, ContentContainer, FlexBox, SplitButton, TagButton, QuickMenu, ProgressBar, useLayoutStore, Grid, Spacer } from "@janole/basic-app";
+import { PanelApp, ContentContainer, FlexBox, SplitButton, TagButton, QuickMenu, ProgressBar, useLayoutStore, Grid, Spacer, AppProps } from "@janole/basic-app";
 import { Alert, Box, CircularProgress, Dialog, Divider, IconButton, Link, Theme, Tooltip, Typography } from "@mui/material";
 import { useShallow } from "zustand/react/shallow";
 import { AddCircleOutline, Cancel, Check, DeleteForever, Download, FaceRetouchingNatural, MoreVert, SourceOutlined } from "@mui/icons-material";
@@ -35,7 +35,7 @@ function OpenAiSettingsCard(props: SettingsCardProps)
     const addAccount = () =>
     {
         run({
-            action: () => client.addAccount({ provider: "openai", name: name || defaultName, apiKey, type: "openai" }),
+            action: () => client.addAccount?.({ provider: "openai", name: name || defaultName, apiKey, type: "openai" }),
             completed: handleAdd,
         });
     }
@@ -814,13 +814,14 @@ export function ChatModelsView()
     );
 }
 
-export default function ModelManager()
+export default function ModelManager(props: AppProps)
 {
     // TODO: refactor (the following call is just used to register an "on focus" event listener)
     useChatClient();
 
     return (
         <PanelApp
+            {...props}
             contentTop={
                 <FlexBox gap={1}>
                     <FaceRetouchingNatural />

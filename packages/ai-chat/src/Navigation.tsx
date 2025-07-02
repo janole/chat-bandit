@@ -100,7 +100,7 @@ function ChatListItem(props: { id: string })
 
     const chat = useChatStore(state => state.chats[chatId]);
 
-    const { branchChat, abortChat, showChatFileInFileManager, navigate, location } = useChatClient();
+    const { branchChat, abortChat, showChatFileInFileManager, setCurrentChat } = useChatClient();
     const deleteChat = useChatStore(state => state.deleteChat);
     const undeleteChat = useChatStore(state => state.undeleteChat);
 
@@ -117,12 +117,13 @@ function ChatListItem(props: { id: string })
 
     const text = chat.generatedSummary || chat.messages.find(m => m.role === "user")?.content || (chat.messages[0]?.content || "New Chat");
 
-    const selected = location?.pathname.includes(pathname);
+    // TODO: fix1
+    const selected = false; // currentChatId === chatId; // location?.pathname.includes(pathname);
     const deleted = !!chat.deletedAt || undefined;
 
     return (
         <ListItemButton
-            onClick={(e: React.MouseEvent<HTMLElement>) => { e.stopPropagation(); e.preventDefault(); navigate?.(pathname); }}
+            onClick={(e: React.MouseEvent<HTMLElement>) => { e.stopPropagation(); e.preventDefault(); setCurrentChat?.(chatId); }}
             sx={{
                 py: 0.5,
                 pr: 1,

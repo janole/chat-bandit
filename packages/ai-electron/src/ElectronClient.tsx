@@ -1,11 +1,11 @@
 import { ReactNode, useCallback, useEffect, useMemo } from "react";
 import { ElectronAPI } from "@electron-toolkit/preload";
 import { ulid } from "ulid";
-import { create, createStore } from "zustand";
-import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, IChatStore, createChatStore } from "@janole/ai-core";
+import { create } from "zustand";
+import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore } from "@janole/ai-core";
 import { useDownloadStore } from "./DownloadStore";
 
-const chatStore = createStore<IChatStore>(createChatStore);
+const chatStore = createChatStore();
 
 /** Invokes an Electron IPC channel with the given arguments and returns a promise that resolves to the result. */
 function invoke<T>(channel: string, ...args: any[])
@@ -237,11 +237,10 @@ const showFileInFileManager = (file: string) => invoke("show-file-in-file-manage
         newChat,
         branchChat,
 
-        ...props
+        setCurrentChat: props.setCurrentChat,
     }), [
         // setChat,
         getDownloadStatus,
-        props.currentChatId,
         props.setCurrentChat,
         newChat,
         branchChat,
@@ -357,12 +356,20 @@ export function installUpdate()
 interface UseChatClientProps
 {
     setCurrentChat?: IChatClient["setCurrentChat"];
-    currentChatId?: IChat["id"];
 }
 
 interface ElectronChatClientProviderProps extends UseChatClientProps
 {
     children?: ReactNode;
+}
+
+export function ElectronChatStoreProvider(props: { children?: ReactNode })
+{
+    return (
+        <ChatStoreContext.Provider value={chatStore}>
+            {props.children}
+        </ChatStoreContext.Provider>
+    );
 }
 
 export function ElectronChatClientProvider(props: ElectronChatClientProviderProps)
@@ -371,13 +378,18 @@ export function ElectronChatClientProvider(props: ElectronChatClientProviderProp
 
     const chatClient = useChatClient(useChatClientProps);
 
-    console.log("CWS", chatStore);
-
     return (
-        <ChatStoreContext.Provider value={chatStore}>
-            <ChatClientContext.Provider value={chatClient}>
-                {children}
-            </ChatClientContext.Provider>
-        </ChatStoreContext.Provider>
+        <ChatClientContext.Provider value={chatClient}>
+            {children}
+        </ChatClientContext.Provider>
+    );
+}
+
+export function ElectronChatProvider(props: ElectronChatClientProviderProps)
+{
+    return (
+        <ElectronChatStoreProvider>
+            <ElectronChatClientProvider {...props} />
+        </ElectronChatStoreProvider>
     );
 }

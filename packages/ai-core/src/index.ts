@@ -4,6 +4,8 @@ export * from "./types";
 export type * from "./types-GGUF";
 export * from "./types-GGUF";
 
+export type * from "./types-electron";
+
 export * from "./ChatStore";
 export * from "./ChatClient";
 

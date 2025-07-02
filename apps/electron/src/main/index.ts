@@ -2,8 +2,7 @@ import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
 import electronUpdater from "electron-updater";
 import { tryCatchCache } from "@janole/try-catch";
-import { registerAdapter } from "@janole/ai-electron/electron";
-import { registerStore } from "../libraries/electron-store/server";
+import { registerAdapter, registerStore } from "@janole/ai-electron/electron";
 import { createMainWindow, registerWindowManager, send } from "./WindowManager";
 import { createMenu } from "./MenuManager";
 

@@ -2,11 +2,16 @@
     "name": "@janole/ai-electron",
     "version": "0.0.1",
     "description": "",
-    "main": "index.js",
-    "types": "src/index.tsx",
+    "main": "./src/index.tsx",
+    "types": "./src/index.tsx",
     "exports": {
         ".": {
-            "import": "./src/index.tsx"
+            "default": "./src/index.tsx",
+            "types": "./src/index.tsx"
+        },
+        "./electron": {
+            "node": "./src/index.electron.ts",
+            "types": "./src/index.electron.ts"
         }
     },
     "scripts": {},
@@ -15,8 +20,11 @@
     "license": "ISC",
     "type": "module",
     "peerDependencies": {
+        "electron": "^34.5.8",
+        "node-llama-cpp": "^3.10.0",
         "ulid": "^3.0.1",
         "use-broadcast-ts": "^2.0.1",
+        "write-file-atomic": "^6.0.0",
         "zustand": "^5.0.6"
     },
     "dependencies": {
@@ -24,6 +32,7 @@
         "@janole/try-catch": "^0.0.1"
     },
     "devDependencies": {
+        "@types/write-file-atomic": "^4.0.3",
         "tsup": "^8.5.0",
         "typescript": "^5.8.3"
     }

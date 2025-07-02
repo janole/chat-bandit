@@ -1,9 +1,7 @@
-import { useChatClient } from "@libraries/ai/ElectronClient";
 import { Box, Card, CardActions, CardHeader, CircularProgress, LinearProgress, Theme } from "@mui/material";
 import { Download, StopCircle, TaskAlt } from "@mui/icons-material";
-import { IChatModelLlamaCpp } from "@libraries/ai/types";
-import { TagButton, FlexBox, SplitButton } from "@renderer/BasicApp";
-import { useDownloadStore } from "@libraries/ai/DownloadStore";
+import { useChatClient, IChatModelLlamaCpp, useDownloadStore } from "@janole/ai-core";
+import { TagButton, FlexBox, SplitButton } from "@janole/basic-app";
 import formatBytes from "./FormatBytes";
 
 interface DownloadableModelCardProps

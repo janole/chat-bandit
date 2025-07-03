@@ -8,15 +8,15 @@
 
 ## Repository Structure
 
-- **apps**
-  - `electron`: Desktop Electron app with React-based UI.
-  - `landing-page`: Next.js based landing page for the project.
-- **packages**
-  - `ai-core`: Core AI logic and types.
-  - `ai-chat`: React components and hooks for chat UI.
-  - `ai-electron`: Electron IPC and backend integration.
-  - `basic-app`: UI primitives and layout components.
-  - `try-catch`: Utility for error handling.
+- **[`apps`](./apps)**
+  - [`electron`](./apps/electron): Desktop Electron app with React-based UI.
+  - [`landing-page`](./apps/landing-page): Next.js based landing page for the project.
+- **[packages](./packages)**
+  - [`ai-core`](./packages/ai-core): Core AI logic and types.
+  - [`ai-chat`](./packages/ai-chat): React components and hooks for chat UI.
+  - [`ai-electron`](./packages/ai-electron): Electron IPC and backend integration.
+  - [`basic-app`](./packages/basic-app): UI primitives and layout components.
+  - [`try-catch`](./packages/try-catch): Utility for error handling.
 
 ---
 

@@ -20,34 +20,32 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the s
 
 ---
 
-## Features
-
-- Built with the latest Next.js 13 app router.
-- Responsive design with Material UI and Tailwind CSS.
-- Download section with dynamic info fetched from release YAML files.
-- Beautiful, animated backgrounds and UI components.
-- SEO optimized with Open Graph and Twitter card metadata.
-- Ready to deploy as a standalone Docker container.
-
----
-
 ## Build & Deployment
 
-To create a production build:
+The landing page can be deployed using Docker:
 
 ```bash
-npm run build
-npm run start
+$ npm run docker:push
 ```
 
-The landing page can also be built and packaged using Docker:
+You can run the docker container locally with
 
 ```bash
-npm run docker:build
-npm run docker:test
+$ npm run docker:test
+
+...
+
+> landing-page@0.0.1 docker:test
+> docker run --rm -p 3000:3000 $(npm run --silent docker:image)
+
+   ▲ Next.js 15.3.4
+   - Local:        http://6c44ce9ede70:3000
+   - Network:      http://6c44ce9ede70:3000
+
+ ✓ Starting...
 ```
 
-Check the included [Dockerfile](./Dockerfile) for details.
+Connect to http://localhost:3000 to check out the landing page website.
 
 ---
 

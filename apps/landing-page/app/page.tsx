@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactNode } from "react";
 import { Box, Button, Divider, StyledEngineProvider, useTheme, Typography, ThemeOptions, CardHeader, IconButton, CardContent, Grid, BoxProps, Link } from "@mui/material";
 import { Brain, Download, Zap, Shield, Cpu, Globe, Settings, Heart, MessageCircle, Sparkles, ShieldCheck, Computer, Bug } from "lucide-react";
 import { SiGithub, SiApple, SiX, SiLinux } from "@icons-pack/react-simple-icons";
@@ -12,7 +13,6 @@ import HeroHeadline from "../components/HeroHeadline";
 import Badge from "../components/Badge";
 import { FeatureBox, FeatureGrid, WobbleGrid } from "../components/Feature";
 import Card from "../components/Card";
-import { ReactNode } from "react";
 
 const appName = "Chat Bandit";
 

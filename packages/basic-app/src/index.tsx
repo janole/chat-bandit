@@ -24,3 +24,4 @@ export { default as ProgressBar } from "./Components/ProgressBar";
 export { default as SpinningButton, CancelButton } from "./Components/SpinningButton";
 
 export * from "./Components/SettingsCard";
+export { default as OnOffSwitch } from "./Components/OnOffSwitch";

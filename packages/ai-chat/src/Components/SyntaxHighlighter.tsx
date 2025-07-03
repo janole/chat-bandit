@@ -13,7 +13,7 @@ const langs = {
 interface SyntaxHighlighterProps
 {
     code: string;
-    lang: string;
+    lang: keyof typeof langs;
     mode: "dark" | "light";
 }
 

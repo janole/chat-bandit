@@ -2,11 +2,16 @@ import { useState } from "react";
 import { Box, Dialog } from "@mui/material";
 import { Emergency } from "@mui/icons-material";
 import { lt } from "semver";
-import { downloadUpdate, installUpdate, useAppUpdateStore } from "@libraries/ai/ElectronClient";
-import { SplitButton } from "@janole/basic-app";
-import { SettingsCard, SettingsCardActions, SettingsCardContent } from "./SettingsCard";
-import { MarkdownWrapper } from "./Markdown";
-import formatBytes from "./FormatBytes";
+import { SplitButton, SettingsCard, SettingsCardActions, SettingsCardContent } from "@janole/basic-app";
+import { MarkdownWrapper } from "@janole/ai-chat";
+import { downloadUpdate, installUpdate, useAppUpdateStore } from "../ElectronClient";
+
+function formatBytes(size: number, trim?: boolean)
+{
+    const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
+    const v = (size / Math.pow(1024, i)).toFixed(2);
+    return (trim ? +v * 1 : v) + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+}
 
 interface IUpdateDialog
 {

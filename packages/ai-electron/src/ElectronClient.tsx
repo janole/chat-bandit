@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useEffect, useMemo } from "react";
 import { ElectronAPI } from "@electron-toolkit/preload";
 import { ulid } from "ulid";
 import { create } from "zustand";
-import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore, DownloadStore, useDownloadStore } from "@janole/ai-core";
+import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore, useDownloadStore } from "@janole/ai-core";
 
 const chatStore = createChatStore();
 
@@ -197,6 +197,8 @@ const openModelManagerWindow = () => invoke("create-window", "model-manager", "/
 /** Shows the file in the file manager. */
 const showFileInFileManager = (file: string) => invoke("show-file-in-file-manager", file);
 
+const openInBrowser = (url: string) => invoke("open-browser", "browser", url);
+
 /* export */ function useChatClient(props: UseChatClientProps)
 {
     // const setChat = useChatStore(state => state.setChat);
@@ -232,6 +234,8 @@ const showFileInFileManager = (file: string) => invoke("show-file-in-file-manage
         openModelManagerWindow,
 
         showFileInFileManager,
+
+        openInBrowser,
 
         newChat,
         branchChat,

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Box, Collapse, Divider } from '@mui/material';
 import { BugReport, DeleteForever, RestoreFromTrash, StarBorderRounded, StarRounded, Tune } from '@mui/icons-material';
 import { List, PanelLeftClose, PanelRightClose } from 'lucide-react';
-import { PanelApp, ContentContainer, FlexBox, SplitButton, AppProps } from '@janole/basic-app';
+import { PanelApp, ContentContainer, FlexBox, SplitButton, AppProps } from "@janole/basic-app";
 import { useChatStore } from "@janole/ai-core";
 import NewButton from './Components/NewButton';
 import ChatTitle from './Components/ChatTitle';

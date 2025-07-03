@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Box, Divider, useTheme } from "@mui/material";
 import { Code, Copy, ExternalLink } from "lucide-react";
 import { useLayoutStore, SplitButton, NavBar } from "@janole/basic-app";
+import { useChatClient } from "@janole/ai-core";
 import { SyntaxHighlighter } from "./SyntaxHighlighter";
 
 const sxCodeMirror = {
@@ -55,34 +56,32 @@ interface TerminalWindowProps
 
 function TerminalWindow(props: TerminalWindowProps)
 {
-    if (Array.isArray(props.children))
-    {
-        return props.children;
-    }
-
-    /** @ts-ignore */
+    /** @ts-error */
     const code = flattenText(props.children).trimEnd();
 
     /** @ts-ignore */
     const lang = props.children?.props?.className?.replace(/.*language-(\w+).*$/, '$1') ?? "markdown";
 
+    const { openInBrowser } = useChatClient();
+
     const handleOpenBrowser = useMemo(() => 
     {
-        if (lang.includes("html"))
+        if (openInBrowser && lang.includes("html"))
         {
-            return event => 
+            return (event: React.MouseEvent<HTMLButtonElement>) => 
             {
                 event.stopPropagation();
                 event.preventDefault();
 
                 const data = "data:text/html;charset=utf-8," + encodeURIComponent(code);
 
-                window.electron.ipcRenderer.invoke("open-browser", "browser", data);
+                openInBrowser(data);
             }
         }
 
         return undefined;
     }, [
+        openInBrowser,
         code,
         lang,
     ]);

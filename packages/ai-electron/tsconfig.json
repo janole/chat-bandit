@@ -11,6 +11,8 @@
     "include": [
         "src",
         "../ai-core/src",
+        "../ai-chat/src",
+        "../basic-app/src",
         "../try-catch/src"
     ]
 }

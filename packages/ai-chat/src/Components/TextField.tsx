@@ -5,7 +5,7 @@ type TextFieldProps = MuiTextFieldProps;
 
 const TextField = forwardRef<HTMLInputElement, TextFieldProps>((props, outerRef) =>
 {
-    const innerRef = useCallback((current) =>
+    const innerRef = useCallback((current: HTMLInputElement | null) =>
     {
         if (typeof outerRef === "function")
         {

@@ -32,6 +32,7 @@ export interface IChatClient
     //
 
     showChatFileInFileManager?: (chatId: string) => Promise<unknown>;
+    openModelManagerWindow?: () => Promise<unknown>;
 
     //
 

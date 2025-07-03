@@ -78,13 +78,13 @@ const Header = () =>
     return (
         <ContentContainer
             maxWidth="xl"
+            px={2}
+            py={1}
             sx={{
                 display: "flex",
                 alignContent: "stretch",
                 alignItems: "center",
                 gap: 4,
-                px: 2,
-                py: 1,
             }}
         >
             {blocks.map((block, index) => (

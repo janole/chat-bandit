@@ -76,12 +76,15 @@ function NaviButton(props: { name: string, icon?: string, href?: string, promine
 const Header = () =>
 {
     return (
-        <ContentContainer maxWidth="xl" p={1}
+        <ContentContainer
+            maxWidth="xl"
             sx={{
                 display: "flex",
                 alignContent: "stretch",
                 alignItems: "center",
                 gap: 4,
+                px: 2,
+                py: 1,
             }}
         >
             {blocks.map((block, index) => (

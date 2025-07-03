@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { PanelApp, ContentContainer, FlexBox, SplitButton, TagButton, QuickMenu, ProgressBar, useLayoutStore, Grid, Spacer, AppProps } from "@janole/basic-app";
-import { Alert, Box, CircularProgress, Dialog, Divider, IconButton, Link, Theme, Tooltip, Typography } from "@mui/material";
-import { useShallow } from "zustand/react/shallow";
+import { Alert, Box, CircularProgress, Dialog, Divider, IconButton, Link, TextField, Theme, Tooltip, Typography } from "@mui/material";
 import { AddCircleOutline, Cancel, Check, DeleteForever, Download, FaceRetouchingNatural, MoreVert, SourceOutlined } from "@mui/icons-material";
+import { HardDrive, Cloud, Star, EyeOff, Eye, Info } from "lucide-react";
+import { useShallow } from "zustand/react/shallow";
 import parse from "autosuggest-highlight/parse";
 import match from "autosuggest-highlight/match";
 import { IChatModel, normalizeModelUri, useChatModelConfigStore, useChatStore, useChatClient, isModelHidden, useTransaction, useDownloadStore } from "@janole/ai-core";
-import { HardDrive, Cloud, Star, EyeOff, Eye, Info } from "lucide-react";
-import OnOffSwitch from "./Components/OnOffSwitch";
-import TextField from "./Components/TextField";
-import { SettingsCard, SettingsCardActions, SettingsCardContent } from "./Components/SettingsCard";
+import { PanelApp, ContentContainer, FlexBox, SplitButton, TagButton, QuickMenu, ProgressBar, useLayoutStore, Grid, Spacer, AppProps, SettingsCard, SettingsCardActions, SettingsCardContent, OnOffSwitch } from "@janole/basic-app";
 
 interface SettingsCardProps
 {
@@ -21,7 +18,7 @@ function OpenAiSettingsCard(props: SettingsCardProps)
 {
     const { handleAdd, handleCancel } = props;
 
-    const client = useChatClient();
+    const { addAccount } = useChatClient();
 
     const [name, setName] = useState("");
     const [apiKey, setApiKey] = useState("");
@@ -30,10 +27,10 @@ function OpenAiSettingsCard(props: SettingsCardProps)
 
     const defaultName = "OpenAI";
 
-    const addAccount = () =>
+    const handleAddAccount = !addAccount ? undefined : () =>
     {
         run({
-            action: () => client.addAccount({ provider: "openai", name: name || defaultName, apiKey, type: "openai" }),
+            action: () => addAccount({ provider: "openai", name: name || defaultName, apiKey, type: "openai" }),
             completed: handleAdd,
         });
     }
@@ -57,8 +54,8 @@ function OpenAiSettingsCard(props: SettingsCardProps)
                     <SplitButton
                         color="primary"
                         variant={!apiKey.length ? "text" : "contained"}
-                        disabled={!apiKey.length || working}
-                        onClick={addAccount}
+                        disabled={!apiKey.length || working || !handleAddAccount}
+                        onClick={handleAddAccount}
                     >
                         Add
                     </SplitButton>
@@ -109,7 +106,7 @@ function OpenRouterSettingsCard(props: SettingsCardProps)
 {
     const { handleAdd, handleCancel } = props;
 
-    const client = useChatClient();
+    const { addAccount } = useChatClient();
 
     const [name, setName] = useState("");
     const [apiKey, setApiKey] = useState("");
@@ -118,10 +115,10 @@ function OpenRouterSettingsCard(props: SettingsCardProps)
 
     const defaultName = "OpenRouter";
 
-    const addAccount = () =>
+    const handleAddAccount = !addAccount ? undefined : () =>
     {
         run({
-            action: () => client.addAccount({ provider: "openai", name: name || defaultName, apiKey, type: "openrouter" }),
+            action: () => addAccount({ provider: "openai", name: name || defaultName, apiKey, type: "openrouter" }),
             completed: handleAdd,
         });
     }
@@ -145,8 +142,8 @@ function OpenRouterSettingsCard(props: SettingsCardProps)
                     <SplitButton
                         color="primary"
                         variant={!apiKey.length ? "text" : "contained"}
-                        disabled={!apiKey.length || working}
-                        onClick={addAccount}
+                        disabled={!apiKey.length || working || !handleAddAccount}
+                        onClick={handleAddAccount}
                     >
                         Add
                     </SplitButton>
@@ -197,7 +194,7 @@ function GoogleAiSettingsCard(props: SettingsCardProps)
 {
     const { handleAdd, handleCancel } = props;
 
-    const client = useChatClient();
+    const { addAccount } = useChatClient();
 
     const [name, setName] = useState("");
     const [apiKey, setApiKey] = useState("");
@@ -206,10 +203,10 @@ function GoogleAiSettingsCard(props: SettingsCardProps)
 
     const defaultName = "GoogleAI";
 
-    const addAccount = () =>
+    const handleAddAccount = !addAccount ? undefined : () =>
     {
         run({
-            action: () => client.addAccount({ provider: "googleai", name: name || defaultName, apiKey }),
+            action: () => addAccount({ provider: "googleai", name: name || defaultName, apiKey }),
             completed: handleAdd,
         });
     }
@@ -233,8 +230,8 @@ function GoogleAiSettingsCard(props: SettingsCardProps)
                     <SplitButton
                         color="primary"
                         variant={!apiKey.length ? "text" : "contained"}
-                        disabled={!apiKey.length || working}
-                        onClick={addAccount}
+                        disabled={!apiKey.length || working || !handleAddAccount}
+                        onClick={handleAddAccount}
                     >
                         Add
                     </SplitButton>
@@ -285,17 +282,17 @@ const AddLlamaCppModelCard = (props: SettingsCardProps) =>
 {
     const { handleAdd, handleCancel } = props;
 
-    const client = useChatClient();
+    const { addChatModel } = useChatClient();
 
     const [modelUri, setModelUri] = useState("");
     const [startDownload, setStartDownload] = useState(false);
 
     const { run, error, state } = useTransaction();
 
-    const addModel = () =>
+    const handleAddChatModel = !addChatModel ? undefined : () =>
     {
         run({
-            action: () => client.addChatModel?.({ provider: "node-llama-cpp", modelUri, startDownload }),
+            action: () => addChatModel({ provider: "node-llama-cpp", modelUri, startDownload }),
             completed: handleAdd,
         });
     }
@@ -320,8 +317,8 @@ const AddLlamaCppModelCard = (props: SettingsCardProps) =>
                     <SplitButton
                         color="primary"
                         variant={!normalizedModelUri ? "text" : "contained"}
-                        disabled={!normalizedModelUri || working}
-                        onClick={addModel}
+                        disabled={!normalizedModelUri || working || !handleAddChatModel}
+                        onClick={handleAddChatModel}
                     >
                         Add
                     </SplitButton>

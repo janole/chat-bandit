@@ -2,7 +2,7 @@ import { ReactNode, useCallback, useEffect, useMemo } from "react";
 import { ElectronAPI } from "@electron-toolkit/preload";
 import { ulid } from "ulid";
 import { create } from "zustand";
-import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore, DownloadStore } from "@janole/ai-core";
+import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore, DownloadStore, useDownloadStore } from "@janole/ai-core";
 
 const chatStore = createChatStore();
 
@@ -289,9 +289,9 @@ export function useCountTokens()
         defaultChatModelId,
     ]);
 
-    const branchChat = useCallback((props: { chat: IChat, messageIndex?: number }) =>
+    const branchChat = useCallback((chat: IChat, messageIndex?: number) =>
     {
-        addChat(duplicateChat(props.chat, props.messageIndex));
+        addChat(duplicateChat(chat, messageIndex));
     }, [
         addChat,
     ]);

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { TDownloadStatusMap } from './types-electron';
+import { create } from "zustand";
+import { TDownloadStatusMap } from "./types-electron";
 
 export interface IDownloadStore
 {

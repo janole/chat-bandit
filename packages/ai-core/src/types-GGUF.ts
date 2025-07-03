@@ -77,9 +77,9 @@ const enumToStringMap: { [key in LlamaFileType]: string } = {
     // [LlamaFileType.GUESSED]: "GUESSED"
 };
 
-function llamaFileTypeToString(fileType?: number): string | undefined
+function llamaFileTypeToString(fileType?: LlamaFileType): string | undefined
 {
-    return (fileType !== undefined && enumToStringMap[fileType]) ?? undefined;
+    return fileType !== undefined ? enumToStringMap[fileType] : undefined;
 }
 
 const enumToBitsMap: { [key in LlamaFileType]: number } = {
@@ -118,9 +118,9 @@ const enumToBitsMap: { [key in LlamaFileType]: number } = {
     // [LlamaFileType.GUESSED]: "GUESSED"
 };
 
-function llamaFileTypeToBits(fileType?: number): number | undefined
+function llamaFileTypeToBits(fileType?: LlamaFileType): number | undefined
 {
-    return (fileType !== undefined && enumToBitsMap[fileType]) ?? undefined;
+    return fileType !== undefined ? enumToBitsMap[fileType] : undefined;
 }
 
 export

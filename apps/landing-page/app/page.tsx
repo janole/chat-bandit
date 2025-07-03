@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { Box, Button, Divider, StyledEngineProvider, useTheme, Typography, ThemeOptions, CardHeader, IconButton, CardContent, Grid, BoxProps, Link } from "@mui/material";
 import { Brain, Download, Zap, Shield, Cpu, Globe, Settings, Heart, MessageCircle, Sparkles, ShieldCheck, Computer, Bug } from "lucide-react";
 import { SiGithub, SiApple, SiX, SiLinux } from "@icons-pack/react-simple-icons";
-import { BasicApp, ContentContainer, FlexBox } from "@janole/basic-app";
+import { BasicApp, ContentContainer, FlexBox, TernaryDarkModeToggle } from "@janole/basic-app";
 import useDownloadInfo, { IDownloadInfo } from "../components/DownloadInfo";
 import ColorText, { sxColorTextGradient } from "../components/ColorText";
 import BackgroundEffects from "../components/BackgroundEffects";
@@ -97,6 +97,10 @@ const Header = () =>
                     display={index > 0 ? { md: "block", sm: "none", xs: "none" } : undefined}
                 />
             ))}
+
+            <Box ml="auto" />
+
+            <TernaryDarkModeToggle />
         </ContentContainer>
     );
 };

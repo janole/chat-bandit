@@ -22,16 +22,20 @@
     "peerDependencies": {
         "electron": "^34.5.8",
         "node-llama-cpp": "^3.10.0",
+        "semver": "^7.7.2",
         "ulid": "^3.0.1",
         "use-broadcast-ts": "^2.0.1",
         "write-file-atomic": "^6.0.0",
         "zustand": "^5.0.6"
     },
     "dependencies": {
+        "@janole/ai-chat": "^0.0.1",
         "@janole/ai-core": "^0.0.1",
+        "@janole/basic-app": "^0.0.1",
         "@janole/try-catch": "^0.0.1"
     },
     "devDependencies": {
+        "@types/semver": "^7.7.0",
         "@types/write-file-atomic": "^4.0.3",
         "typescript": "^5.8.3"
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { IChat, TAddAccount } from "./types";
+import { IChat, TAddAccount, TAddChatModel, TRemoveAccount, TRemoveChatModel } from "./types";
 
 export interface IChatClient
 {
@@ -23,14 +23,21 @@ export interface IChatClient
 
     //
 
-    addAccount?: (params: TAddAccount) => Promise<any>;
+    addAccount?: (params: TAddAccount) => Promise<void>;
+    removeAccount?: (params: TRemoveAccount) => Promise<void>;
 
     //
+
+    addChatModel?: (params: TAddChatModel) => Promise<void>;
+    deleteChatModel?: (params: TRemoveChatModel) => Promise<void>;
 
     downloadChatModel?: (modelUri: string) => Promise<any>;
+    stopDownloadChatModel?: (modelUri: string) => Promise<any>;
+    removeDownloadChatModel?: (modelUri: string) => Promise<unknown>;
 
     //
 
+    showFileInFileManager?: (file: string) => Promise<unknown>;
     showChatFileInFileManager?: (chatId: string) => Promise<unknown>;
     openModelManagerWindow?: () => Promise<unknown>;
 

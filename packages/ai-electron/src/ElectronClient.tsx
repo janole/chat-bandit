@@ -45,7 +45,7 @@ declare global
 invoke<IChat[]>("load-chats").then(chats =>
 {
     // TODO: refactor (deletedAt ...)
-    chats && chatStore.setState({ chatsLoaded: true, chats: chats.filter((chat: IChat) => !!chat.id && chat.deletedAt !== "deleted").reduce((chats, chat) => (chats[chat.id] = chat, chats), {}) });
+    chats && chatStore.setState({ chatsLoaded: true, chats: chats.filter((chat: IChat) => !!chat.id && chat.deletedAt !== "deleted").reduce((chats, chat) => (chats[chat.id] = chat, chats), {} as { [key: string]: IChat }) });
 });
 
 /** Loads chat models from the backend and stores them in the chat store. */

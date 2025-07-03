@@ -1,6 +1,8 @@
-# Chat Bandit Monorepo
+# Welcome to Chat Bandit
 
 **Chat Bandit** is an open-source, privacy-focused desktop AI assistant supporting both local and cloud AI models. It integrates local LLMs such as Ollama and llama.cpp and connects to cloud providers like OpenAI, Google AI, and OpenRouter, offering a seamless and customizable AI chatbot experience.
+
+![Screenshot of the main interface of Chat Bandit running on a MacBook Pro](https://chatbandit.de/screenshot-light.png)
 
 ---
 
@@ -62,4 +64,4 @@ This project is open-source and licensed under the MIT License.
 
 ---
 
-Created by Jan Ole Suhr | [https://janole.com](https://janole.com) | chatbandit@mobileways.de
+Created by Jan Ole Suhr | [https://janole.com](https://janole.com) | info@chatbandit.de

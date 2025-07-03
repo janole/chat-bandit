@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { PanelApp, ContentContainer, FlexBox, SplitButton, TagButton, QuickMenu, ProgressBar, useLayoutStore, Grid, Spacer, AppProps } from "@janole/basic-app";
 import { Alert, Box, CircularProgress, Dialog, Divider, IconButton, Link, Theme, Tooltip, Typography } from "@mui/material";
@@ -35,7 +33,7 @@ function OpenAiSettingsCard(props: SettingsCardProps)
     const addAccount = () =>
     {
         run({
-            action: () => client.addAccount?.({ provider: "openai", name: name || defaultName, apiKey, type: "openai" }),
+            action: () => client.addAccount({ provider: "openai", name: name || defaultName, apiKey, type: "openai" }),
             completed: handleAdd,
         });
     }
@@ -297,7 +295,7 @@ const AddLlamaCppModelCard = (props: SettingsCardProps) =>
     const addModel = () =>
     {
         run({
-            action: () => client.addChatModel({ provider: "node-llama-cpp", modelUri, startDownload }),
+            action: () => client.addChatModel?.({ provider: "node-llama-cpp", modelUri, startDownload }),
             completed: handleAdd,
         });
     }
@@ -526,7 +524,7 @@ export function ModelLine(props: ModelLineProps)
                 <Grid size="auto" display="flex" gap={1}>
                     {!model.state.ready && model.modelUri && model.state.downloadable && status?.state !== "downloading" &&
                         <SplitButton
-                            onClick={() => client.downloadChatModel(model.modelUri!)}
+                            onClick={() => client.downloadChatModel?.(model.modelUri!)}
                             size="small"
                             icon={<Download />}
                         >
@@ -535,7 +533,7 @@ export function ModelLine(props: ModelLineProps)
                     }
                     {!model.state.ready && model.modelUri && model.state.downloadable && status?.state === "downloading" &&
                         <IconButton
-                            onClick={() => client.stopDownloadChatModel(model.modelUri!)}
+                            onClick={() => client.stopDownloadChatModel?.(model.modelUri!)}
                             size="small"
                             sx={{ position: "relative" }}
                             color="error"
@@ -716,13 +714,13 @@ export function ModelLine(props: ModelLineProps)
                             {
                                 title: "Reveal in Finder",
                                 icon: <SourceOutlined />,
-                                onClick: () => model.modelFile && client.showFileInFileManager(model.modelFile),
+                                onClick: () => model.modelFile && client.showFileInFileManager?.(model.modelFile),
                                 hidden: !model.state?.ready || !model.state?.hasLocalModelFile,
                             },
                             {
                                 title: "Delete",
                                 icon: <DeleteForever />,
-                                onClick: () => client.deleteChatModel({ provider: model.provider, modelUri: model.modelUri! }),
+                                onClick: () => client.deleteChatModel?.({ provider: model.provider, modelUri: model.modelUri! }),
                             }
                         ]}
                     />
@@ -781,7 +779,7 @@ function ChatModelAccountList(props: ChatModelAccountListProps)
                                 {
                                     title: "Delete",
                                     icon: <DeleteForever />,
-                                    onClick: () => client.removeAccount({ provider: models[0].provider, id: accountId }),
+                                    onClick: () => client.removeAccount?.({ provider: models[0].provider, id: accountId }),
                                 }
                             ]}
                         />

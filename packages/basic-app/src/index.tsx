@@ -22,3 +22,5 @@ export { QuickMenu } from "./Components/QuickMenu";
 export { default as ProgressBar } from "./Components/ProgressBar";
 
 export { default as SpinningButton, CancelButton } from "./Components/SpinningButton";
+
+export * from "./Components/SettingsCard";

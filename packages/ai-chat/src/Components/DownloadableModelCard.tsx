@@ -84,7 +84,7 @@ export function DownloadableModelCard(props: DownloadableModelCardProps)
                 {canDownload &&
                     <SplitButton
                         size="large"
-                        onClick={() => client.addChatModel({ provider: "node-llama-cpp", modelUri: model.modelUri!, startDownload: true })}
+                        onClick={() => client.addChatModel?.({ provider: "node-llama-cpp", modelUri: model.modelUri!, startDownload: true })}
                         icon={<Download />}
                         splitComponent={
                             status && status.downloadedSize > 0 && status.downloadedSize < status.totalSize
@@ -100,7 +100,7 @@ export function DownloadableModelCard(props: DownloadableModelCardProps)
                 {canStop &&
                     <SplitButton
                         size="large"
-                        onClick={() => client.stopDownloadChatModel(model.modelUri!)}
+                        onClick={() => client.stopDownloadChatModel?.(model.modelUri!)}
                         icon={
                             <FlexBox position="relative">
                                 <StopCircle />

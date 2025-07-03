@@ -6,7 +6,7 @@
             "DOM",
             "ESNext"
         ],
-        "moduleResolution": "Node",
+        "moduleResolution": "bundler",
         "jsx": "react-jsx",
         "strict": true,
         "esModuleInterop": true,

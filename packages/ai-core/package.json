@@ -23,7 +23,6 @@
         "@janole/try-catch": "^0.0.1"
     },
     "devDependencies": {
-        "tsup": "^8.5.0",
         "typescript": "^5.8.3"
     }
 }

@@ -243,7 +243,7 @@ export function ChatInput(props: ChatInputProps)
             {messageIndex === undefined && <Grid size={12} p={2}>
                 <TextField
                     // TODO: refactor possible memory leak
-                    inputRef={el => setTimeout(() => !hasActiveInput() && el?.focus(), 100)}
+                    inputRef={el => { setTimeout(() => !hasActiveInput() && el?.focus(), 100); }}
                     value={value}
                     multiline
                     maxRows={10}

@@ -64,4 +64,4 @@ This project is open-source and licensed under the MIT License.
 
 ---
 
-Created by Jan Ole Suhr | [https://janole.com](https://janole.com) | info@chatbandit.de
+Created and maintained by Jan Ole Suhr | [https://janole.com](https://janole.com) | info@chatbandit.de

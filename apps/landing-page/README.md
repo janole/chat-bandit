@@ -59,20 +59,4 @@ Connect to http://localhost:3000 to check out the landing page website.
 
 ---
 
-## Contributing
-
-Feel free to open issues or pull requests to improve the landing page. If you want to contribute:
-
-1. Fork the repo.
-2. Make your changes inside `apps/landing-page`.
-3. Submit a PR with a detailed description.
-
----
-
-## License
-
-Landing page source code is licensed under **MIT License**.
-
----
-
-Created and maintained by Jan Ole Suhr | [https://janole.com](https://janole.com)
+Created and maintained by Jan Ole Suhr | [https://janole.com](https://janole.com) | info@chatbandit.de

@@ -2,8 +2,7 @@ import { ReactNode, useCallback, useEffect, useMemo } from "react";
 import { ElectronAPI } from "@electron-toolkit/preload";
 import { ulid } from "ulid";
 import { create } from "zustand";
-import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore } from "@janole/ai-core";
-import { useDownloadStore } from "./DownloadStore";
+import { IChat, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TRemoveAccount, TRemoveChatModel, duplicateChat, useChatModelConfigStore, useChatStore, useChatTitle, ChatClientContext, TDownloadStatus, TDownloadStatusMap, TReturn, IChatClient, ChatStoreContext, createChatStore, DownloadStore } from "@janole/ai-core";
 
 const chatStore = createChatStore();
 

@@ -20,21 +20,34 @@
     "license": "ISC",
     "type": "module",
     "peerDependencies": {
+        "@google/genai": "^1.8.0",
         "electron": "^34.5.8",
         "node-llama-cpp": "^3.10.0",
+        "ollama": "^0.5.16",
+        "openai": "^5.8.2",
         "semver": "^7.7.2",
         "ulid": "^3.0.1",
         "use-broadcast-ts": "^2.0.1",
         "write-file-atomic": "^6.0.0",
-        "zustand": "^5.0.6"
-    },
-    "dependencies": {
+        "zustand": "^5.0.6",
+        "@electron-toolkit/preload": "^3.0.2",
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
         "@janole/ai-chat": "^0.0.1",
         "@janole/ai-core": "^0.0.1",
         "@janole/basic-app": "^0.0.1",
-        "@janole/try-catch": "^0.0.1"
+        "@janole/try-catch": "^0.0.1",
+        "@mui/icons-material": "^7.2.0",
+        "@mui/material": "^7.2.0",
+        "electron-store": "^8.2.0",
+        "glob": "^10.4.5",
+        "js-tiktoken": "^1.0.20",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
     },
     "devDependencies": {
+        "@types/react": "^18.3.23",
+        "@types/react-dom": "^18.3.7",
         "@types/semver": "^7.7.0",
         "@types/write-file-atomic": "^4.0.3",
         "typescript": "^5.8.3"

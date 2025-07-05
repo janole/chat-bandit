@@ -1,6 +1,6 @@
 import { create, createStore, StateCreator, StoreApi, useStore } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { shared } from 'use-broadcast-ts';
+import { shared as sharedViaBroadcast } from 'use-broadcast-ts';
 import { ulid } from 'ulid';
 import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage } from './types';
 import { createContext, useContext } from 'react';
@@ -342,6 +342,16 @@ interface IChatModelConfigStore
     toggleFavorite: (id: string) => void;
     setHidden: (id: string, hidden: boolean) => void;
     setOptions: (id: string, options: IChatModelOptions) => void;
+}
+
+export function shared<S extends object>(creator: StateCreator<S>, options?: any): StateCreator<S>
+{
+    if (typeof window !== "undefined" && typeof BroadcastChannel !== "undefined")
+    {
+        return sharedViaBroadcast(creator, options);
+    }
+
+    return creator;
 }
 
 export const useChatModelConfigStore = create<IChatModelConfigStore>()(

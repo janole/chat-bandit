@@ -7,12 +7,6 @@ import { useChatStore, IChatModelLlamaCpp, normalizeModelUri } from "@janole/ai-
 import { DownloadableModelCard } from "@janole/ai-chat";
 import { withAppContext } from "@renderer/AppContext";
 
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
-import "@fontsource/roboto/900.css";
-
 const themeOptions: ThemeOptions = {
     typography: {
         fontFamily: "Roboto",

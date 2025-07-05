@@ -2,7 +2,7 @@
     "name": "electron-app",
     "private": true,
     "productName": "Chat Bandit",
-    "version": "0.2.16",
+    "version": "0.2.17",
     "description": "An all-in-one AI assistant for your desktop.",
     "main": "./out/main/index.js",
     "author": "Jan Ole Suhr <ole@janole.com> (https://janole.com/)",

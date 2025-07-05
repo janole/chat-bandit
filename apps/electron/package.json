@@ -1,5 +1,5 @@
 {
-    "name": "@janole/chat-bandit",
+    "name": "electron-app",
     "private": true,
     "productName": "Chat Bandit",
     "version": "0.2.16",

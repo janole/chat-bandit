@@ -17,8 +17,6 @@
     "peerDependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.0",
-        "@fontsource/instrument-serif": "^5.2.6",
-        "@fontsource/roboto": "^5.2.6",
         "@mui/icons-material": "^7.1.2",
         "@mui/material": "^7.1.2",
         "lucide-react": "^0.523.0",

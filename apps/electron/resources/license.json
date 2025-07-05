@@ -95,7 +95,7 @@
   {
     "name": "@google/genai",
     "author": "",
-    "version": "1.7.0",
+    "version": "1.8.0",
     "description": "[![NPM Downloads](https://img.shields.io/npm/dw/%40google%2Fgenai)](https://www.npmjs.com/package/@google/genai) [![Node Current](https://img.shields.io/node/v/%40google%2Fgenai)](https://www.npmjs.com/package/@google/genai)",
     "license": "Apache-2.0",
     "homepage": "https://github.com/googleapis/js-genai#readme",
@@ -110,7 +110,7 @@
   {
     "name": "@icons-pack/react-simple-icons",
     "author": "Jorge Luis Calleja <jorge.calleja@wootsbot.dev>",
-    "version": "13.2.0",
+    "version": "13.3.0",
     "description": "This package provides the Simple Icons packaged as a set of React components.",
     "license": "MIT",
     "homepage": "https://github.com/icons-pack/react-simple-icons#readme",
@@ -120,13 +120,13 @@
       "directory": "react-simple-icons"
     },
     "installedName": "@icons-pack/react-simple-icons",
-    "installedVersion": "13.2.0",
+    "installedVersion": "13.3.0",
     "licenseText": "\nMIT License (MIT)\n\nCopyright (c) 2019 Jorge Luis Calleja A.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   },
   {
     "name": "@mui/icons-material",
     "author": "MUI Team",
-    "version": "7.1.2",
+    "version": "7.2.0",
     "description": "Material Design icons distributed as SVG React components.",
     "license": "MIT",
     "homepage": "https://mui.com/material-ui/material-icons/",
@@ -136,13 +136,13 @@
       "directory": "packages/mui-icons-material"
     },
     "installedName": "@mui/icons-material",
-    "installedVersion": "7.1.2",
+    "installedVersion": "7.2.0",
     "licenseText": "The MIT License (MIT)\n\nCopyright (c) 2014 Call-Em-All\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   },
   {
     "name": "@mui/material",
     "author": "MUI Team",
-    "version": "7.1.2",
+    "version": "7.2.0",
     "description": "Material UI is an open-source React component library that implements Google's Material Design. It's comprehensive and can be used in production out of the box.",
     "license": "MIT",
     "homepage": "https://mui.com/material-ui/",
@@ -152,13 +152,13 @@
       "directory": "packages/mui-material"
     },
     "installedName": "@mui/material",
-    "installedVersion": "7.1.2",
+    "installedVersion": "7.2.0",
     "licenseText": "The MIT License (MIT)\n\nCopyright (c) 2014 Call-Em-All\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   },
   {
     "name": "@uiw/codemirror-extensions-langs",
     "author": "kenny wong <wowohoo@qq.com>",
-    "version": "4.23.14",
+    "version": "4.24.0",
     "description": "Load languages Extensions for CodeMirror6.",
     "license": "MIT",
     "homepage": "https://uiwjs.github.io/react-codemirror/#/extensions/languages",
@@ -172,7 +172,7 @@
   {
     "name": "@uiw/codemirror-theme-github",
     "author": "kenny wong <wowohoo@qq.com>",
-    "version": "4.23.14",
+    "version": "4.24.0",
     "description": "Theme github for CodeMirror.",
     "license": "MIT",
     "homepage": "https://uiwjs.github.io/react-codemirror/#/theme/data/github/light",
@@ -186,7 +186,7 @@
   {
     "name": "@uiw/react-codemirror",
     "author": "kenny wong <wowohoo@qq.com>",
-    "version": "4.23.14",
+    "version": "4.24.0",
     "description": "CodeMirror component for React.",
     "license": "MIT",
     "homepage": "https://uiwjs.github.io/react-codemirror",
@@ -310,8 +310,8 @@
     "license": "MIT",
     "homepage": "https://marked.js.org",
     "repository": {
-      "type": "git",
-      "url": "git://github.com/markedjs/marked.git"
+      "url": "git://github.com/markedjs/marked.git",
+      "type": "git"
     },
     "installedName": "marked",
     "installedVersion": "15.0.12",

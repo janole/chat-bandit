@@ -31,9 +31,6 @@ export interface IChatStore
 
     getModels: () => IChatModel[];
     setModels: (models: IChatModel[]) => void;
-
-    // chatClient?: IChatClient;
-    // setChatClient: (chatClient: IChatClient) => void;
 }
 
 const chatStoreCreator: StateCreator<IChatStore> = (set, get) => ({
@@ -270,11 +267,6 @@ const chatStoreCreator: StateCreator<IChatStore> = (set, get) => ({
     {
         set({ models });
     },
-
-    // setChatClient: (chatClient: IChatClient) => 
-    // {
-    //     set({ chatClient });
-    // },
 });
 
 export const createChatStore = () => createStore<IChatStore>(chatStoreCreator);

@@ -13,7 +13,6 @@ import ChatOptions from './Components/ChatOptions';
 import ChatRedirect from './Components/ChatRedirect';
 import { ChatInputBox } from './Components/ChatInput';
 import SystemPromptIconButton from './Components/SystemPromptIconButton';
-// import { UpdateButton } from './Components/UpdateButton';
 import { HighlightedSearchWrapper, Navigation, useNavigationStore } from "./Navigation";
 
 interface ChatProps extends AppProps
@@ -119,7 +118,7 @@ export default function Chat(props: ChatProps): JSX.Element
                 <FlexBox gap={1} flexGrow={1}>
                     <Box ml="auto" />
 
-                    {/* TODO: fix1 <UpdateButton /> */}
+                    {props.rightToolbar}
 
                     {chatId &&
                         <SplitButton

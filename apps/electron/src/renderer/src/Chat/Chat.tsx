@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { ThemeOptions } from "@mui/material";
 import { Chat as AiChat, useChatClient, useChatStore } from "@janole/ai-chat";
 import { withAppContext } from "@renderer/AppContext";
+import { UpdateButton } from "@janole/ai-electron";
 
 const themeOptions: ThemeOptions = {
     typography: {
@@ -26,6 +27,7 @@ function Chat()
             toolbarLeftOffset="80px"
             fixedTernaryDarkMode="system"
             id={params.id ?? firstId}
+            rightToolbar={<UpdateButton />}
         />
     );
 }

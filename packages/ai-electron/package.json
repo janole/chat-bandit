@@ -2,12 +2,12 @@
     "name": "@janole/ai-electron",
     "version": "0.0.1",
     "description": "",
-    "main": "./src/index.tsx",
-    "types": "./src/index.tsx",
+    "main": "./src/index.ts",
+    "types": "./src/index.ts",
     "exports": {
         ".": {
-            "default": "./src/index.tsx",
-            "types": "./src/index.tsx"
+            "default": "./src/index.ts",
+            "types": "./src/index.ts"
         },
         "./electron": {
             "node": "./src/index.electron.ts",

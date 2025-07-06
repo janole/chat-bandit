@@ -5,7 +5,12 @@
         "apps/*",
         "packages/*"
     ],
+    "packageManager": "npm@11.3.0",
     "scripts": {
+        "dev": "turbo dev",
         "postinstall": "npm run postinstall --workspace=electron-app"
+    },
+    "devDependencies": {
+        "turbo": "^2.5.4"
     }
 }

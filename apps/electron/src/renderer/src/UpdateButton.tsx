@@ -4,7 +4,7 @@ import { Emergency } from "@mui/icons-material";
 import { lt } from "semver";
 import { SplitButton, SettingsCard, SettingsCardActions, SettingsCardContent } from "@janole/basic-app";
 import { MarkdownWrapper } from "@janole/ai-chat";
-import { downloadUpdate, installUpdate, useAppUpdateStore } from "../ElectronClient";
+import { downloadUpdate, installUpdate, useAppUpdateStore } from "@janole/ai-electron";
 
 function formatBytes(size: number, trim?: boolean)
 {

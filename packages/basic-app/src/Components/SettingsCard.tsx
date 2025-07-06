@@ -1,5 +1,6 @@
 import { BoxProps, CardContent, CardActions, Card, CardHeader, Divider, LinearProgress } from "@mui/material";
-import { AutoGrid, FlexBox, Grid } from "@janole/basic-app";
+import FlexBox from "./FlexBox";
+import AutoGrid, { Grid } from "./AutoGrid";
 
 interface SettingsCardProps
 {

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { ThemeOptions } from "@mui/material";
 import { Chat as AiChat, useChatClient, useChatStore } from "@janole/ai-chat";
 import { withAppContext } from "@renderer/AppContext";
-import { UpdateButton } from "@janole/ai-electron";
+import { UpdateButton } from "../UpdateButton";
 
 const themeOptions: ThemeOptions = {
     typography: {

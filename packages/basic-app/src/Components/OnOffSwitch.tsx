@@ -1,5 +1,5 @@
 import { Divider, InputAdornment, Switch, TextField } from "@mui/material";
-import { FlexBox } from "@janole/basic-app";
+import FlexBox from "./FlexBox";
 
 interface OnOffSwitchProps
 {

@@ -1,4 +1,4 @@
-import { app, Menu, MenuItemConstructorOptions } from "electron";
+import { app, Menu, MenuItemConstructorOptions, shell } from "electron";
 import { createWindow, send } from "./WindowManager";
 
 const macTemplate: MenuItemConstructorOptions[] = [
@@ -85,6 +85,13 @@ const macTemplate: MenuItemConstructorOptions[] = [
     {
         role: "help",
         submenu: [
+            {
+                label: `${import.meta.env.VITE_APP_NAME} Website`,
+                click: () => 
+                {
+                    shell.openExternal("https://chatbandit.de");
+                },
+            },
             {
                 label: "Open Source Licenses",
                 click: () => 

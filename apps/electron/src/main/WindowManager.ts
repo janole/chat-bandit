@@ -78,6 +78,8 @@ export function createMainWindow(): BrowserWindow
     return mainWindow = window;
 }
 
+export const getMainWindow = () => mainWindow;
+
 // TODO: refactor ...
 export function send(channel: string, ...args: any[]): void
 {

@@ -42,6 +42,7 @@
         "autosuggest-highlight": "^3.3.4",
         "electron-store": "^8.2.0",
         "electron-updater": "^6.1.7",
+        "fast-glob": "^3.3.3",
         "glob": "^11.0.2",
         "js-tiktoken": "^1.0.18",
         "lucide-react": "^0.474.0",

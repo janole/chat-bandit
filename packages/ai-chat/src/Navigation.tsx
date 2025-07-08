@@ -376,6 +376,7 @@ function SearchField()
     const search = useNavigationStore(state => state.search);
     const setSearch = useNavigationStore(state => state.setSearch);
     const setSearchResult = useNavigationStore(state => state.setSearchResult);
+    const { findInChats } = useChatClient();
 
     useEffect(() => 
     {
@@ -385,15 +386,15 @@ function SearchField()
             return;
         }
 
-        // TODO: fix1
-        // window.electron.ipcRenderer.invoke("find-in-chats", search)
-        //     .then(({ result }) => 
-        //     {
-        //         setSearchResult(result);
-        //     });
+        findInChats?.(search).then(result =>
+        {
+            console.log("R", result);
+            result && setSearchResult(result);
+        });
     }, [
         search,
         setSearchResult,
+        findInChats,
     ]);
 
     return (

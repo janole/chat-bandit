@@ -198,6 +198,7 @@ const openModelManagerWindow = () => invoke("create-window", "model-manager", "/
 const showFileInFileManager = (file: string) => invoke("show-file-in-file-manager", file);
 
 const openInBrowser = (url: string) => invoke("open-browser", "browser", url);
+const findInChats = (search: string) => invoke<IChat["id"][]>("find-in-chats", search);
 
 /* export */ function useChatClient(props: UseChatClientProps)
 {
@@ -220,6 +221,8 @@ const openInBrowser = (url: string) => invoke("open-browser", "browser", url);
         generateChatResponse,
         abortChat,
         showChatFileInFileManager,
+
+        findInChats,
 
         addChatModel,
         deleteChatModel,

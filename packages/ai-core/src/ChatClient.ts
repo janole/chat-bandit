@@ -21,6 +21,10 @@ export interface IChatClient
 
     //
 
+    findInChats?: (search: string) => Promise<IChat["id"][] | undefined>;
+
+    //
+
     addAccount?: (params: TAddAccount) => Promise<void>;
     removeAccount?: (params: TRemoveAccount) => Promise<void>;
 

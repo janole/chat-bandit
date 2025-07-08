@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useRef } from "react";
 import { alpha, Box, Collapse, Divider, IconButton, InputAdornment, ListItemButton, ListItemText, TextField, Theme, Typography } from "@mui/material";
-import { Backspace, Chat, Delete, ExpandLess, ExpandMore, MoreHoriz, RestoreFromTrash, Search, SourceOutlined, Star } from "@mui/icons-material";
+import { Cancel, Chat, Delete, ExpandLess, ExpandMore, MoreHoriz, RestoreFromTrash, Search, SourceOutlined, Star } from "@mui/icons-material";
 import { Copy } from "lucide-react";
 import { decodeTime } from "ulid";
 import { create } from "zustand";
@@ -422,13 +422,13 @@ function SearchField()
                         </InputAdornment>
                     ),
                     endAdornment: !!search?.length && (
-                        <InputAdornment position="end" sx={{ mr: -1 }}>
+                        <InputAdornment position="end" sx={{ mr: -1.2 }}>
                             <SplitButton
                                 onClick={() => setSearch("")}
                                 variant="text"
                                 color="neutral"
                             >
-                                <Backspace fontSize="small" />
+                                <Cancel fontSize="small" />
                             </SplitButton>
                         </InputAdornment>
                     )

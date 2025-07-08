@@ -388,7 +388,6 @@ function SearchField()
 
         findInChats?.(search).then(result =>
         {
-            console.log("R", result);
             result && setSearchResult(result);
         });
     }, [

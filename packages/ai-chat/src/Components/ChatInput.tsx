@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Avatar, AvatarGroup, Box, Button, IconButton, TextField, Theme, Tooltip, useTheme } from '@mui/material';
-import { AddPhotoAlternate, ArrowCircleLeft, Save, Tune } from '@mui/icons-material';
+import { AddPhotoAlternate, ArrowCircleLeft, FilePresent, Save, Tune } from '@mui/icons-material';
 import { SquarePen } from 'lucide-react';
 import ReactCodeMirror, { EditorView, placeholder } from '@uiw/react-codemirror';
 import { markdown } from '@codemirror/lang-markdown';
@@ -151,7 +151,7 @@ export function ChatInput(props: ChatInputProps)
     // set, if editing an existing message
     const messageIndex = useChatStore(state => state.chats[chatId]?.currentPrompt?.messageIndex);
 
-    const { generateChatResponse, abortChat } = useChatClient();
+    const { generateChatResponse, abortChat, addFileContext } = useChatClient();
 
     const showChatOptions = useNavigationStore(state => state.showChatOptions);
     const setShowChatOptions = useNavigationStore(state => state.setShowChatOptions);
@@ -332,6 +332,16 @@ export function ChatInput(props: ChatInputProps)
                     >
                         <Tune fontSize="small" />
                     </SplitButton>
+
+                    {addFileContext &&
+                        <SplitButton
+                            color="neutral"
+                            variant="text"
+                            onClick={() => addFileContext()}
+                        >
+                            <FilePresent fontSize="small" />
+                        </SplitButton>
+                    }
 
                     <FlexBox flexGrow={1} />
 

@@ -44,6 +44,8 @@ export interface IChatClient
     openModelManagerWindow?: () => Promise<unknown>;
     openInBrowser?: (url: string) => Promise<unknown>;
 
+    addFileContext?: () => Promise<unknown>;
+
     //
 
     navigate?: (pathname: string) => void;

@@ -5,6 +5,7 @@ import { tryCatchCache } from "@janole/try-catch";
 import { registerAdapter, registerStore } from "@janole/ai-electron/electron";
 import { createMainWindow, registerWindowManager, send } from "./WindowManager";
 import { createMenu } from "./MenuManager";
+import registerFileContextManager from "./FileContextManager";
 
 function registerAutoUpdater()
 {
@@ -89,6 +90,7 @@ app.whenReady().then(() =>
     registerStore();
     registerAdapter({ send });
     registerAutoUpdater();
+    registerFileContextManager();
 
     createMainWindow();
 

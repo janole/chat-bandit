@@ -6,11 +6,17 @@
         "packages/*"
     ],
     "packageManager": "npm@11.3.0",
+    "type": "module",
     "scripts": {
         "dev": "turbo dev",
         "postinstall": "npm run postinstall --workspace=electron-app"
     },
     "devDependencies": {
+        "@stylistic/eslint-plugin": "^5.1.0",
+        "@typescript-eslint/eslint-plugin": "^8.36.0",
+        "@typescript-eslint/parser": "^8.36.0",
+        "eslint-plugin-simple-import-sort": "^12.1.1",
+        "eslint-plugin-unicorn": "^59.0.1",
         "turbo": "^2.5.4"
     }
 }

@@ -502,8 +502,6 @@ export default function ChatView(props: ChatViewProps)
         ...sxLastContainer,
         "& .buttons": { visibility: "hidden", opacity: 0, transition: "0.25s opacity", ...sxLastContainer["& .buttons"] },
         "&:hover": {
-            // TODO: fix1
-            // ...sxLastContainer["&:hover"],
             "& .buttons": { visibility: "visible", opacity: 1 },
         },
         scrollMarginTop: `${contentTopBarHeight}px`,

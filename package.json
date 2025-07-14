@@ -9,6 +9,8 @@
     "type": "module",
     "scripts": {
         "dev": "turbo dev",
+        "lint": "eslint",
+        "lint:fix": "eslint --fix",
         "postinstall": "npm run postinstall --workspace=electron-app"
     },
     "devDependencies": {

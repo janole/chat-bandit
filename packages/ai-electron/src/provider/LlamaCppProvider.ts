@@ -269,6 +269,7 @@ async function normalizeModel(model: IChatModelLlamaCpp): Promise<IChatModelLlam
                 normalizedModel.name = info.metadata.general.name;
                 normalizedModel.contextLength = info.architectureMetadata.context_length;
                 normalizedModel.parameterSize = info.metadata.general.size_label;
+                // @ts-expect-error
                 normalizedModel.quantizationLevel = llamaFileTypeToString(info.metadata.general.file_type);
             }
         }

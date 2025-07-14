@@ -1,5 +1,6 @@
+import { useChatClient } from "@janole/ai-core";
+import { useEffect } from "react";
 import { useChatStore } from "@janole/ai-core";
-// import { Navigate } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 import { decodeTime } from "ulid";
 
@@ -11,6 +12,8 @@ const sortByUpdatedAt = (a: ISortBy, b: ISortBy) => getUpdatedAt(a) - getUpdated
 
 export default function ChatRedirect({ chatId }: { chatId?: string })
 {
+    const { setCurrentChat } = useChatClient();
+
     const redirectId = useChatStore(useShallow(state =>
     {
         if (chatId && state.chats[chatId])
@@ -18,12 +21,19 @@ export default function ChatRedirect({ chatId }: { chatId?: string })
             return undefined;
         }
 
-        // TODO: refactor (deletedAt ...)
-        return Object.keys(state.chats).filter(id => state.chats[id].deletedAt !== "deleted").toSorted((a, b) => sortByUpdatedAt(state.chats[b], state.chats[a]))[0];
+        // Get the most recent non-deleted chat
+        return Object.keys(state.chats)
+            .filter(id => state.chats[id].deletedAt !== "deleted")
+            .toSorted((a, b) => sortByUpdatedAt(state.chats[b], state.chats[a]))[0];
     }));
 
-    // TODO: fix1
-    // return !!redirectId && <Navigate to={`/chat/${redirectId}`} replace={true} />;
+    useEffect(() =>
+    {
+        redirectId && setCurrentChat?.(redirectId);
+    }, [
+        redirectId,
+        setCurrentChat,
+    ]);
 
     return null;
-};
+}

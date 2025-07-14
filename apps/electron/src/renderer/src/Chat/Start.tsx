@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
-import { useAppState, useChatClient } from "@janole/ai-core";
+import { useChatClient } from "@janole/ai-core";
 import { withAppContext } from "@renderer/AppContext";
+import { useAppState } from "@janole/ai-chat";
 
 function Start()
 {

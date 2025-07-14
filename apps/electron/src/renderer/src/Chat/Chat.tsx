@@ -1,7 +1,6 @@
-import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ThemeOptions } from "@mui/material";
-import { Chat as AiChat, useChatClient, useChatStore } from "@janole/ai-chat";
+import { Chat as AiChat, useAppState, useChatRedirect } from "@janole/ai-chat";
 import { withAppContext } from "@renderer/AppContext";
 import { UpdateButton } from "../UpdateButton";
 
@@ -15,18 +14,15 @@ function Chat()
 {
     const params = useParams<{ id: string }>();
 
-    const { setCurrentChat } = useChatClient();
-
-    const firstId = useChatStore(state => Object.keys(state.chats).sort((a, b) => b.localeCompare(a))[0]);
-
-    useEffect(() => { !params.id && firstId && setCurrentChat?.(firstId); }, [params.id, firstId, setCurrentChat]);
+    useAppState();
+    useChatRedirect(params.id);
 
     return (
         <AiChat
             themeOptions={themeOptions}
             toolbarLeftOffset="80px"
             fixedTernaryDarkMode="system"
-            id={params.id ?? firstId}
+            id={params.id}
             rightToolbar={<UpdateButton />}
         />
     );

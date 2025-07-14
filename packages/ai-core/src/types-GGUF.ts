@@ -125,6 +125,6 @@ function llamaFileTypeToBits(fileType?: LlamaFileType): number | undefined
 
 export
 {
-    llamaFileTypeToString,
     llamaFileTypeToBits,
+    llamaFileTypeToString,
 };

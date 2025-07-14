@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useMemo, useRef } from "react";
-import { Grid as MuiGrid, GridProps as MuiGridProps, Box } from "@mui/material";
+import { Box,Grid as MuiGrid, GridProps as MuiGridProps } from "@mui/material";
+import { createContext, ReactNode, useContext, useMemo, useRef } from "react";
 import { useResizeObserver } from "usehooks-ts";
 
 type TBreakpointName = "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | undefined;

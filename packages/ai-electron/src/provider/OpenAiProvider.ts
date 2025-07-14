@@ -1,10 +1,11 @@
+import { IAddAccountOpenAI, IAddAccountOpenRouter, IChat, IChatMessage, IChatModel, IChatModelOpenAI, IChatModelOpenRouter, pluckModelInfo, sanitizeMessages, TChatState, TRemoveAccount, TSendFunc } from "@janole/ai-core";
+import tryCatch, { tryCatchCache } from "@janole/try-catch";
+import { safeStorage } from "electron";
 import OpenAI from "openai";
-import { ulid } from "ulid";
 import { ChatCompletionContentPartImage, ChatCompletionMessageParam } from "openai/resources";
 import { ChatCompletionCreateParamsStreaming } from "openai/resources/chat/completions";
-import { safeStorage } from "electron";
-import tryCatch, { tryCatchCache } from "@janole/try-catch";
-import { IChat, IChatMessage, IChatModel, IChatModelOpenAI, pluckModelInfo, sanitizeMessages, TChatState, TRemoveAccount, IChatModelOpenRouter, IAddAccountOpenAI, IAddAccountOpenRouter, TSendFunc } from "@janole/ai-core";
+import { ulid } from "ulid";
+
 import { createAccountStore } from "../utils/Accounts";
 
 interface IAccountOpenAI
@@ -273,8 +274,8 @@ async function addOpenAiAccount(account: IAccountOpenAI): Promise<IChatModelOpen
 
 async function listOpenRouterModels(): Promise<IChatModel[]>
 {
-    const url = 'https://openrouter.ai/api/v1/models';
-    const options = { method: 'GET' };
+    const url = "https://openrouter.ai/api/v1/models";
+    const options = { method: "GET" };
 
     try
     {

@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter';
-
 import "./globals.css";
+
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import type { Metadata } from "next";
 
 const SITE_URL = process.env.NEXT_PUBLIC_METADATA_BASE_URL || "https://chatbandit.de";
 

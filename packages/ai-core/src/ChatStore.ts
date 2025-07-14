@@ -1,8 +1,9 @@
-import { create, createStore, StateCreator, StoreApi, useStore } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { shared as sharedViaBroadcast } from 'use-broadcast-ts';
-import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage } from './types';
-import { createContext, useContext } from 'react';
+import { createContext, useContext } from "react";
+import { shared as sharedViaBroadcast } from "use-broadcast-ts";
+import { create, createStore, StateCreator, StoreApi, useStore } from "zustand";
+import { persist } from "zustand/middleware";
+
+import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage } from "./types";
 
 export interface IChatStore
 {
@@ -277,7 +278,7 @@ export const ChatStoreContext = createContext<IChatStoreC | null>(null);
 export const useChatStore = <T,>(selector: (state: IChatStore) => T): T =>
 {
     const store = useContext(ChatStoreContext);
-    if (!store) throw new Error('ChatStoreContext not found');
+    if (!store) throw new Error("ChatStoreContext not found");
     return useStore(store, selector);
 };
 

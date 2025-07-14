@@ -1,6 +1,7 @@
 import { CssBaseline } from "@mui/material";
-import { AppThemeProvider, useAppTheme } from "./Helper";
+
 import { AppProps } from "./AppProps";
+import { AppThemeProvider, useAppTheme } from "./Helper";
 
 export default function FullscreenApp(props: AppProps)
 {

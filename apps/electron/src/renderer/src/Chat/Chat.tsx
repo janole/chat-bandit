@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
-import { ThemeOptions } from "@mui/material";
 import { Chat as AiChat, useAppState, useChatRedirect } from "@janole/ai-chat";
+import { ThemeOptions } from "@mui/material";
 import { withAppContext } from "@renderer/AppContext";
+import { useParams } from "react-router-dom";
+
 import { UpdateButton } from "../UpdateButton";
 
 const themeOptions: ThemeOptions = {

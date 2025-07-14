@@ -17,7 +17,7 @@ const result = [];
 
 for (const [name, { version }] of Object.entries(dependencies)) 
 {
-    const packageJson = JSON.parse(execSync(`npm view --no-workspaces --json ${name} name author version description license homepage repository`, { encoding: 'utf8' }).trim());
+    const packageJson = JSON.parse(execSync(`npm view --no-workspaces --json ${name} name author version description license homepage repository`, { encoding: "utf8" }).trim());
 
     const licenseFile = globSync(`${modulesDir}/${name}/{license,license.txt,license.md}`, { nodir: true, nocase: true });
 

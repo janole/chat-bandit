@@ -1,4 +1,5 @@
 import { alpha, Card as MuiCard, CardProps, useTheme } from "@mui/material";
+
 import BackgroundEffects from "./BackgroundEffects";
 
 export default function Card(props: CardProps)

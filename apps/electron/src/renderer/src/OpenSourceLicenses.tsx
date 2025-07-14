@@ -1,8 +1,8 @@
-import { Typography } from "@mui/material";
-import { Options } from "react-markdown";
-import App from "@renderer/App";
-import { ContentContainer, FlexBox } from "@janole/basic-app";
 import { htmlEncode, markdownComponents, MarkdownWithHtml } from "@janole/ai-chat";
+import { ContentContainer, FlexBox } from "@janole/basic-app";
+import { Typography } from "@mui/material";
+import App from "@renderer/App";
+import { Options } from "react-markdown";
 
 import license from "../../../resources/license.json";
 

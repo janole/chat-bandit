@@ -1,9 +1,9 @@
 "use client";
 
-import { createContext, useContext } from 'react';
-import { IconButton } from '@mui/material';
-import { DarkMode, InsertLink, LightMode } from '@mui/icons-material';
-import { TernaryDarkMode, useMediaQuery, useTernaryDarkMode } from 'usehooks-ts';
+import { DarkMode, InsertLink, LightMode } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { createContext, useContext } from "react";
+import { TernaryDarkMode, useMediaQuery, useTernaryDarkMode } from "usehooks-ts";
 
 const DarkModeContext = createContext<IUseDarkModeToggleResult>({ isDarkMode: false, mode: "light" });
 
@@ -57,8 +57,8 @@ export function TernaryDarkModeToggle()
 
     return (
         <IconButton onClick={toggleTernaryDarkMode}>
-            {ternaryDarkMode === 'dark' ? <DarkMode />
-                : ternaryDarkMode === 'light' ? <LightMode />
+            {ternaryDarkMode === "dark" ? <DarkMode />
+                : ternaryDarkMode === "light" ? <LightMode />
                     : <InsertLink />
             }
         </IconButton>

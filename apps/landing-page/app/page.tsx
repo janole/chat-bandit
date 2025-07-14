@@ -1,18 +1,19 @@
 "use client";
 
-import { ReactNode } from "react";
-import { Box, Button, Divider, StyledEngineProvider, useTheme, Typography, ThemeOptions, CardHeader, IconButton, CardContent, Grid, BoxProps, Link } from "@mui/material";
-import { Brain, Download, Zap, Shield, Cpu, Globe, Settings, Heart, MessageCircle, Sparkles, ShieldCheck, Computer, Bug } from "lucide-react";
-import { SiGithub, SiApple, SiX, SiLinux } from "@icons-pack/react-simple-icons";
+import { SiApple, SiGithub, SiLinux,SiX } from "@icons-pack/react-simple-icons";
 import { BasicApp, ContentContainer, FlexBox, TernaryDarkModeToggle } from "@janole/basic-app";
-import useDownloadInfo, { IDownloadInfo } from "../components/DownloadInfo";
-import ColorText, { sxColorTextGradient } from "../components/ColorText";
+import { Box, BoxProps, Button, CardContent, CardHeader, Divider, Grid, IconButton, Link,StyledEngineProvider, ThemeOptions, Typography, useTheme } from "@mui/material";
+import { Brain, Bug,Computer, Cpu, Download, Globe, Heart, MessageCircle, Settings, Shield, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { ReactNode } from "react";
+
 import BackgroundEffects from "../components/BackgroundEffects";
-import { Block, Page, Section, TextBlock } from "../components/Block";
-import HeroHeadline from "../components/HeroHeadline";
 import Badge from "../components/Badge";
-import { FeatureBox, FeatureGrid, WobbleGrid } from "../components/Feature";
+import { Block, Page, Section, TextBlock } from "../components/Block";
 import Card from "../components/Card";
+import ColorText, { sxColorTextGradient } from "../components/ColorText";
+import useDownloadInfo, { IDownloadInfo } from "../components/DownloadInfo";
+import { FeatureBox, FeatureGrid, WobbleGrid } from "../components/Feature";
+import HeroHeadline from "../components/HeroHeadline";
 
 const appName = "Chat Bandit";
 
@@ -112,7 +113,7 @@ const handleDownload = (fileName: string) =>
         return;
     }
 
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = `/downloads/${fileName}`;
     link.setAttribute("download", fileName);
 
@@ -209,7 +210,7 @@ const Screenshot = () =>
     const screenshot = `/screenshot-${theme.palette.mode}.png`;
 
     return (
-        <Box component="img" maxWidth="80vw" maxHeight="90vh" src={screenshot} alt={`Screenshot`} />
+        <Box component="img" maxWidth="80vw" maxHeight="90vh" src={screenshot} alt={"Screenshot"} />
     );
 };
 
@@ -352,7 +353,7 @@ function DownloadInfoBox(props: DownloadInfoBoxProps)
                             <Block sx={{ justifySelf: align }}>
                                 <Box width="100%" typography="caption" fontWeight={400} color="text.secondary" textAlign={align}>
                                     {info.fileName}
-                                    {', '}
+                                    {", "}
                                     {new Date(info.fileDate).toLocaleDateString()}
                                 </Box>
                             </Block>

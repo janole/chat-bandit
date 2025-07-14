@@ -1,5 +1,5 @@
-import { JSX, ReactNode } from "react";
 import { Theme, ThemeOptions } from "@mui/material";
+import { JSX, ReactNode } from "react";
 import { TernaryDarkMode } from "usehooks-ts";
 
 export interface AppProps

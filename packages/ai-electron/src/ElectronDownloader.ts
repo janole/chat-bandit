@@ -1,11 +1,11 @@
+import { normalizeModelUri,TDownloadStatusMap, TSendFunc } from "@janole/ai-core";
+import tryCatch from "@janole/try-catch";
 import { app, powerMonitor } from "electron";
-import path from "path";
 import { rm, stat } from "fs/promises";
 import { createModelDownloader } from "node-llama-cpp";
-import tryCatch from "@janole/try-catch";
-import { TDownloadStatusMap, TSendFunc, normalizeModelUri } from "@janole/ai-core";
+import path from "path";
 
-const modelsPath = path.join(app.getPath('userData'), 'models');
+const modelsPath = path.join(app.getPath("userData"), "models");
 
 const abortControllers = new Map<string, AbortController>();
 
@@ -158,9 +158,9 @@ function getDownloadStatus()
 
 export
 {
+    getDownloadStatus,
     modelsPath,
+    removeDownload,
     startDownload,
     stopDownload,
-    removeDownload,
-    getDownloadStatus,
 };

@@ -1,8 +1,8 @@
+import { useNavigationStore } from "@janole/ai-chat";
 import { IChat } from "@janole/ai-core";
+import { ElectronChatProvider } from "@janole/ai-electron";
 import { FC, ReactNode, useCallback, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { ElectronChatProvider } from "@janole/ai-electron";
-import { useNavigationStore } from "@janole/ai-chat";
 
 export function AppContext(props: { children?: ReactNode })
 {

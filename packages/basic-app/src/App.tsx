@@ -1,11 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { alpha, Box, BoxProps, CssBaseline, Drawer } from "@mui/material";
+import { useRef, useState } from "react";
+
+import { AppProps } from "./AppProps";
+import FlexBox from "./Components/FlexBox";
 import { AppThemeProvider, useAppTheme } from "./Helper";
 import useResizeWatcher, { useLayoutStore } from "./ResizeWatcher";
-import FlexBox from "./Components/FlexBox";
-import { AppProps } from "./AppProps";
 
 interface PaddingProps extends BoxProps
 {
@@ -65,7 +66,7 @@ export default function App(props: AppProps)
                     minHeight: "56px",
                     WebkitUserSelect: "none",
                     WebkitAppRegion: "drag",
-                    '& button, & a': {
+                    "& button, & a": {
                         WebkitAppRegion: "no-drag",
                     },
                     backgroundColor: theme.palette.background.contentTopBar,
@@ -111,7 +112,7 @@ export default function App(props: AppProps)
                     sx={{
                         WebkitUserSelect: "none",
                         WebkitAppRegion: "no-drag",
-                        '& button, & a': {
+                        "& button, & a": {
                             WebkitAppRegion: "no-drag",
                         },
                     }}

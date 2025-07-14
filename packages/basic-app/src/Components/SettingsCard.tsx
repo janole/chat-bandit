@@ -1,6 +1,7 @@
-import { BoxProps, CardContent, CardActions, Card, CardHeader, Divider, LinearProgress } from "@mui/material";
-import FlexBox from "./FlexBox";
+import { BoxProps, Card, CardActions, CardContent, CardHeader, Divider, LinearProgress } from "@mui/material";
+
 import AutoGrid, { Grid } from "./AutoGrid";
+import FlexBox from "./FlexBox";
 
 interface SettingsCardProps
 {

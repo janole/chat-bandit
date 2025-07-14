@@ -1,4 +1,5 @@
 import { Divider, InputAdornment, Switch, TextField } from "@mui/material";
+
 import FlexBox from "./FlexBox";
 
 interface OnOffSwitchProps
@@ -42,7 +43,7 @@ export default function OnOffSwitch(props: OnOffSwitchProps)
                                     onChange={toggleValue}
                                     slotProps={{
                                         input: {
-                                            "aria-label": 'controlled',
+                                            "aria-label": "controlled",
                                         },
                                     }}
                                 />

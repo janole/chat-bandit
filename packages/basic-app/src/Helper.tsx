@@ -1,8 +1,9 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
-import { alpha, Breakpoint, createTheme, darken, lighten, PaletteColor, PaletteMode, responsiveFontSizes, Shadows, SimplePaletteColorOptions, Theme, ThemeOptions, ThemeProvider, useMediaQuery, useTheme } from '@mui/material';
-import { deepmerge } from '@mui/utils';
-import { TernaryDarkMode } from 'usehooks-ts';
-import { IUseDarkModeToggleResult, TernaryDarkModeProvider, useDarkModeToggle } from './Components/TernaryDarkMode';
+import { alpha, Breakpoint, createTheme, darken, lighten, PaletteColor, PaletteMode, responsiveFontSizes, Shadows, SimplePaletteColorOptions, Theme, ThemeOptions, ThemeProvider, useMediaQuery, useTheme } from "@mui/material";
+import { deepmerge } from "@mui/utils";
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import { TernaryDarkMode } from "usehooks-ts";
+
+import { IUseDarkModeToggleResult, TernaryDarkModeProvider, useDarkModeToggle } from "./Components/TernaryDarkMode";
 
 const defaultTheme = createTheme();
 
@@ -37,7 +38,7 @@ declare module "@mui/material/styles"
     }
 }
 
-declare module '@mui/material/Button'
+declare module "@mui/material/Button"
 {
     interface ButtonPropsColorOverrides
     {
@@ -50,7 +51,7 @@ declare module '@mui/material/Button'
     }
 }
 
-declare module '@mui/material/IconButton'
+declare module "@mui/material/IconButton"
 {
     interface IconButtonPropsColorOverrides
     {
@@ -63,7 +64,7 @@ declare module '@mui/material/IconButton'
     }
 }
 
-declare module '@mui/material/Chip'
+declare module "@mui/material/Chip"
 {
     interface ChipPropsColorOverrides
     {
@@ -76,7 +77,7 @@ declare module '@mui/material/Chip'
     }
 }
 
-declare module '@mui/material/CircularProgress'
+declare module "@mui/material/CircularProgress"
 {
     interface CircularProgressPropsColorOverrides
     {
@@ -89,7 +90,7 @@ declare module '@mui/material/CircularProgress'
     }
 }
 
-declare module '@mui/material/Slider'
+declare module "@mui/material/Slider"
 {
     interface SliderPropsColorOverrides
     {
@@ -160,9 +161,9 @@ const createThemedComponents = (theme: Theme): Theme =>
                             textDecorationColor: theme.palette.primary.main,
                             textUnderlineThickness: "2px",
                         },
-                        '&[disabled]': {
+                        "&[disabled]": {
                             color: theme.palette.action.disabled,
-                            pointerEvents: 'none',
+                            pointerEvents: "none",
                         },
                     },
                 },
@@ -228,7 +229,7 @@ const createThemedComponents = (theme: Theme): Theme =>
             MuiAutocomplete: {
                 styleOverrides: {
                     option: {
-                        '&[aria-selected="true"], &[aria-selected="true"] svg': {
+                        "&[aria-selected=\"true\"], &[aria-selected=\"true\"] svg": {
                             color: theme.palette.primary.main,
                             backgroundColor: "unset",
                         },
@@ -387,8 +388,8 @@ function HydrationHackWrapperForNextJS(props: { children?: ReactNode })
 
     useEffect(() =>
     {
-        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setMode(prefersDarkMode ? 'dark' : 'light');
+        const prefersDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        setMode(prefersDarkMode ? "dark" : "light");
     }, []);
 
     return mode ? props.children : null;
@@ -423,6 +424,6 @@ export function useWidth()
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const matches = useMediaQuery(theme.breakpoints.up(key));
             return !output && matches ? key : output;
-        }, null) || 'xs'
+        }, null) || "xs"
     );
 }

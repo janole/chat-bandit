@@ -1,7 +1,7 @@
 import { app, ipcMain } from "electron";
-import path from "path";
 import { existsSync, mkdirSync } from "fs";
 import { readFile } from "fs/promises";
+import path from "path";
 import writeFileAtomic from "write-file-atomic";
 
 export function registerStore()

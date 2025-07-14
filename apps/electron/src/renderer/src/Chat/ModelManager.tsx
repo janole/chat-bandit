@@ -1,5 +1,5 @@
-import { ThemeOptions } from "@mui/material";
 import { ModelManager as AiModelManager } from "@janole/ai-chat";
+import { ThemeOptions } from "@mui/material";
 import { withAppContext } from "@renderer/AppContext";
 
 const themeOptions: ThemeOptions = {

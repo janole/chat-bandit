@@ -1,17 +1,18 @@
-import { app, BrowserWindow, ipcMain, nativeTheme, shell } from 'electron';
-import { is } from '@electron-toolkit/utils';
+import { is } from "@electron-toolkit/utils";
+import { app, BrowserWindow, ipcMain, nativeTheme, shell } from "electron";
 import electronUpdater from "electron-updater";
-import { join } from 'path';
+import { join } from "path";
+
 import icon from "../../resources/icon.png?asset";
 
 function createPeristentPartitionName(name: string)
 {
-    return "persist:" + name.replace(/[^a-zA-Z0-9_-]/g, '_');
+    return "persist:" + name.replace(/[^a-zA-Z0-9_-]/g, "_");
 }
 
 const getBackgroundColor = () => nativeTheme.shouldUseDarkColors ? "#000" : "#FFF";
 
-nativeTheme.on('updated', () =>
+nativeTheme.on("updated", () =>
 {
     BrowserWindow.getAllWindows().forEach(window => window.setBackgroundColor(
         getBackgroundColor()
@@ -129,9 +130,9 @@ export function createWindow(id: string, url: string, options?: ICreateWindowOpt
 
         windows.set(id, window);
 
-        window.once('ready-to-show', () => window?.show());
+        window.once("ready-to-show", () => window?.show());
 
-        window.on('closed', () =>
+        window.on("closed", () =>
         {
             window = undefined;
             windows.delete(id);
@@ -160,7 +161,7 @@ export function createWindow(id: string, url: string, options?: ICreateWindowOpt
         // Load the remote URL for development or the local html file for production.
         if (is.dev && process.env["ELECTRON_RENDERER_URL"])
         {
-            window.loadURL(process.env["ELECTRON_RENDERER_URL"] + '/#/' + url.replace(/^\//, ""));
+            window.loadURL(process.env["ELECTRON_RENDERER_URL"] + "/#/" + url.replace(/^\//, ""));
         }
         else
         {
@@ -204,9 +205,9 @@ export function createBrowser(id: string, url: string, options?: IBrowserWindowO
 
         browser.set(id, window);
 
-        window.once('ready-to-show', () => window?.show());
+        window.once("ready-to-show", () => window?.show());
 
-        window.on('closed', () =>
+        window.on("closed", () =>
         {
             window = undefined;
             browser.delete(id);

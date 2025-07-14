@@ -2,7 +2,7 @@ import { IChat } from "./types";
 
 function ellipsize(text: string, maxLength: number)
 {
-    return (text.length <= maxLength) ? text : text.slice(0, maxLength - 3) + '...';
+    return (text.length <= maxLength) ? text : text.slice(0, maxLength - 3) + "...";
 }
 
 export function getSummaryContent(chat: IChat)

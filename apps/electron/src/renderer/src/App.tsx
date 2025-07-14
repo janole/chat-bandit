@@ -1,4 +1,4 @@
-import { PanelApp, AppProps } from "@janole/basic-app";
+import { AppProps,PanelApp } from "@janole/basic-app";
 
 export default function App(props: AppProps)
 {

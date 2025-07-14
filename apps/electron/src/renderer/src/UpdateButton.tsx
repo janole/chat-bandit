@@ -1,16 +1,16 @@
-import { useState } from "react";
-import { Box, Dialog } from "@mui/material";
-import { Emergency } from "@mui/icons-material";
-import { lt } from "semver";
-import { SplitButton, SettingsCard, SettingsCardActions, SettingsCardContent } from "@janole/basic-app";
 import { MarkdownWrapper } from "@janole/ai-chat";
 import { downloadUpdate, installUpdate, useAppUpdateStore } from "@janole/ai-electron";
+import { SettingsCard, SettingsCardActions, SettingsCardContent,SplitButton } from "@janole/basic-app";
+import { Emergency } from "@mui/icons-material";
+import { Box, Dialog } from "@mui/material";
+import { useState } from "react";
+import { lt } from "semver";
 
 function formatBytes(size: number, trim?: boolean)
 {
     const i = size == 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
     const v = (size / Math.pow(1024, i)).toFixed(2);
-    return (trim ? +v * 1 : v) + ['B', 'kB', 'MB', 'GB', 'TB'][i];
+    return (trim ? +v * 1 : v) + ["B", "kB", "MB", "GB", "TB"][i];
 }
 
 interface IUpdateDialog
@@ -70,7 +70,7 @@ function UpdateDialog(props: IUpdateDialog)
                 <SettingsCardContent variant="notice">
                     <Box my={-1}>
                         {(info?.state === "idle" || !info?.state) &&
-                            <MarkdownWrapper markdown={`There's an update available. Would you like to download it now?`} />
+                            <MarkdownWrapper markdown={"There's an update available. Would you like to download it now?"} />
                         }
                         {info?.state === "downloading" &&
                             <MarkdownWrapper markdown={`The new app update is being downloaded ... ${(info.progress?.percent ?? 0).toFixed(2)}% of ${formatBytes(info.progress?.total ?? 0)}`} />

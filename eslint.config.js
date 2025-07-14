@@ -1,9 +1,9 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import globals from "globals";
 import stylistic from "@stylistic/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import { defineConfig, globalIgnores } from "eslint/config";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import globals from "globals";
 
 export default defineConfig([
     {

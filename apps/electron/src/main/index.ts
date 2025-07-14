@@ -1,10 +1,11 @@
-import { app, BrowserWindow, Menu, ipcMain } from "electron";
 import { electronApp, optimizer } from "@electron-toolkit/utils";
-import electronUpdater from "electron-updater";
-import { tryCatchCache } from "@janole/try-catch";
 import { registerAdapter, registerStore } from "@janole/ai-electron/electron";
-import { createMainWindow, registerWindowManager, send } from "./WindowManager";
+import { tryCatchCache } from "@janole/try-catch";
+import { app, BrowserWindow, ipcMain,Menu } from "electron";
+import electronUpdater from "electron-updater";
+
 import { createMenu } from "./MenuManager";
+import { createMainWindow, registerWindowManager, send } from "./WindowManager";
 
 function registerAutoUpdater()
 {

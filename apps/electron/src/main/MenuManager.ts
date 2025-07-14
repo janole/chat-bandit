@@ -1,4 +1,5 @@
 import { app, Menu, MenuItemConstructorOptions, shell } from "electron";
+
 import { createWindow, send } from "./WindowManager";
 
 const macTemplate: MenuItemConstructorOptions[] = [
@@ -32,15 +33,15 @@ const macTemplate: MenuItemConstructorOptions[] = [
     {
         role: "editMenu",
         submenu: [
-            { role: 'undo' },
-            { role: 'redo' },
+            { role: "undo" },
+            { role: "redo" },
             { type: "separator" },
-            { role: 'cut' },
-            { role: 'copy' },
-            { role: 'paste' },
-            { role: 'pasteAndMatchStyle' },
-            { role: 'delete' },
-            { role: 'selectAll' },
+            { role: "cut" },
+            { role: "copy" },
+            { role: "paste" },
+            { role: "pasteAndMatchStyle" },
+            { role: "delete" },
+            { role: "selectAll" },
         ],
     },
     {

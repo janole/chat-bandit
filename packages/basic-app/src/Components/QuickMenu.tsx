@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, SxProps } from "@mui/material";
 import { MoreHoriz } from "@mui/icons-material";
+import { Box, Divider, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, SxProps } from "@mui/material";
+import { useRef, useState } from "react";
 
 interface IQuickMenuLink
 {
@@ -50,7 +50,7 @@ export function QuickMenu(props: QuickMenuProps)
         event.stopPropagation();
         event.preventDefault();
 
-        item.href && window.open(item.href, '_self');
+        item.href && window.open(item.href, "_self");
         item.onClick?.();
         setShowMenu(false);
     };

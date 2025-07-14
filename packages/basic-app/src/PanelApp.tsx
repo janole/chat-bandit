@@ -1,11 +1,12 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { alpha, Box, BoxProps, CssBaseline, Drawer, IconButton, Theme } from "@mui/material";
-import { ImperativePanelGroupHandle, ImperativePanelHandle, Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import { Menu as MenuIcon } from "lucide-react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { ImperativePanelGroupHandle, ImperativePanelHandle, Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
+
+import { AppProps } from "./AppProps";
+import FlexBox from "./Components/FlexBox";
 import { AppThemeProvider, useAppTheme } from "./Helper";
 import useResizeWatcher, { useLayoutStore } from "./ResizeWatcher";
-import FlexBox from "./Components/FlexBox";
-import { AppProps } from "./AppProps";
 import { useScrollTracker } from "./ScrollTracker";
 
 const zIndexFab = (theme: Theme) => theme.zIndex.fab;
@@ -314,7 +315,7 @@ export default function PanelApp(props: AppProps)
                     minHeight: "56px",
                     WebkitUserSelect: "none",
                     WebkitAppRegion: "drag",
-                    '& button, & a': {
+                    "& button, & a": {
                         WebkitAppRegion: "no-drag",
                     },
                     backgroundColor: !padding ? theme.palette.background.contentTopBar : undefined,
@@ -381,7 +382,7 @@ export default function PanelApp(props: AppProps)
                     sx={{
                         WebkitUserSelect: "none",
                         WebkitAppRegion: "no-drag",
-                        '& button, & a': {
+                        "& button, & a": {
                             WebkitAppRegion: "no-drag",
                         },
                     }}

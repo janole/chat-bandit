@@ -1,6 +1,7 @@
-import { Ollama, ShowResponse } from "ollama";
+import { cleanObject, getSummaryContent,IChat, IChatMessage, IChatModel, IChatModelOllama, llamaFileTypeToString, pluckModelInfo, sanitizeMessages, TChatState, TSendFunc } from "@janole/ai-core";
 import tryCatch from "@janole/try-catch";
-import { cleanObject, IChat, IChatMessage, IChatModel, IChatModelOllama, pluckModelInfo, sanitizeMessages, TChatState, TSendFunc, llamaFileTypeToString, getSummaryContent } from "@janole/ai-core";
+import { Ollama, ShowResponse } from "ollama";
+
 import { createAccountStore } from "../utils/Accounts";
 
 const LOCAL_OLLAMA_ACCOUNT_ID = "local-ollama-11434";
@@ -111,7 +112,7 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
                 role: m.role,
                 content: m.content,
                 // TODO: refactor (see other providers)
-                ...(m.images?.length ? { images: m.images.map(image => image.split(',')[1]) } : {}),
+                ...(m.images?.length ? { images: m.images.map(image => image.split(",")[1]) } : {}),
             })),
             stream: true,
             // tools: [toolDef],

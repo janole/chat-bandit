@@ -1,10 +1,6 @@
+import type { GgufFileInfo } from "node-llama-cpp";
+import type { ModelResponse, ShowResponse } from "ollama";
 import { ulid } from "ulid";
-
-// import types { GgufFileInfo } from "node-llama-cpp";
-type GgufFileInfo = any;
-// import types { ModelResponse, ShowResponse } from "ollama";
-type ModelResponse = any;
-type ShowResponse = any;
 
 type TChatModelProvider = "node-llama-cpp" | "ollama" | "openai" | "googleai";
 

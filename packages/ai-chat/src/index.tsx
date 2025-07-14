@@ -8,3 +8,4 @@ export * from "./Components/Markdown";
 export * from "./Components/DownloadableModelCard";
 
 export * from "./hooks/use-app-state";
+export * from "./hooks/use-chat-redirect";

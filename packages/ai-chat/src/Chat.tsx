@@ -10,7 +10,6 @@ import NewButton from './Components/NewButton';
 import ChatTitle from './Components/ChatTitle';
 import ChatView, { MemoChatSourceView } from './Components/ChatView';
 import ChatOptions from './Components/ChatOptions';
-import ChatRedirect from './Components/ChatRedirect';
 import { ChatInputBox } from './Components/ChatInput';
 import SystemPromptIconButton from './Components/SystemPromptIconButton';
 import { HighlightedSearchWrapper, Navigation, useNavigationStore } from "./Navigation";
@@ -151,8 +150,6 @@ export default function Chat(props: ChatProps): JSX.Element
             }
             contentScrollId={chatId}
         >
-            <ChatRedirect chatId={deletedAt !== "deleted" ? chatId : undefined} />
-
             {viewMode === "default" &&
                 <ContentContainer maxWidth="lg" px={4}>
 

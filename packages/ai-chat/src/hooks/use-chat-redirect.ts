@@ -1,12 +1,16 @@
 import { useChatClient } from "@janole/ai-core";
-import { useEffect } from "react";
 import { useChatStore } from "@janole/ai-core";
-import { useShallow } from "zustand/react/shallow";
+import { useEffect } from "react";
 import { decodeTime } from "ulid";
+import { useShallow } from "zustand/react/shallow";
 
 interface ISortBy { id: string; updatedAt?: number; }
 
-const getCreatedAt = (s: ISortBy) => { try { return decodeTime(s.id) || 0 } catch (e) { return 0; } };
+const getCreatedAt = (s: ISortBy) => 
+{
+ try { return decodeTime(s.id) || 0 }
+ catch (e) { return 0; } 
+};
 const getUpdatedAt = (s: ISortBy) => s.updatedAt || getCreatedAt(s);
 const sortByUpdatedAt = (a: ISortBy, b: ISortBy) => getUpdatedAt(a) - getUpdatedAt(b);
 

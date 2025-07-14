@@ -1,14 +1,15 @@
-import { memo, useCallback, useEffect, useMemo, useRef } from "react";
-import { alpha, Avatar, Box, Button, CardMedia, Collapse, Divider, Pagination, Theme, Tooltip } from "@mui/material";
-import { AltRouteOutlined, CopyAll, DeleteForever, Edit, FaceRetouchingNatural, Replay } from "@mui/icons-material";
-import ReactCodeMirror, { EditorView, placeholder } from "@uiw/react-codemirror";
 import { json } from "@codemirror/lang-json";
 import { markdown } from "@codemirror/lang-markdown";
-import { IChatMessage, useChatStore, useChatClient } from "@janole/ai-core";
-import { useLayoutStore, SplitButton, NavBar } from "@janole/basic-app";
-import { MemoMarkdown } from "./Markdown";
-import { SystemPromptIcon } from "./Icons";
+import { IChatMessage, useChatClient,useChatStore } from "@janole/ai-core";
+import { NavBar,SplitButton, useLayoutStore } from "@janole/basic-app";
+import { AltRouteOutlined, CopyAll, DeleteForever, Edit, FaceRetouchingNatural, Replay } from "@mui/icons-material";
+import { alpha, Avatar, Box, Button, CardMedia, Collapse, Divider, Pagination, Theme, Tooltip } from "@mui/material";
+import ReactCodeMirror, { EditorView, placeholder } from "@uiw/react-codemirror";
+import { memo, useCallback, useEffect, useMemo, useRef } from "react";
+
 import formatBytes from "./FormatBytes";
+import { SystemPromptIcon } from "./Icons";
+import { MemoMarkdown } from "./Markdown";
 
 interface ChatMessageFooterMenuProps
 {
@@ -113,7 +114,7 @@ function ChatMessageFooterMenu(props: ChatMessageFooterMenuProps)
                 <Divider orientation="vertical" variant="middle" flexItem />
             </>}
             {messageRole === "assistant" && <>
-                <Tooltip title={`Duplicate and branch chat from here`}>
+                <Tooltip title={"Duplicate and branch chat from here"}>
                     <Button size="small" startIcon={<AltRouteOutlined />} onClick={branch} disabled={chatState === "working"}>
                         Branch
                     </Button>

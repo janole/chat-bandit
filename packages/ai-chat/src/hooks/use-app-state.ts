@@ -1,5 +1,5 @@
-import { ulid } from "ulid";
 import { IChat, useChatStore } from "@janole/ai-core";
+import { ulid } from "ulid";
 
 export function useAppState(): "init" | "no-models" | "no-chats" | "empty-first-chat" | "ready"
 {

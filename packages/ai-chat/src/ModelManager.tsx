@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Alert, Box, CircularProgress, Dialog, Divider, IconButton, Link, TextField, Theme, Tooltip, Typography } from "@mui/material";
+import { IChatModel, isModelHidden, normalizeModelUri, useChatClient, useChatModelConfigStore, useChatStore, useDownloadStore,useTransaction } from "@janole/ai-core";
+import { AppProps, ContentContainer, FlexBox, Grid, OnOffSwitch,PanelApp, ProgressBar, QuickMenu, SettingsCard, SettingsCardActions, SettingsCardContent, Spacer, SplitButton, TagButton, useLayoutStore } from "@janole/basic-app";
 import { AddCircleOutline, Cancel, Check, DeleteForever, Download, FaceRetouchingNatural, MoreVert, SourceOutlined } from "@mui/icons-material";
-import { HardDrive, Cloud, Star, EyeOff, Eye, Info } from "lucide-react";
-import { useShallow } from "zustand/react/shallow";
-import parse from "autosuggest-highlight/parse";
+import { Alert, Box, CircularProgress, Dialog, Divider, IconButton, Link, TextField, Theme, Tooltip, Typography } from "@mui/material";
 import match from "autosuggest-highlight/match";
-import { IChatModel, normalizeModelUri, useChatModelConfigStore, useChatStore, useChatClient, isModelHidden, useTransaction, useDownloadStore } from "@janole/ai-core";
-import { PanelApp, ContentContainer, FlexBox, SplitButton, TagButton, QuickMenu, ProgressBar, useLayoutStore, Grid, Spacer, AppProps, SettingsCard, SettingsCardActions, SettingsCardContent, OnOffSwitch } from "@janole/basic-app";
+import parse from "autosuggest-highlight/parse";
+import { Cloud, Eye, EyeOff, HardDrive, Info,Star } from "lucide-react";
+import { useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 
 interface SettingsCardProps
 {
@@ -460,7 +460,7 @@ export function ModelLine(props: ModelLineProps)
                         opacity: 1,
                     },
                     "&:before": variant === "listbox" ? undefined : {
-                        content: '""',
+                        content: "\"\"",
                         bgcolor: color,
                         position: "absolute",
                         top: -4,

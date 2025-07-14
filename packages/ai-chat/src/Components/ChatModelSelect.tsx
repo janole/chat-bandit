@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { alpha, Autocomplete, Box, IconButton, InputAdornment, ListItem, ListItemText, Paper, PaperProps, TextField, Theme, Typography } from "@mui/material";
-import { FaceRetouchingNatural } from "@mui/icons-material";
-import { useShallow } from "zustand/react/shallow";
-import { IChatModel, useChatClient, isModelHidden, useChatModelConfigStore, useChatStore } from "@janole/ai-core";
+import { IChatModel, isModelHidden, useChatClient, useChatModelConfigStore, useChatStore } from "@janole/ai-core";
 import { FlexBox } from "@janole/basic-app";
+import { FaceRetouchingNatural } from "@mui/icons-material";
+import { alpha, Autocomplete, Box, IconButton, InputAdornment, ListItem, ListItemText, Paper, PaperProps, TextField, Theme, Typography } from "@mui/material";
+import { useState } from "react";
+import { useShallow } from "zustand/react/shallow";
+
 import { ModelLine } from "../ModelManager";
 
 interface ChatModelSelectProps

@@ -1,6 +1,7 @@
-import { SplitButton } from '@janole/basic-app';
 import { useChatStore } from "@janole/ai-core";
-import { SystemPromptIcon } from './Icons';
+import { SplitButton } from "@janole/basic-app";
+
+import { SystemPromptIcon } from "./Icons";
 
 export default function SystemPromptIconButton(props: { chatId: string })
 {

@@ -1,17 +1,18 @@
 "use client";
 
-import { useState } from 'react';
-import { Box, Collapse, Divider } from '@mui/material';
-import { BugReport, DeleteForever, RestoreFromTrash, StarBorderRounded, StarRounded, Tune } from '@mui/icons-material';
-import { List, PanelLeftClose, PanelRightClose } from 'lucide-react';
-import { PanelApp, ContentContainer, FlexBox, SplitButton, AppProps } from "@janole/basic-app";
 import { useChatStore } from "@janole/ai-core";
-import NewButton from './Components/NewButton';
-import ChatTitle from './Components/ChatTitle';
-import ChatView, { MemoChatSourceView } from './Components/ChatView';
-import ChatOptions from './Components/ChatOptions';
-import { ChatInputBox } from './Components/ChatInput';
-import SystemPromptIconButton from './Components/SystemPromptIconButton';
+import { AppProps,ContentContainer, FlexBox, PanelApp, SplitButton } from "@janole/basic-app";
+import { BugReport, DeleteForever, RestoreFromTrash, StarBorderRounded, StarRounded, Tune } from "@mui/icons-material";
+import { Box, Collapse, Divider } from "@mui/material";
+import { List, PanelLeftClose, PanelRightClose } from "lucide-react";
+import { useState } from "react";
+
+import { ChatInputBox } from "./Components/ChatInput";
+import ChatOptions from "./Components/ChatOptions";
+import ChatTitle from "./Components/ChatTitle";
+import ChatView, { MemoChatSourceView } from "./Components/ChatView";
+import NewButton from "./Components/NewButton";
+import SystemPromptIconButton from "./Components/SystemPromptIconButton";
 import { HighlightedSearchWrapper, Navigation, useNavigationStore } from "./Navigation";
 
 interface ChatProps extends AppProps

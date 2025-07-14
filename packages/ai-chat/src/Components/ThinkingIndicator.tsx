@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { Box } from "@mui/system";
-import { SxProps } from "@mui/material";
 import { Circle } from "@mui/icons-material";
+import { SxProps } from "@mui/material";
+import { Box } from "@mui/system";
+import { useState } from "react";
 import { useInterval } from "usehooks-ts";
 
 export default function ThinkingIndicator()

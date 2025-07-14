@@ -1,7 +1,8 @@
-import { Box, Card, CardActions, CardHeader, CircularProgress, LinearProgress, Theme } from "@mui/material";
+import { IChatModelLlamaCpp, useChatClient, useDownloadStore } from "@janole/ai-core";
+import { FlexBox, SplitButton,TagButton } from "@janole/basic-app";
 import { Download, StopCircle, TaskAlt } from "@mui/icons-material";
-import { useChatClient, IChatModelLlamaCpp, useDownloadStore } from "@janole/ai-core";
-import { TagButton, FlexBox, SplitButton } from "@janole/basic-app";
+import { Box, Card, CardActions, CardHeader, CircularProgress, LinearProgress, Theme } from "@mui/material";
+
 import formatBytes from "./FormatBytes";
 
 interface DownloadableModelCardProps

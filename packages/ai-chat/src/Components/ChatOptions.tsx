@@ -1,9 +1,10 @@
-import * as React from 'react';
-import { Box, BoxProps, Button, Divider, InputAdornment, Switch, TextField, Slider, Typography } from "@mui/material";
-import { ArrowLeft, ArrowRight, HighlightOff } from "@mui/icons-material";
 import { useChatModelConfigStore, useChatStore } from "@janole/ai-core";
 import { Grid, GridAutoWidth } from "@janole/basic-app";
-import { ChatModelSelectForm } from './ChatModelSelect';
+import { ArrowLeft, ArrowRight, HighlightOff } from "@mui/icons-material";
+import { Box, BoxProps, Button, Divider, InputAdornment, Slider, Switch, TextField, Typography } from "@mui/material";
+import * as React from "react";
+
+import { ChatModelSelectForm } from "./ChatModelSelect";
 
 function FormBlock(props: BoxProps)
 {
@@ -45,7 +46,7 @@ function InputSlider(props: InputSliderProps)
 
     const handleSliderChange = (_event: Event, newValue: number | number[]) =>
     {
-        typeof newValue === 'number' && setNumber(newValue === min - step ? undefined : newValue);
+        typeof newValue === "number" && setNumber(newValue === min - step ? undefined : newValue);
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) =>

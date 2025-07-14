@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { Typography } from "@mui/material";
 import { useChatClient, useChatStore } from "@janole/ai-core";
+import { Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 
 interface TokenCountProps
 {
@@ -46,7 +46,7 @@ export default function TokenCount(props: TokenCountProps)
                     fontWeight={500}
                     color={percentage < 100 ? "text.disabled" : "error.main"}
                 >
-                    {' '} ({percentage.toFixed(1)}%)
+                    {" "} ({percentage.toFixed(1)}%)
                 </Typography>
             }
         </Typography>

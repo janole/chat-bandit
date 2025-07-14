@@ -1,17 +1,18 @@
-import { app, ipcMain, shell } from 'electron';
-import path from 'path';
-import { existsSync, mkdirSync } from 'fs';
-import { readFile } from 'fs/promises';
-import writeFileAtomic from 'write-file-atomic';
-import { glob } from 'glob';
-import { getEncoding } from 'js-tiktoken';
-import tryCatch from '@janole/try-catch';
-import { IChat, TAddAccount, TAddChatModel, TRemoveAccount, TRemoveChatModel, Semaphore, TSendFunc } from '@janole/ai-core';
-import { getDownloadStatus, removeDownload, startDownload, stopDownload } from './ElectronDownloader';
-import LlamaCppProvider from './provider/LlamaCppProvider';
-import OllamaProvider from './provider/OllamaProvider';
-import OpenAiProvider from './provider/OpenAiProvider';
-import GoogleAiProvider from './provider/GoogleAiProvider';
+import { IChat, Semaphore, TAddAccount, TAddChatModel, TRemoveAccount, TRemoveChatModel, TSendFunc } from "@janole/ai-core";
+import tryCatch from "@janole/try-catch";
+import { app, ipcMain, shell } from "electron";
+import { existsSync, mkdirSync } from "fs";
+import { readFile } from "fs/promises";
+import { glob } from "glob";
+import { getEncoding } from "js-tiktoken";
+import path from "path";
+import writeFileAtomic from "write-file-atomic";
+
+import { getDownloadStatus, removeDownload, startDownload, stopDownload } from "./ElectronDownloader";
+import GoogleAiProvider from "./provider/GoogleAiProvider";
+import LlamaCppProvider from "./provider/LlamaCppProvider";
+import OllamaProvider from "./provider/OllamaProvider";
+import OpenAiProvider from "./provider/OpenAiProvider";
 
 const abortControllers = new Map<string, AbortController>();
 
@@ -93,8 +94,8 @@ export function registerAdapter({ send }: { send: TSendFunc })
         "googleai": GoogleAiProvider.generateResponse,
     };
 
-    ipcMain.removeHandler('generate-chat-response');
-    ipcMain.handle('generate-chat-response', async (_event, chat: IChat, messageIndex: number) =>
+    ipcMain.removeHandler("generate-chat-response");
+    ipcMain.handle("generate-chat-response", async (_event, chat: IChat, messageIndex: number) =>
     {
         if (activeChatRequests.has(chat.id))
         {
@@ -120,39 +121,39 @@ export function registerAdapter({ send }: { send: TSendFunc })
         }
     });
 
-    ipcMain.removeHandler('abort-chat');
-    ipcMain.handle('abort-chat', (_event, chatId: string) =>
+    ipcMain.removeHandler("abort-chat");
+    ipcMain.handle("abort-chat", (_event, chatId: string) =>
     {
         abortControllers.get(chatId)?.abort();
         // abortControllers.delete(chatId);
     });
 
-    ipcMain.removeHandler('load-chats');
-    ipcMain.handle('load-chats', (_event) =>
+    ipcMain.removeHandler("load-chats");
+    ipcMain.handle("load-chats", (_event) =>
     {
         return tryCatch(loadChats());
     });
 
-    ipcMain.removeHandler('save-chat');
-    ipcMain.handle('save-chat', (_event, chat: IChat) =>
+    ipcMain.removeHandler("save-chat");
+    ipcMain.handle("save-chat", (_event, chat: IChat) =>
     {
         return tryCatch(saveChat(chat));
     });
 
-    ipcMain.removeHandler('show-chat-file-in-file-manager');
-    ipcMain.handle('show-chat-file-in-file-manager', (_event, chatId: string) =>
+    ipcMain.removeHandler("show-chat-file-in-file-manager");
+    ipcMain.handle("show-chat-file-in-file-manager", (_event, chatId: string) =>
     {
         shell.showItemInFolder(path.join(dataPath, `chat-${chatId}.json`));
     });
 
-    ipcMain.removeHandler('show-file-in-file-manager');
-    ipcMain.handle('show-file-in-file-manager', (_event, file: string) =>
+    ipcMain.removeHandler("show-file-in-file-manager");
+    ipcMain.handle("show-file-in-file-manager", (_event, file: string) =>
     {
         shell.showItemInFolder(file);
     });
 
-    ipcMain.removeHandler('count-chat-tokens');
-    ipcMain.handle('count-chat-tokens', async (_event, chatId: string) =>
+    ipcMain.removeHandler("count-chat-tokens");
+    ipcMain.handle("count-chat-tokens", async (_event, chatId: string) =>
     {
         return tryCatch(async () =>
         {
@@ -164,20 +165,20 @@ export function registerAdapter({ send }: { send: TSendFunc })
         });
     });
 
-    ipcMain.removeHandler('count-tokens');
-    ipcMain.handle('count-tokens', (_event, text: string) =>
+    ipcMain.removeHandler("count-tokens");
+    ipcMain.handle("count-tokens", (_event, text: string) =>
     {
         return tryCatch(() => encoding.encode(text).length);
     });
 
-    ipcMain.removeHandler('load-chat-models');
-    ipcMain.handle('load-chat-models', (_event) =>
+    ipcMain.removeHandler("load-chat-models");
+    ipcMain.handle("load-chat-models", (_event) =>
     {
         return tryCatch(loadModels());
     });
 
-    ipcMain.removeHandler('add-chat-model');
-    ipcMain.handle('add-chat-model', (_event, params: TAddChatModel) =>
+    ipcMain.removeHandler("add-chat-model");
+    ipcMain.handle("add-chat-model", (_event, params: TAddChatModel) =>
     {
         if (params.provider === "node-llama-cpp")
         {
@@ -192,8 +193,8 @@ export function registerAdapter({ send }: { send: TSendFunc })
         return { error: new Error("Unsupported provider") };
     });
 
-    ipcMain.removeHandler('delete-chat-model');
-    ipcMain.handle('delete-chat-model', (_event, params: TRemoveChatModel) =>
+    ipcMain.removeHandler("delete-chat-model");
+    ipcMain.handle("delete-chat-model", (_event, params: TRemoveChatModel) =>
     {
         if (params.provider === "node-llama-cpp")
         {
@@ -208,32 +209,32 @@ export function registerAdapter({ send }: { send: TSendFunc })
         return { error: new Error("Unsupported provider") };
     });
 
-    ipcMain.removeHandler('download-chat-model');
-    ipcMain.handle('download-chat-model', (_event, modelUri: string) =>
+    ipcMain.removeHandler("download-chat-model");
+    ipcMain.handle("download-chat-model", (_event, modelUri: string) =>
     {
         return tryCatch(startDownload(modelUri, send));
     });
 
-    ipcMain.removeHandler('stop-download-chat-model');
-    ipcMain.handle('stop-download-chat-model', (_event, modelUri: string) =>
+    ipcMain.removeHandler("stop-download-chat-model");
+    ipcMain.handle("stop-download-chat-model", (_event, modelUri: string) =>
     {
         return tryCatch(stopDownload(modelUri, send));
     });
 
-    ipcMain.removeHandler('remove-download-chat-model');
-    ipcMain.handle('remove-download-chat-model', (_event, modelUri: string) =>
+    ipcMain.removeHandler("remove-download-chat-model");
+    ipcMain.handle("remove-download-chat-model", (_event, modelUri: string) =>
     {
         return tryCatch(removeDownload(modelUri, send));
     });
 
-    ipcMain.removeHandler('get-download-status');
-    ipcMain.handle('get-download-status', (_event) =>
+    ipcMain.removeHandler("get-download-status");
+    ipcMain.handle("get-download-status", (_event) =>
     {
         return tryCatch(() => getDownloadStatus());
     });
 
-    ipcMain.removeHandler('add-account');
-    ipcMain.handle('add-account', (_event, params: TAddAccount) =>
+    ipcMain.removeHandler("add-account");
+    ipcMain.handle("add-account", (_event, params: TAddAccount) =>
     {
         if (params.provider === "openai")
         {
@@ -248,8 +249,8 @@ export function registerAdapter({ send }: { send: TSendFunc })
         return { error: new Error("Unsupported provider") };
     });
 
-    ipcMain.removeHandler('remove-account');
-    ipcMain.handle('remove-account', async (_event, params: TRemoveAccount) =>
+    ipcMain.removeHandler("remove-account");
+    ipcMain.handle("remove-account", async (_event, params: TRemoveAccount) =>
     {
         if (params.provider === "openai")
         {
@@ -264,8 +265,8 @@ export function registerAdapter({ send }: { send: TSendFunc })
         return { error: new Error("Unsupported provider") };
     });
 
-    ipcMain.removeHandler('find-in-chats');
-    ipcMain.handle('find-in-chats', async (_event, search: string) =>
+    ipcMain.removeHandler("find-in-chats");
+    ipcMain.handle("find-in-chats", async (_event, search: string) =>
     {
         function createRegExpFromString(input?: string): RegExp | undefined
         {
@@ -275,10 +276,10 @@ export function registerAdapter({ send }: { send: TSendFunc })
             const specialCharsPattern = /[.*+?^${}()|[\]\\]/g;
 
             // Escape special characters by adding a backslash before them
-            const escapedString = input.replace(specialCharsPattern, '\\$&');
+            const escapedString = input.replace(specialCharsPattern, "\\$&");
 
             // Create a RegExp object from the escaped string
-            return new RegExp(escapedString, 'giu');
+            return new RegExp(escapedString, "giu");
         }
 
         const searchRegExp = createRegExpFromString(search);

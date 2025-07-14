@@ -1,16 +1,18 @@
-import React, { memo } from "react";
-import { alpha, Box, Collapse, Link, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme } from "@mui/material";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import ReactMarkdown, { Components, Options } from "react-markdown";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import rehypeKatex from "rehype-katex";
 import "katex/dist/katex.min.css";
+
+import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { alpha, Box, Collapse, Link, Paper, Skeleton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Theme } from "@mui/material";
+import { marked } from "marked";
+import React, { memo } from "react";
+import ReactMarkdown, { Components, Options } from "react-markdown";
+import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import rehypeSanitize from "rehype-sanitize";
-import { marked } from "marked";
-import ThinkingIndicator from "./ThinkingIndicator";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+
 import TerminalWindow from "./TerminalWindow";
+import ThinkingIndicator from "./ThinkingIndicator";
 
 const preprocessLaTeX = (content: string) =>
 {
@@ -54,11 +56,11 @@ const preprocessThinking = (content: string) =>
 };
 
 export const htmlEncode = (html: string) => String(html)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;')
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;")
     // .replace(/^[ \t]+/gm, '') // remove leading whitespace on each line
     ;
 

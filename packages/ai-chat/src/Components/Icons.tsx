@@ -1,3 +1,3 @@
-import { Drama } from 'lucide-react';
+import { Drama } from "lucide-react";
 
 export const SystemPromptIcon = Drama;

@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-import { FlexBox } from '@janole/basic-app';
-import { useChatTitle, IChat } from "@janole/ai-core";
+import { IChat,useChatTitle } from "@janole/ai-core";
+import { FlexBox } from "@janole/basic-app";
+import { Box } from "@mui/material";
 
 export default function ChatTitle(props: { chatId: string, deletedAt?: IChat["deletedAt"] })
 {

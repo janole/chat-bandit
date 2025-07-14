@@ -1,14 +1,15 @@
-import { useRef } from 'react';
-import { Avatar, AvatarGroup, Box, Button, IconButton, TextField, Theme, Tooltip, useTheme } from '@mui/material';
-import { AddPhotoAlternate, ArrowCircleLeft, Save, Tune } from '@mui/icons-material';
-import { SquarePen } from 'lucide-react';
-import ReactCodeMirror, { EditorView, placeholder } from '@uiw/react-codemirror';
-import { markdown } from '@codemirror/lang-markdown';
-import { Grid, FlexBox, SplitButton, CancelButton, NavBar } from '@janole/basic-app';
-import { IChat, useChatStore, useChatClient } from "@janole/ai-core";
+import { markdown } from "@codemirror/lang-markdown";
+import { IChat, useChatClient,useChatStore } from "@janole/ai-core";
+import { CancelButton, FlexBox, Grid, NavBar,SplitButton } from "@janole/basic-app";
+import { AddPhotoAlternate, ArrowCircleLeft, Save, Tune } from "@mui/icons-material";
+import { Avatar, AvatarGroup, Box, Button, IconButton, TextField, Theme, Tooltip, useTheme } from "@mui/material";
+import ReactCodeMirror, { EditorView, placeholder } from "@uiw/react-codemirror";
+import { SquarePen } from "lucide-react";
+import { useRef } from "react";
+
 import { useNavigationStore } from "../Navigation";
-import ChatModelSelect from './ChatModelSelect';
-import TokenCount from './TokenCount';
+import ChatModelSelect from "./ChatModelSelect";
+import TokenCount from "./TokenCount";
 
 interface ImageInputProps
 {
@@ -38,7 +39,7 @@ function ImageInput(props: ImageInputProps)
         <Box display="flex">
             <input
                 ref={ref}
-                style={{ display: 'none' }}
+                style={{ display: "none" }}
                 id="image"
                 name="image"
                 type="file"
@@ -57,7 +58,7 @@ function ImageInput(props: ImageInputProps)
                     };
                     reader.onerror = function (error)
                     {
-                        console.error('Error: ', error);
+                        console.error("Error: ", error);
                     };
                 }}
             />
@@ -253,7 +254,7 @@ export function ChatInput(props: ChatInputProps)
                     variant="standard"
                     onKeyDown={(e: any) =>
                     {
-                        if (e.key === 'Enter')
+                        if (e.key === "Enter")
                         {
                             if (e.altKey || e.shiftKey)
                             {

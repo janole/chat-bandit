@@ -1,8 +1,9 @@
-import { useMemo } from "react";
+import { useChatClient } from "@janole/ai-core";
+import { NavBar,SplitButton, useLayoutStore } from "@janole/basic-app";
 import { Box, Divider, useTheme } from "@mui/material";
 import { Code, Copy, ExternalLink } from "lucide-react";
-import { useLayoutStore, SplitButton, NavBar } from "@janole/basic-app";
-import { useChatClient } from "@janole/ai-core";
+import { useMemo } from "react";
+
 import { SyntaxHighlighter } from "./SyntaxHighlighter";
 
 const sxCodeMirror = {
@@ -60,7 +61,7 @@ function TerminalWindow(props: TerminalWindowProps)
     const code = flattenText(props.children).trimEnd();
 
     /** @ts-ignore */
-    const lang = props.children?.props?.className?.replace(/.*language-(\w+).*$/, '$1') ?? "markdown";
+    const lang = props.children?.props?.className?.replace(/.*language-(\w+).*$/, "$1") ?? "markdown";
 
     const { openInBrowser } = useChatClient();
 

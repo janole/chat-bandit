@@ -86,13 +86,6 @@ const macTemplate: MenuItemConstructorOptions[] = [
         role: "help",
         submenu: [
             {
-                label: `${import.meta.env.VITE_APP_NAME} Website`,
-                click: () => 
-                {
-                    shell.openExternal("https://chatbandit.de");
-                },
-            },
-            {
                 label: "Open Source Licenses",
                 click: () => 
                 {
@@ -100,6 +93,14 @@ const macTemplate: MenuItemConstructorOptions[] = [
                     createWindow("about", "/licenses", {
                         title: `${import.meta.env.VITE_APP_NAME} - Open-Source Licenses`,
                     });
+                },
+            },
+            { type: "separator" },
+            {
+                label: `${import.meta.env.VITE_APP_NAME} Website`,
+                click: () => 
+                {
+                    shell.openExternal("https://chatbandit.de");
                 },
             },
         ],

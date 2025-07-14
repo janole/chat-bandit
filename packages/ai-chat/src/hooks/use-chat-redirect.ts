@@ -16,7 +16,7 @@ export function useChatRedirect(chatId?: string)
 
     const redirectId = useChatStore(useShallow(state =>
     {
-        if (chatId && state.chats[chatId])
+        if (chatId && state.chats[chatId] && state.chats[chatId].deletedAt !== "deleted")
         {
             return undefined;
         }

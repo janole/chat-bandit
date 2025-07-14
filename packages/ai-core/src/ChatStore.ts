@@ -1,7 +1,6 @@
 import { create, createStore, StateCreator, StoreApi, useStore } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { shared as sharedViaBroadcast } from 'use-broadcast-ts';
-import { ulid } from 'ulid';
 import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage } from './types';
 import { createContext, useContext } from 'react';
 

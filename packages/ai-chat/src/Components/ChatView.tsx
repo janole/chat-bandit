@@ -214,6 +214,8 @@ function UserMessageView(props: UserMessageViewProps)
     const setChat = useChatStore(state => state.setChat);
     const getChat = useChatStore(state => state.getChat);
 
+    const { openInBrowser } = useChatClient();
+
     const edit = () =>
     {
         const chat = getChat(chatId);
@@ -333,8 +335,7 @@ function UserMessageView(props: UserMessageViewProps)
                                             `<html><body><img width="100%" src="${image}" /></body></html>`
                                         );
 
-                                        // TODO: fix1
-                                        // window.electron.ipcRenderer.invoke("open-browser", "browser", data);
+                                        openInBrowser?.(data);
                                     }}
                                 />
                             ))}

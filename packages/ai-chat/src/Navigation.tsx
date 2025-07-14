@@ -439,27 +439,29 @@ function SearchField()
 }
 
 export function HighlightedSearchWrapper({
+    chatId,
     children,
 }: {
+    chatId: string,
     children: ReactNode,
 })
 {
     const search = useNavigationStore(state => state.search);
 
-    return search ? <HighlightedSearch search={search}>{children}</HighlightedSearch> : children;
+    return search ? <HighlightedSearch chatId={chatId} search={search}>{children}</HighlightedSearch> : children;
 }
 
 function HighlightedSearch({
+    chatId,
     children,
     search,
 }: {
+    chatId: string,
     children: ReactNode,
     search: string,
 })
 {
-    // TODO: fix1
-    // const params = useParams<{ id: string }>();
-    // const chat = useChatStore(state => params.id && state.chats?.[params.id]) || undefined;
+    const chat = useChatStore(state => state.chats[chatId]) || undefined;
 
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -480,7 +482,7 @@ function HighlightedSearch({
         return () => markInstance.unmark();
     }, [
         search,
-        // chat,
+        chat,
     ]);
 
     return (

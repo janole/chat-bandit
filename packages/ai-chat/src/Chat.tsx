@@ -154,7 +154,7 @@ export default function Chat(props: ChatProps): JSX.Element
                 <ContentContainer maxWidth="lg" px={4}>
 
                     {chatId &&
-                        <HighlightedSearchWrapper>
+                        <HighlightedSearchWrapper chatId={chatId}>
                             <ChatView chatId={chatId} />
                         </HighlightedSearchWrapper>
                     }

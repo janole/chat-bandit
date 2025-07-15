@@ -5,4 +5,5 @@ export * from "./card";
 export * from "./color-text";
 export * from "./download-info";
 export * from "./feature";
+export * from "./github-button";
 export * from "./hero-headline";

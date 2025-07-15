@@ -6,7 +6,7 @@ import { Box, BoxProps, Button, CardContent, CardHeader, Divider, Grid, IconButt
 import { Brain, Bug, Computer, Cpu, Download, Globe, Heart, MessageCircle, Settings, Shield, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { ReactNode } from "react";
 
-import { BackgroundEffects, Badge, Block, Card, ColorText, FeatureBox, FeatureGrid, HeroHeadline, IDownloadInfo, Page, Section, sxColorTextGradient, TextBlock, useDownloadInfo, WobbleGrid } from "../components";
+import { BackgroundEffects, Badge, Block, Card, ColorText, FeatureBox, FeatureGrid, GitHubButton, HeroHeadline, IDownloadInfo, Page, Section, sxColorTextGradient, TextBlock, useDownloadInfo, WobbleGrid } from "../components";
 
 const appName = "Chat Bandit";
 
@@ -48,15 +48,14 @@ const blocks = [
 
 const links = [
     {
-        icon: <SiGithub />,
-        name: "github",
+        name: <GitHubButton slug="janole/chat-bandit" />,
         href: "https://github.com/janole/chat-bandit",
     },
 ];
 
 interface NaviButtonProps
 {
-    name: string;
+    name: JSX.Element | string;
     icon?: JSX.Element;
     prominent?: boolean;
     href?: string;
@@ -118,9 +117,8 @@ const Header = () =>
                 <NaviButton
                     key={link.href}
                     name={link.name}
-                    icon={link.icon}
                     href={link.href}
-                    color="primary.dark"
+                    color="neutral.main"
                     display={{ md: "flex", sm: "none", xs: "none" }}
                 />
             ))}

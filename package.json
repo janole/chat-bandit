@@ -6,7 +6,6 @@
         "packages/*"
     ],
     "packageManager": "npm@11.3.0",
-    "type": "module",
     "scripts": {
         "dev": "turbo dev",
         "lint": "eslint",

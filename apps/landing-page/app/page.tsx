@@ -34,9 +34,11 @@ function WobbleIcon(props: { icon: string, name: string })
     );
 }
 
+const appIcon = <WobbleIcon icon="/icon.png" name={appName} />;
+
 const blocks = [
     {
-        icon: "/icon.png",
+        icon: appIcon,
         name: appName,
         prominent: true,
         href: "#hero",
@@ -51,23 +53,33 @@ const blocks = [
     },
 ];
 
-function NaviButton(props: { name: string, icon?: string, href?: string, prominent?: boolean, display?: BoxProps["display"] })
+interface NaviButtonProps
 {
-    const { name, icon, href, prominent, display } = props;
+    name: string;
+    icon?: JSX.Element;
+    prominent?: boolean;
+    href?: string;
+    color?: BoxProps["color"];
+    display?: BoxProps["display"];
+}
+
+function NaviButton(props: NaviButtonProps)
+{
+    const { name, icon, prominent, display, color = "text.primary", ...boxProps } = props;
 
     return (
         <Button
+            {...boxProps}
             variant="text"
             sx={{
                 fontSize: prominent ? "h5.fontSize" : "subtitle1.fontSize",
-                color: "text.primary",
+                color,
                 textTransform: "none",
                 fontWeight: prominent ? 900 : 500,
                 display,
                 alignItems: "center",
             }}
-            startIcon={icon && <WobbleIcon icon={icon} name={name} />}
-            href={href}
+            startIcon={icon}
         >
             {name}
         </Button>
@@ -441,7 +453,7 @@ const Footer = () =>
             <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }} pr={4}>
                 <Section alignItems="left" textAlign="left" gap={1} height="100%">
                     <Block>
-                        <NaviButton name={appName} icon="/icon.png" prominent />
+                        <NaviButton name={appName} icon={appIcon} prominent />
                         <Box ml="auto" />
                     </Block>
 

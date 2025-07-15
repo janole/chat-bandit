@@ -28,7 +28,7 @@ export function GitHubButton(props: GitHubButtonProps)
         <SplitButton
             color="black"
             size="small"
-            style={{ textTransform: "none", fontWeight: "bold" }}
+            style={{ textTransform: "none", fontWeight: "bold", borderRadius: 8 }}
         >
             <FlexBox gap={1}>
                 <Star className="icon w-4 h-4 !text-yellow-500 !fill-yellow-500" />

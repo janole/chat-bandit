@@ -6,14 +6,7 @@ import { Box, BoxProps, Button, CardContent, CardHeader, Divider, Grid, IconButt
 import { Brain, Bug, Computer, Cpu, Download, Globe, Heart, MessageCircle, Settings, Shield, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { ReactNode } from "react";
 
-import BackgroundEffects from "../components/BackgroundEffects";
-import Badge from "../components/Badge";
-import { Block, Page, Section, TextBlock } from "../components/Block";
-import Card from "../components/Card";
-import ColorText, { sxColorTextGradient } from "../components/ColorText";
-import useDownloadInfo, { IDownloadInfo } from "../components/DownloadInfo";
-import { FeatureBox, FeatureGrid, WobbleGrid } from "../components/Feature";
-import HeroHeadline from "../components/HeroHeadline";
+import { BackgroundEffects, Badge, Block, Card, ColorText, FeatureBox, FeatureGrid, HeroHeadline, IDownloadInfo, Page, Section, sxColorTextGradient, TextBlock, useDownloadInfo, WobbleGrid } from "../components";
 
 const appName = "Chat Bandit";
 

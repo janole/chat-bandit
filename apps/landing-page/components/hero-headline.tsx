@@ -1,6 +1,6 @@
 import { Box, BoxProps } from "@mui/material";
 
-export default function HeroHeadline(props: BoxProps & { size?: "xl" | "md" | "sm" })
+export function HeroHeadline(props: BoxProps & { size?: "xl" | "md" | "sm" })
 {
     const { size, ...boxProps } = props;
 

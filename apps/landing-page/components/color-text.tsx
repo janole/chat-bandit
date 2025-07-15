@@ -18,7 +18,7 @@ export const sxColorTextGradient = {
     },
 }
 
-export default function ColorText(props: BoxProps & { variant: keyof typeof sxColorTextGradient })
+export function ColorText(props: BoxProps & { variant: keyof typeof sxColorTextGradient })
 {
     return (
         <Box

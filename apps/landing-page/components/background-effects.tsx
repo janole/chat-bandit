@@ -1,6 +1,6 @@
 import { Box, BoxProps } from "@mui/material";
 
-export default function BackgroundEffects(props: BoxProps)
+export function BackgroundEffects(props: BoxProps)
 {
     return (
         <Box {...props} position="absolute" left={0} top={0} right={0} bottom={0}>

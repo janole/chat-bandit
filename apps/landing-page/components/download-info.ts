@@ -16,7 +16,7 @@ export interface IDownloadInfo
     fileDate: string;
 }
 
-export default function useDownloadInfo(variant: keyof typeof fileExtension)
+export function useDownloadInfo(variant: keyof typeof fileExtension)
 {
     const [info, setInfo] = useState<IDownloadInfo>();
 

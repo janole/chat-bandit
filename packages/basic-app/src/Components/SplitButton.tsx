@@ -19,7 +19,6 @@ interface SplitButtonProps
     style?: ButtonProps["style"];
     disableElevation?: boolean;
     fullWidth?: boolean;
-    disableUppercase?: boolean;
 }
 
 export default function SplitButton(props: SplitButtonProps)
@@ -34,7 +33,6 @@ export default function SplitButton(props: SplitButtonProps)
                 minWidth: 0,
                 transition: "all 0.2s",
                 width: props.fullWidth ? "100%" : undefined,
-                textTransform: props.disableUppercase ? "none" : undefined,
                 ...props.style,
             }}
             startIcon={props.icon}

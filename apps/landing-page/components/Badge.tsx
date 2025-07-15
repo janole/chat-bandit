@@ -1,8 +1,8 @@
 import { alpha, Box, Chip, ChipProps, Theme } from "@mui/material";
 
-import { WobbleGrid } from "./Feature";
+import { WobbleGrid } from "./feature";
 
-export default function Badge(props: ChipProps)
+export function Badge(props: ChipProps)
 {
     const { icon, ...chipProps } = props;
 

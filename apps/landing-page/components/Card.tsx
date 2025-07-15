@@ -1,8 +1,8 @@
 import { alpha, Card as MuiCard, CardProps, useTheme } from "@mui/material";
 
-import BackgroundEffects from "./BackgroundEffects";
+import { BackgroundEffects } from "./background-effects";
 
-export default function Card(props: CardProps)
+export function Card(props: CardProps)
 {
     const { children, sx, className, ...cardProps } = props;
 

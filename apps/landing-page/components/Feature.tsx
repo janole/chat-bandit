@@ -1,7 +1,7 @@
 import { Box, CardContent, CardHeader, Grid, GridProps, IconButton } from "@mui/material";
 
-import { Block, Section } from "./Block";
-import Card from "./Card";
+import { Block, Section } from "./block";
+import { Card } from "./card";
 
 export function FeatureGrid(props: GridProps)
 {

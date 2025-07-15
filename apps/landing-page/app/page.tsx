@@ -115,7 +115,7 @@ const Header = () =>
                     icon={block.icon}
                     href={block.href}
                     prominent={block.prominent}
-                    display={index > 0 ? { md: "block", sm: "none", xs: "none" } : undefined}
+                    display={index > 0 ? { md: "flex", sm: "none", xs: "none" } : undefined}
                 />
             ))}
 

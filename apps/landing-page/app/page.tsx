@@ -1,9 +1,9 @@
 "use client";
 
-import { SiApple, SiGithub, SiLinux,SiX } from "@icons-pack/react-simple-icons";
+import { SiApple, SiGithub, SiLinux, SiX } from "@icons-pack/react-simple-icons";
 import { BasicApp, ContentContainer, FlexBox, TernaryDarkModeToggle } from "@janole/basic-app";
-import { Box, BoxProps, Button, CardContent, CardHeader, Divider, Grid, IconButton, Link,StyledEngineProvider, ThemeOptions, Typography, useTheme } from "@mui/material";
-import { Brain, Bug,Computer, Cpu, Download, Globe, Heart, MessageCircle, Settings, Shield, ShieldCheck, Sparkles, Zap } from "lucide-react";
+import { Box, BoxProps, Button, CardContent, CardHeader, Divider, Grid, IconButton, Link, StyledEngineProvider, ThemeOptions, Typography, useTheme } from "@mui/material";
+import { Brain, Bug, Computer, Cpu, Download, Globe, Heart, MessageCircle, Settings, Shield, ShieldCheck, Sparkles, Zap } from "lucide-react";
 import { ReactNode } from "react";
 
 import BackgroundEffects from "../components/BackgroundEffects";
@@ -50,6 +50,14 @@ const blocks = [
     {
         name: "Download",
         href: "#downloads",
+    },
+];
+
+const links = [
+    {
+        icon: <SiGithub />,
+        name: "github",
+        href: "https://github.com/janole/chat-bandit",
     },
 ];
 
@@ -112,6 +120,17 @@ const Header = () =>
             ))}
 
             <Box ml="auto" />
+
+            {links.map(link => (
+                <NaviButton
+                    key={link.href}
+                    name={link.name}
+                    icon={link.icon}
+                    href={link.href}
+                    color="primary.dark"
+                    display={{ md: "flex", sm: "none", xs: "none" }}
+                />
+            ))}
 
             <TernaryDarkModeToggle />
         </ContentContainer>

@@ -101,7 +101,14 @@ const macTemplate: MenuItemConstructorOptions[] = [
                 label: `${import.meta.env.VITE_APP_NAME} Website`,
                 click: () => 
                 {
-                    shell.openExternal("https://chatbandit.de");
+                    shell.openExternal(import.meta.env.VITE_APP_HOMEPAGE);
+                },
+            },
+            {
+                label: `${import.meta.env.VITE_APP_NAME} on GitHub`,
+                click: () => 
+                {
+                    shell.openExternal(import.meta.env.VITE_APP_GITHUB);
                 },
             },
         ],

@@ -66,6 +66,8 @@ export interface INavigationStore
     setSearch: (search: string) => void;
     setSearchResult: (searchResult: IChat["id"][]) => void;
 
+    clearFilters: () => void;
+
     showTrash: boolean;
     setShowTrash: (showTrash: boolean) => void;
 
@@ -83,8 +85,10 @@ export const useNavigationStore = create<INavigationStore>()(
 
         search: "",
         searchResult: [],
-        setSearch: (search: string) => set({ search /*, searchRegExp: createRegExpFromString(search) */ }),
+        setSearch: (search: string) => set({ search }),
         setSearchResult: (searchResult: IChat["id"][]) => set({ searchResult }),
+
+        clearFilters: () => set({ showTrash: false, showFavorites: false }),
 
         showTrash: false,
         setShowTrash: (showTrash: boolean) => set({ showTrash, showFavorites: false }),

@@ -1,4 +1,5 @@
 import { ElectronAPI } from "@electron-toolkit/preload";
+import { useNavigationStore } from "@janole/ai-chat";
 import { ChatClientContext, ChatStoreContext, createChatStore, duplicateChat, IChat, IChatClient, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TDownloadStatus, TDownloadStatusMap, TRemoveAccount, TRemoveChatModel, TReturn, useChatModelConfigStore, useChatStore, useChatTitle, useDownloadStore } from "@janole/ai-core";
 import { ReactNode, useCallback, useEffect, useMemo } from "react";
 import { ulid } from "ulid";
@@ -268,16 +269,18 @@ export function useCountTokens()
 
     const defaultChatModelId = useChatModelConfigStore(state => state.defaultId);
 
+    const clearFilters = useNavigationStore(state => state.clearFilters);
+
     const addChat = useCallback((chat: IChat) =>
     {
         setChat(chat);
+        clearFilters();
         props.setCurrentChat?.(chat.id);
         invoke("focus-main-window");
     }, [
-        props.setCurrentChat,
         setChat,
-        getModels,
-        defaultChatModelId,
+        clearFilters,
+        props.setCurrentChat,
     ]);
 
     const newChat = useCallback(() =>

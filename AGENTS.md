@@ -11,7 +11,7 @@ This project is an open-source, privacy-focused desktop AI assistant that suppor
 The project uses a monorepo approach with a clear separation between applications and shared packages.
 
 -   **`apps/`**: Contains the user-facing applications.
-    -   **`electron/`**: The main desktop application, built with Electron and React.
+    -   **`electron/`**: The main desktop application, built with Electron and React using [electron-vite](https://electron-vite.org/).
     -   **`landing-page/`**: The project's landing page, built with Next.js.
 -   **`packages/`**: Contains shared code and libraries used across the applications.
     -   **`ai-core/`**: Core AI logic and type definitions.

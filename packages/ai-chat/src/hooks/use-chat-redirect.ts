@@ -24,7 +24,9 @@ const sortByUpdatedAt = (a: ISortBy, b: ISortBy) => getUpdatedAt(a) - getUpdated
 /**
  * A hook that redirects to a valid chat if the current `chatId` is not visible
  * in the current navigation view (e.g., viewing Trash, Favorites, or the main list).
+ * 
  * @param chatId The currently active chat ID from the URL.
+ * 
  * @returns The ID of the chat to be displayed (either the original or the redirect target).
  */
 export function useChatRedirect(chatId?: string)

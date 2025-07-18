@@ -295,7 +295,7 @@ export function ChatNavigation()
     ));
 
     const favoriteChatIds = useChatStore(useShallow(state =>
-        Object.keys(state.chats).filter(id => !!state.chats[id].favorite)
+        Object.keys(state.chats).filter(id => !!state.chats[id].favorite && !state.chats[id].deletedAt)
     ));
 
     const showTrash = useNavigationStore(state => state.showTrash);
@@ -317,7 +317,7 @@ function ChatNavigationBottom()
     );
 
     const favoriteCount = useChatStore(state =>
-        Object.keys(state.chats).filter(id => state.chats[id].favorite).length
+        Object.keys(state.chats).filter(id => state.chats[id].favorite && !state.chats[id].deletedAt).length
     );
 
     const showTrash = useNavigationStore(state => state.showTrash);

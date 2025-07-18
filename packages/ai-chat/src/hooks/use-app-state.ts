@@ -1,8 +1,9 @@
-import { IChat, useChatStore } from "@janole/ai-core";
-import { ulid } from "ulid";
+import { useChatClient, useChatStore } from "@janole/ai-core";
 
 export function useAppState(): "init" | "no-models" | "no-chats" | "empty-first-chat" | "ready"
 {
+    const { newChat } = useChatClient();
+
     const state = useChatStore(state =>
     {
         if (!state.chatsLoaded || !state.modelsLoaded)
@@ -19,14 +20,7 @@ export function useAppState(): "init" | "no-models" | "no-chats" | "empty-first-
 
         if (chatIds.length === 0)
         {
-            const chat: IChat =
-            {
-                id: ulid(),
-                model: state.models.find(m => m.state.ready)!, // TODO: refactor
-                messages: [],
-            };
-
-            state.setChat(chat);
+            newChat();
 
             return "empty-first-chat";
         }

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { decodeTime } from "ulid";
 import { useShallow } from "zustand/react/shallow";
 
+import { useNavigationStore } from "../Navigation";
+
 interface ISortBy { id: string; updatedAt?: number; }
 
 const getCreatedAt = (s: ISortBy) => 
@@ -18,6 +20,9 @@ export function useChatRedirect(chatId?: string)
 {
     const { setCurrentChat } = useChatClient();
 
+    const showTrash = useNavigationStore(state => state.showTrash);
+    const showFavorites = useNavigationStore(state => state.showFavorites);
+
     const redirectId = useChatStore(useShallow(state =>
     {
         if (chatId && state.chats[chatId] && state.chats[chatId].deletedAt !== "deleted")
@@ -25,10 +30,23 @@ export function useChatRedirect(chatId?: string)
             return undefined;
         }
 
+        let ids;
+
+        if (showTrash)
+        {
+            ids = Object.keys(state.chats).filter(id => !!state.chats[id].deletedAt && state.chats[id].deletedAt !== "deleted");
+        }
+        else if (showFavorites)
+        {
+            ids = Object.keys(state.chats).filter(id => !!state.chats[id].favorite && state.chats[id].deletedAt !== "deleted");
+        }
+        else
+        {
+            ids = Object.keys(state.chats).filter(id => !state.chats[id].deletedAt);
+        }
+
         // Get the most recent non-deleted chat
-        return Object.keys(state.chats)
-            .filter(id => state.chats[id].deletedAt !== "deleted")
-            .toSorted((a, b) => sortByUpdatedAt(state.chats[b], state.chats[a]))[0];
+        return ids.toSorted((a, b) => sortByUpdatedAt(state.chats[b], state.chats[a]))[0];
     }));
 
     useEffect(() =>

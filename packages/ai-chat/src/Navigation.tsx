@@ -1,10 +1,10 @@
-import { IChat, useChatClient,useChatStore } from "@janole/ai-core";
-import { CancelButton, FlexBox, QuickMenu, Spacer,SplitButton, TagButton } from "@janole/basic-app";
+import { IChat, useChatClient, useChatStore } from "@janole/ai-core";
+import { CancelButton, FlexBox, QuickMenu, Spacer, SplitButton, TagButton } from "@janole/basic-app";
 import { Cancel, Chat, Delete, ExpandLess, ExpandMore, MoreHoriz, RestoreFromTrash, Search, SourceOutlined, Star } from "@mui/icons-material";
 import { alpha, Box, Collapse, Divider, IconButton, InputAdornment, ListItemButton, ListItemText, TextField, Theme, Typography } from "@mui/material";
 import { Copy } from "lucide-react";
 import Mark from "mark.js";
-import { ReactNode, useEffect, useMemo, useRef } from "react";
+import { memo, ReactNode, useEffect, useRef } from "react";
 import { decodeTime } from "ulid";
 import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
@@ -281,6 +281,8 @@ function ListX(props: { ids: string[], Component: any })
     return groups.map(group => <ListGroup key={group.key} group={group.key} ids={group.ids} Component={props.Component} />);
 }
 
+const MemoList = memo(ListX);
+
 // Component to render the chat navigation section
 export function ChatNavigation()
 {
@@ -301,7 +303,7 @@ export function ChatNavigation()
 
     const ids = showTrash ? deletedChatIds : (showFavorites ? favoriteChatIds : chatIds);
 
-    return useMemo(() => <ListX ids={ids} Component={ChatListItem} />, [ids]);
+    return <MemoList ids={ids} Component={ChatListItem} />;
 }
 
 function ChatNavigationBottom()

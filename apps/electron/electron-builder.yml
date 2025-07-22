@@ -1,6 +1,7 @@
 appId: com.janole.chat-bandit
 productName: Chat Bandit
-name: chat-bandit
+extraMetadata:
+  name: chat-bandit
 directories:
   buildResources: build
 files:

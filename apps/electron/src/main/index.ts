@@ -1,7 +1,7 @@
 import { electronApp, optimizer } from "@electron-toolkit/utils";
 import { registerAdapter, registerStore } from "@janole/ai-electron/electron";
 import { tryCatchCache } from "@janole/try-catch";
-import { app, BrowserWindow, ipcMain,Menu } from "electron";
+import { app, BrowserWindow, ipcMain, Menu } from "electron";
 import electronUpdater from "electron-updater";
 
 import { createMenu } from "./MenuManager";

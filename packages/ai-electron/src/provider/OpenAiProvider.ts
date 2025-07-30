@@ -31,6 +31,12 @@ const _store = createAccountStore<TAccount, OpenAI>({
         return new OpenAI({
             apiKey: safeStorage.decryptString(Buffer.from(account.encryptedApiKey, "hex")),
             baseURL: account.baseURL,
+            defaultHeaders: {
+                // @ts-expect-error
+                "HTTP-Referer": import.meta.env?.VITE_APP_HOMEPAGE || "https://chatbandit.de",
+                // @ts-expect-error
+                "X-Title": import.meta.env?.VITE_APP_NAME || "Chat Bandit",
+            },
         });
     },
 });

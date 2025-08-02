@@ -460,7 +460,7 @@ const Footer = () =>
 
     return (
         <Grid container spacing={2}>
-            <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }} pr={4}>
+            <Grid size={{ xs: 12, sm: 12, md: 6, lg: 6, xl: 6 }}>
                 <Section alignItems="left" textAlign="left" gap={1} height="100%">
                     <Block>
                         <NaviButton name={appName} icon={appIcon} prominent />
@@ -550,7 +550,7 @@ export default function LandingPage()
             }
             bottomToolbar={
                 <ContentContainer maxWidth="md">
-                    <FlexBox pt={5} typography="body2">
+                    <FlexBox pt={5} typography={{ xs: "caption", sm: "body2" }}>
                         <FlexBox>
                             © {(new Date()).getFullYear()} {appName}. All rights reserved.
                         </FlexBox>
@@ -575,7 +575,7 @@ export default function LandingPage()
 
                     <Box pb={2} />
                 </ContentContainer>
-                <Box bgcolor="background.panel" pt={4} pb={8} mb={-8} borderTop="1px dashed" borderColor="divider">
+                <Box bgcolor="background.panel" pt={4} pb={8} mb={-8} px={{ xs: 1, sm: 2 }} borderTop="1px dashed" borderColor="divider">
                     <ContentContainer maxWidth="md">
                         <Footer />
                     </ContentContainer>

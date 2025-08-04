@@ -441,7 +441,7 @@ const Footer = () =>
         product: [
             { name: "Features", href: "#features" },
             { name: "Download", href: "#download" },
-            { name: "Changelog", },
+            { name: "Changelog", href: "https://github.com/janole/chat-bandit/releases" },
             { name: "Roadmap", },
         ],
         support: [

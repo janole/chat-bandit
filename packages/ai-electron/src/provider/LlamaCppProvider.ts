@@ -1,4 +1,4 @@
-import { cleanObject, getSummaryContent,IChat, IChatMessage, IChatModelLlamaCpp, llamaFileTypeToString, normalizeModelUri, pluckModelInfo, sanitizeMessages, TAddChatModel, TChatState, TSendFunc } from "@janole/ai-core";
+import { cleanObject, getSummaryContent, IChat, IChatMessage, IChatModelLlamaCpp, llamaFileTypeToString, normalizeModelUri, pluckModelInfo, sanitizeMessages, TAddChatModel, TChatState, TSendFunc } from "@janole/ai-core";
 import tryCatch from "@janole/try-catch";
 import Store from "electron-store";
 import { stat } from "fs/promises";

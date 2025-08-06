@@ -1,4 +1,4 @@
-import { htmlEncode, markdownComponents, MarkdownWithHtml } from "@janole/ai-chat";
+import { htmlEncode, markdownComponents, MarkdownWithHtml, useChatStore } from "@janole/ai-chat";
 import { ElectronChatProvider } from "@janole/ai-electron";
 import { ContentContainer, FlexBox } from "@janole/basic-app";
 import { Typography } from "@mui/material";
@@ -54,19 +54,26 @@ function OpenSourceLicenses()
             }
         >
             <ContentContainer maxWidth="md" px={4} py={0}>
-                <ElectronChatProvider>
-                    <MarkdownWithHtml
-                        components={{
-                            ...markdownComponents,
-                            img: props => props.alt
-                        } satisfies Options["components"]}
-                    >
-                        {licenseMarkdown}
-                    </MarkdownWithHtml>
-                </ElectronChatProvider>
+                <MarkdownWithHtml
+                    components={{
+                        ...markdownComponents,
+                        img: props => props.alt
+                    } satisfies Options["components"]}
+                >
+                    {licenseMarkdown}
+                </MarkdownWithHtml>
             </ContentContainer>
         </App>
     );
 }
 
-export const Component = OpenSourceLicenses;
+function Component()
+{
+    return (
+        <ElectronChatProvider>
+            <OpenSourceLicenses />
+        </ElectronChatProvider>
+    );
+}
+
+export { Component };

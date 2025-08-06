@@ -1,4 +1,4 @@
-import { cleanObject, getSummaryContent,IChat, IChatMessage, IChatModel, IChatModelOllama, llamaFileTypeToString, pluckModelInfo, sanitizeMessages, TChatState, TSendFunc } from "@janole/ai-core";
+import { cleanObject, getSummaryContent, IChat, IChatMessage, IChatModel, IChatModelOllama, llamaFileTypeToString, pluckModelInfo, sanitizeMessages, TChatState, TSendFunc } from "@janole/ai-core";
 import tryCatch from "@janole/try-catch";
 import { Ollama, ShowResponse } from "ollama";
 

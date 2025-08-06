@@ -42,7 +42,7 @@ declare global
     }
 }
 
-/** Loads chats from the backend and stores them in the chat store. */
+/** Load chats from the backend and stores them in the chat store. */
 invoke<IChat[]>("load-chats").then(chats =>
 {
     // TODO: refactor (deletedAt ...)
@@ -61,7 +61,7 @@ window.addEventListener("focus", loadChatModels);
 // @ts-ignore
 import.meta.hot?.dispose(() => window.removeEventListener("focus", loadChatModels));
 
-/** Loads download status from the backend and sets it in the download store. */
+/** Load download status from the backend and sets it in the download store. */
 invoke<TDownloadStatusMap>("get-download-status").then(status =>
 {
     useDownloadStore.setState({ status });

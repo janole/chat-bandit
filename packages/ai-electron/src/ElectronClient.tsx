@@ -198,6 +198,7 @@ const countTokens = (text: string) => invoke<number>("count-tokens", text);
 
 /** Opens the model manager window. */
 const openModelManagerWindow = () => invoke("create-window", "model-manager", "/model/manager", {
+    // @ts-ignore
     title: `${import.meta.env.VITE_APP_NAME} - Model Manager`,
     width: 1280,
 });

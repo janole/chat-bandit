@@ -298,4 +298,16 @@ export function registerAdapter({ send }: { send: TSendFunc })
 
         return { result };
     });
+
+    ipcMain.removeHandler("get-provider-info");
+    ipcMain.handle("get-provider-info", async (_event) =>
+    {
+        const { result: llamaCpp } = await tryCatch(LlamaCppProvider.getProviderInfo());
+
+        return {
+            result: {
+                llamaCpp,
+            }
+        };
+    });
 }

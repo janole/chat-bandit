@@ -363,9 +363,20 @@ async function listModels()
     return models;
 }
 
+async function getProviderInfo()
+{
+    const { result: llama } = await tryCatch(getLlama("lastBuild"));
+
+    return {
+        llamaCppRelease: llama ? llama.llamaCppRelease : {},
+        buildType: llama ? llama.buildType : undefined,
+    };
+}
+
 export default {
     generateResponse,
     listModels,
     addModel,
     deleteModel,
+    getProviderInfo,
 };

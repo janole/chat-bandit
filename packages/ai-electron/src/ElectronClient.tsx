@@ -66,6 +66,12 @@ invoke<TDownloadStatusMap>("get-download-status").then(status =>
     useDownloadStore.setState({ status });
 });
 
+/** Load provider info from backend */
+invoke<TDownloadStatusMap>("get-provider-info").then(providerInfo =>
+{
+    chatStore.setState({ providerInfo });
+});
+
 /** Updates a chat in the chat store when an "update-chat" event is received from the backend. */
 registerListener("update-chat", (_event, chat: IChat) =>
 {

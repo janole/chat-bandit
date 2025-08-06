@@ -58,6 +58,7 @@ const loadChatModels = () => invoke<IChatModel[]>("load-chat-models").then(model
 /** Initializes loading of chat models and sets up an event listener to reload them when the window gains focus. */
 loadChatModels();
 window.addEventListener("focus", loadChatModels);
+// @ts-ignore
 import.meta.hot?.dispose(() => window.removeEventListener("focus", loadChatModels));
 
 /** Loads download status from the backend and sets it in the download store. */

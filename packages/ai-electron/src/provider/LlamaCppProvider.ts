@@ -49,7 +49,7 @@ async function loadModel(modelPath: string): Promise<LlamaModel>
 
     if (!currentModel.llama)
     {
-        currentModel.llama = await getLlama();
+        currentModel.llama = await getLlama("lastBuild");
     }
 
     currentModel.model = await currentModel.llama.loadModel({ modelPath });

@@ -3,7 +3,7 @@ import { shared as sharedViaBroadcast } from "use-broadcast-ts";
 import { create, createStore, StateCreator, StoreApi, useStore } from "zustand";
 import { persist } from "zustand/middleware";
 
-import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage } from "./types";
+import { IChat, IChatMessage, IChatModel, IChatModelConfig, IChatModelOptions, pluckMessage, TProviderInfo } from "./types";
 
 export interface IChatStore
 {
@@ -12,6 +12,8 @@ export interface IChatStore
 
     models: IChatModel[];
     modelsLoaded: boolean;
+
+    providerInfo: { [name: string]: TProviderInfo };
 
     setChats: (chats: IChat[]) => void;
     getChat: (chatId: string) => IChat;
@@ -39,6 +41,8 @@ const chatStoreCreator: StateCreator<IChatStore> = (set, get) => ({
 
     models: [],
     modelsLoaded: false,
+
+    providerInfo: {},
 
     setChats: (chats: IChat[]) => 
     {

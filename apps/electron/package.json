@@ -8,6 +8,9 @@
     "author": "Jan Ole Suhr <ole@janole.com> (https://janole.com/)",
     "main": "./out/main/index.js",
     "type": "module",
+    "config": {
+        "llamaCppRelease": "b6103"
+    },
     "scripts": {
         "format": "prettier --write .",
         "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",

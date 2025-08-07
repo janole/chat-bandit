@@ -228,20 +228,26 @@ async function addOpenAiAccount(account: IAccountOpenAI): Promise<IChatModelOpen
     const remoteModels = result.data.map(m => m.id);
 
     const openAiModels = [
+        { name: "gpt-5", displayName: "GPT-5", vision: true, tools: true, contextLength: 400000 },
+        { name: "gpt-5-mini", displayName: "GPT-5 mini", vision: true, tools: true, contextLength: 400000 },
+        { name: "gpt-5-nano", displayName: "GPT-5 nano", vision: true, tools: true, contextLength: 400000 },
+        { name: "gpt-5-chat-latest", displayName: "GPT-5 Chat", vision: true, tools: true, contextLength: 400000 },
         { name: "gpt-4o-mini", displayName: "GPT-4o mini", vision: true, tools: true, contextLength: 128000, parameterSize: "8B" },
         { name: "gpt-4o", displayName: "GPT-4o", contextLength: 128000 },
         { name: "chatgpt-4o-latest", displayName: "ChatGPT-4o", vision: true, contextLength: 128000 },
-        { name: "gpt-4.5-preview", displayName: "GPT-4.5 Preview", vision: true, contextLength: 128000 },
+        // { name: "gpt-4.5-preview", displayName: "GPT-4.5 Preview", vision: true, contextLength: 128000 },
         { name: "o4-mini", vision: true, tools: true, contextLength: 200000 },
+        // { name: "o4-mini-deep-research", vision: true, tools: true, contextLength: 200000, integratedWebSearch: true },
         { name: "o3-pro", vision: true, tools: true, contextLength: 200000 },
         { name: "o3", vision: true, tools: true, contextLength: 200000 },
+        // { name: "o3-deep-research", vision: true, tools: true, contextLength: 200000, integratedWebSearch: true },
         { name: "o3-mini", tools: true, contextLength: 200000 },
         { name: "o1-pro", vision: true, tools: true, contextLength: 200000 },
         { name: "o1", vision: true, tools: true, contextLength: 200000 },
         { name: "o1-mini", contextLength: 128000 },
-        { name: "gpt-4.1-2025-04-14", displayName: "GPT-4.1", vision: true, contextLength: 1047576 },
-        { name: "gpt-4.1-mini-2025-04-14", displayName: "GPT-4.1 mini", vision: true, contextLength: 1047576 },
-        { name: "gpt-4.1-nano-2025-04-14", displayName: "GPT-4.1 nano", vision: true, contextLength: 1047576 },
+        { name: "gpt-4.1", displayName: "GPT-4.1", vision: true, contextLength: 1047576 },
+        { name: "gpt-4.1-mini", displayName: "GPT-4.1 mini", vision: true, contextLength: 1047576 },
+        { name: "gpt-4.1-nano", displayName: "GPT-4.1 nano", vision: true, contextLength: 1047576 },
         { name: "gpt-4o-search-preview", displayName: "GPT-4o Web Search (Preview)", contextLength: 128000, integratedWebSearch: true },
         { name: "gpt-4o-mini-search-preview", displayName: "GPT-4o mini Web Search (Preview)", contextLength: 128000, integratedWebSearch: true },
     ];
@@ -308,10 +314,7 @@ async function addOpenRouterAccount(account: IAccountOpenRouter): Promise<IChatM
 
     for (const model of (result ?? []))
     {
-        if (!(model.id.endsWith(":free") || (model["pricing"]?.["prompt"] === "0" && model["pricing"]?.["completion"] === "0")))
-        {
-            continue;
-        }
+        const hidden = (!(model.id.endsWith(":free") || (model["pricing"]?.["prompt"] === "0" && model["pricing"]?.["completion"] === "0")));
 
         models.push({
             id: `${account.id}::${model.name}`,
@@ -334,6 +337,9 @@ async function addOpenRouterAccount(account: IAccountOpenRouter): Promise<IChatM
             // @ts-expect-error
             contextLength: model.context_length,
             info: model,
+            config: {
+                hidden,
+            },
         });
     }
 

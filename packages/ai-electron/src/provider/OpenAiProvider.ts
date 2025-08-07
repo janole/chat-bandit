@@ -314,10 +314,7 @@ async function addOpenRouterAccount(account: IAccountOpenRouter): Promise<IChatM
 
     for (const model of (result ?? []))
     {
-        if (!(model.id.endsWith(":free") || (model["pricing"]?.["prompt"] === "0" && model["pricing"]?.["completion"] === "0")))
-        {
-            continue;
-        }
+        const hidden = (!(model.id.endsWith(":free") || (model["pricing"]?.["prompt"] === "0" && model["pricing"]?.["completion"] === "0")));
 
         models.push({
             id: `${account.id}::${model.name}`,
@@ -340,6 +337,9 @@ async function addOpenRouterAccount(account: IAccountOpenRouter): Promise<IChatM
             // @ts-expect-error
             contextLength: model.context_length,
             info: model,
+            config: {
+                hidden,
+            },
         });
     }
 

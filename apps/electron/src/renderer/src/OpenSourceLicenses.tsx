@@ -1,4 +1,4 @@
-import { htmlEncode, markdownComponents, MarkdownWithHtml, useChatStore } from "@janole/ai-chat";
+import { htmlEncode, markdownComponents, MarkdownWithHtml } from "@janole/ai-chat";
 import { ElectronChatProvider } from "@janole/ai-electron";
 import { ContentContainer, FlexBox } from "@janole/basic-app";
 import { Typography } from "@mui/material";

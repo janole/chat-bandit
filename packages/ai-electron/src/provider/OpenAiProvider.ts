@@ -228,6 +228,10 @@ async function addOpenAiAccount(account: IAccountOpenAI): Promise<IChatModelOpen
     const remoteModels = result.data.map(m => m.id);
 
     const openAiModels = [
+        { name: "gpt-5", displayName: "GPT-5", vision: true, tools: true, contextLength: 400000 },
+        { name: "gpt-5-mini", displayName: "GPT-5 mini", vision: true, tools: true, contextLength: 400000 },
+        { name: "gpt-5-nano", displayName: "GPT-5 nano", vision: true, tools: true, contextLength: 400000 },
+        { name: "gpt-5-chat-latest", displayName: "GPT-5 Chat", vision: true, tools: true, contextLength: 400000 },
         { name: "gpt-4o-mini", displayName: "GPT-4o mini", vision: true, tools: true, contextLength: 128000, parameterSize: "8B" },
         { name: "gpt-4o", displayName: "GPT-4o", contextLength: 128000 },
         { name: "chatgpt-4o-latest", displayName: "ChatGPT-4o", vision: true, contextLength: 128000 },

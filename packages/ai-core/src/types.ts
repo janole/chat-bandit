@@ -206,6 +206,8 @@ export interface IChat
     deletedAt?: number | "deleted";
 }
 
+export type TProviderInfo = { [key: string]: any };
+
 export function cleanObject(obj: object)
 {
     return Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== null && value !== undefined));

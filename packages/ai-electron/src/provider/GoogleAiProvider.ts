@@ -116,8 +116,6 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
 
         for await (const chunk of response)
         {
-            console.log(chunk.candidates);
-
             if (chunk.text)
             {
                 message.content += chunk.text;

@@ -19,8 +19,6 @@ export default function OnOffSwitch(props: OnOffSwitchProps)
         e.preventDefault();
         e.stopPropagation();
 
-        console.log(e, !value);
-
         props.setValue(!value);
     };
 

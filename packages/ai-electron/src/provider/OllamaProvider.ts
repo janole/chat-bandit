@@ -133,24 +133,6 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
 
         for await (const part of response)
         {
-            // console.log("PART", part);
-
-            // if (part.message.tool_calls)
-            // {
-            //     for (const tool of part.message.tool_calls)
-            //     {
-            //         // Model wants to call our tool
-            //         const name = tool.function.name;
-            //         const args = tool.function.arguments;
-
-            //         console.log("CALL", name, args, part.message);
-
-            //         message.toolChain?.push({ role: "tool", content: "10", provider: "ollama", data: part.message });
-            //     }
-
-            //     continue;
-            // }
-
             message.content += part.message.content;
             message.history[message.history.length - 1].content += part.message.content;
 

@@ -1,4 +1,4 @@
-import { normalizeModelUri,TDownloadStatusMap, TSendFunc } from "@janole/ai-core";
+import { normalizeModelUri, TDownloadStatusMap, TSendFunc } from "@janole/ai-core";
 import tryCatch from "@janole/try-catch";
 import { app, powerMonitor } from "electron";
 import { rm, stat } from "fs/promises";
@@ -145,8 +145,6 @@ async function removeDownload(unsafeModelUri: string, send?: TSendFunc): Promise
     }
 
     const path = await checkDownload(modelUri);
-
-    console.log(path, modelUri);
 
     path && await tryCatch(rm(path)) && await tryCatch(rm(path + ".ipull"));
 }

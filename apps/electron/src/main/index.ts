@@ -17,8 +17,6 @@ function registerAutoUpdater()
     {
         if (!updateCheckResult?.updateInfo?.version)
         {
-            console.log("CHECK FOR UPDATE");
-
             const response = await tryCatchCache(electronUpdater.autoUpdater.checkForUpdates(), {
                 key: "app-update",
                 ttlSeconds: 60 * 60,

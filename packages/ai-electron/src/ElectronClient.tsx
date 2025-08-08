@@ -140,13 +140,11 @@ setInterval(() =>
 {
     if (Object.values(chatStore.getState().chats).find(chat => chat.updatedAt && chat.updatedAt > lastUpdated1))
     {
-        console.log("SET TIMEOUT FOR SAVE");
         clearTimeout(timerId);
         timerId = setTimeout(() =>
         {
             Object.values(chatStore.getState().chats).filter(chat => chat.updatedAt && chat.updatedAt > lastUpdated2).forEach(chat =>
             {
-                console.log("SAVE ...", JSON.stringify({ chat }).length);
                 invoke("save-chat", chat);
             });
             lastUpdated2 = Date.now();

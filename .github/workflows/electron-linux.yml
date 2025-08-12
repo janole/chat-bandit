@@ -31,11 +31,11 @@ jobs:
 
     - name: install dependencies in root
       working-directory: ./
-      run: npm ci
+      run: npm install
 
     - name: install dependencies in electron/apps
       working-directory: ./apps/electron
-      run: npm ci
+      run: npm install
 
     - name: download llama.cpp
       working-directory: ./apps/electron

@@ -13,9 +13,9 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
   - '!scripts/*'
   - '!**/node-llama-cpp/llama/llama.cpp/**/*'
+  - '!**/node-llama-cpp/**/gitRelease.bundle'
   - '!**/node-llama-cpp/bins/**/*'
   - '!**/@node-llama-cpp/*/bins/**/*'
-  - '!**/node-llama-cpp/**/gitRelease.bundle'
 asarUnpack:
   - resources/**
 win:

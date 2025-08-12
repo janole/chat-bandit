@@ -31,11 +31,11 @@ jobs:
 
     - name: install dependencies in root
       working-directory: ./
-      run: npm install
+      run: npm ci
 
-    - name: install dependencies in electron/apps
-      working-directory: ./apps/electron
-      run: npm install
+#    - name: install dependencies in electron/apps
+#      working-directory: ./apps/electron
+#      run: npm install
 
     # Cache the compiled llama.cpp builds
     - name: Cache llama.cpp local builds
@@ -60,7 +60,3 @@ jobs:
       with:
         name: electron-linux
         path: ./apps/electron/dist
-
-    - name: list
-      working-directory: ./apps/electron
-      run: ls -la dist ~/ ~/.cache

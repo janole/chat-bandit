@@ -33,12 +33,9 @@ jobs:
       working-directory: ./
       run: npm ci
 
-#    - name: install dependencies in electron/apps
-#      working-directory: ./apps/electron
-#      run: npm install
-
     # Cache the compiled llama.cpp builds
     - name: Cache llama.cpp local builds
+      id: cache-llama
       uses: actions/cache@v4
       with:
         path: |
@@ -49,6 +46,7 @@ jobs:
           ${{ runner.os }}-llama-localBuilds-
 
     - name: download llama.cpp
+      if: steps.cache-llama.outputs.cache-hit != 'true'
       working-directory: ./apps/electron
       run: npm run llama:source
 

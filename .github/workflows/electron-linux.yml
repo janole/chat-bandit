@@ -37,6 +37,17 @@ jobs:
       working-directory: ./apps/electron
       run: npm install
 
+    # Cache the compiled llama.cpp builds
+    - name: Cache llama.cpp local builds
+      uses: actions/cache@v4
+      with:
+        path: |
+          node_modules/node-llama-cpp/llama/localBuilds
+        key: |
+          ${{ runner.os }}-llama-localBuilds-${{ hashFiles('package-lock.json', 'apps/electron/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-llama-localBuilds-
+
     - name: download llama.cpp
       working-directory: ./apps/electron
       run: npm run llama:source

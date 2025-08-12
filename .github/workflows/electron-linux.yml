@@ -52,4 +52,4 @@ jobs:
 
     - name: list
       working-directory: ./apps/electron
-      run: ls -l dist ~/ ~/.cache
+      run: ls -la dist ~/ ~/.cache

@@ -1,0 +1,23 @@
+name: electron/Linux
+on:
+  workflow_dispatch:
+
+jobs:
+  build_on_linux:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/electron
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@master
+      with:
+        node-version: 24
+    - name: install dependencies
+      run: npm install
+    - name: download llama.cpp
+      run: npm run llama:source
+    - name: build
+      run: npm run build:linux
+    - name: list
+      run: ls -l dist

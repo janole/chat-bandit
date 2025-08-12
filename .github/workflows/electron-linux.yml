@@ -5,19 +5,23 @@ on:
 jobs:
   build_on_linux:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/electron
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@master
       with:
         node-version: 24
-    - name: install dependencies
+    - name: install dependencies in root
+      working-directory: ./
+      run: npm install
+    - name: install dependencies in electron/apps
+      working-directory: ./apps/electron
       run: npm install
     - name: download llama.cpp
+      working-directory: ./apps/electron
       run: npm run llama:source
     - name: build
+      working-directory: ./apps/electron
       run: npm run build:linux
     - name: list
+      working-directory: ./apps/electron
       run: ls -l dist

@@ -7,25 +7,49 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@master
+
+    - uses: actions/setup-node@v4
       with:
         node-version: 24
+        cache: npm
+        cache-dependency-path: package-lock.json
+
+    # Cache Electron/electron-builder, node-llama-cpp, and node-gyp
+    - name: Cache Electron/electron-builder and tools
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/electron
+          ~/.cache/electron-builder
+          ~/.cache/node-llama-cpp
+          ~/.cache/node-gyp
+          ~/.node-gyp
+        key: |
+          ${{ runner.os }}-electron-cache-${{ hashFiles('package-lock.json', 'apps/electron/electron-builder.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-electron-cache-
+
     - name: install dependencies in root
       working-directory: ./
-      run: npm install
+      run: npm ci
+
     - name: install dependencies in electron/apps
       working-directory: ./apps/electron
-      run: npm install
+      run: npm ci
+
     - name: download llama.cpp
       working-directory: ./apps/electron
       run: npm run llama:source
+
     - name: build
       working-directory: ./apps/electron
       run: npm run build:linux
+
     - uses: actions/upload-artifact@v4
       with:
         name: electron-linux
         path: ./apps/electron/dist
+
     - name: list
       working-directory: ./apps/electron
-      run: ls -l dist
+      run: ls -l dist ~/ ~/.cache

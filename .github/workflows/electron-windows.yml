@@ -1,0 +1,58 @@
+name: electron/Windows
+on:
+  workflow_dispatch:
+
+jobs:
+  build_on_windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      # Cache Electron/electron-builder, node-gyp, and node-llama-cpp caches
+      - name: Cache Electron/electron-builder and tools
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~\AppData\Local\electron\Cache
+            ~\AppData\Local\electron-builder\Cache
+            ~\AppData\Local\node-gyp\Cache
+            ~\.node-gyp
+            ~\AppData\Local\node-llama-cpp
+          key: ${{ runner.os }}-electron-cache-${{ hashFiles('package-lock.json', 'apps/electron/electron-builder.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-electron-cache-
+
+      - name: Install dependencies (all workspaces)
+        run: npm ci
+
+      # Cache the compiled llama.cpp builds
+      - name: Cache llama.cpp local builds
+        id: cache-llama
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules/node-llama-cpp/llama/localBuilds
+            apps/electron/node_modules/node-llama-cpp/llama/localBuilds
+          key: ${{ runner.os }}-llama-localBuilds-${{ hashFiles('package-lock.json', 'apps/electron/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-llama-localBuilds-
+
+      - name: download llama.cpp
+        if: steps.cache-llama.outputs.cache-hit != 'true'
+        working-directory: ./apps/electron
+        run: npm run llama:source
+
+      - name: build
+        working-directory: ./apps/electron
+        run: npm run build:win
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: electron-windows
+          path: ./apps/electron/dist

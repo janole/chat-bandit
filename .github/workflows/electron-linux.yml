@@ -16,9 +16,9 @@ jobs:
     - name: install dependencies in electron/apps
       working-directory: ./apps/electron
       run: npm install
-    - name: download llama.cpp
-      working-directory: ./apps/electron
-      run: npm run llama:source
+#    - name: download llama.cpp
+#      working-directory: ./apps/electron
+#      run: npm run llama:source
     - name: build
       working-directory: ./apps/electron
       run: npm run build:linux

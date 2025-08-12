@@ -5,19 +5,56 @@ on:
 jobs:
   build_on_linux:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: apps/electron
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-node@master
+
+    - uses: actions/setup-node@v4
       with:
         node-version: 24
-    - name: install dependencies
-      run: npm install
+        cache: npm
+        cache-dependency-path: package-lock.json
+
+    # Cache Electron/electron-builder, node-llama-cpp, and node-gyp
+    - name: Cache Electron/electron-builder and tools
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cache/electron
+          ~/.cache/electron-builder
+          ~/.cache/node-llama-cpp
+          ~/.cache/node-gyp
+          ~/.node-gyp
+        key: |
+          ${{ runner.os }}-electron-cache-${{ hashFiles('package-lock.json', 'apps/electron/electron-builder.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-electron-cache-
+
+    - name: install dependencies in root
+      working-directory: ./
+      run: npm ci
+
+    # Cache the compiled llama.cpp builds
+    - name: Cache llama.cpp local builds
+      id: cache-llama
+      uses: actions/cache@v4
+      with:
+        path: |
+          node_modules/node-llama-cpp/llama/localBuilds
+        key: |
+          ${{ runner.os }}-llama-localBuilds-${{ hashFiles('package-lock.json', 'apps/electron/package.json') }}
+        restore-keys: |
+          ${{ runner.os }}-llama-localBuilds-
+
     - name: download llama.cpp
+      if: steps.cache-llama.outputs.cache-hit != 'true'
+      working-directory: ./apps/electron
       run: npm run llama:source
+
     - name: build
+      working-directory: ./apps/electron
       run: npm run build:linux
-    - name: list
-      run: ls -l dist
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: electron-linux
+        path: ./apps/electron/dist

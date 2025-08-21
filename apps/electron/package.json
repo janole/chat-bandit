@@ -6,6 +6,7 @@
     "description": "An all-in-one AI assistant for your desktop.",
     "homepage": "https://chatbandit.de",
     "author": "Jan Ole Suhr <ole@janole.com> (https://janole.com/)",
+    "license": "MIT",
     "main": "./out/main/index.js",
     "type": "module",
     "config": {

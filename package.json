@@ -1,6 +1,7 @@
 {
     "name": "@janole/chat-bandit",
     "private": true,
+    "license": "MIT",
     "workspaces": [
         "apps/*",
         "packages/*"

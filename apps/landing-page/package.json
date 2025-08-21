@@ -2,6 +2,7 @@
     "name": "landing-page",
     "version": "0.0.1",
     "private": true,
+    "license": "MIT",
     "scripts": {
         "dev": "next dev --turbopack",
         "build": "next build",

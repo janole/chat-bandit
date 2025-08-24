@@ -1,5 +1,5 @@
 import { useChatClient } from "@janole/ai-core";
-import { NavBar,SplitButton, useLayoutStore } from "@janole/basic-app";
+import { NavBar, SplitButton, useLayoutStore } from "@janole/basic-app";
 import { Box, Divider, useTheme } from "@mui/material";
 import { Code, Copy, ExternalLink } from "lucide-react";
 import { useMemo } from "react";

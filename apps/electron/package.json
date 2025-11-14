@@ -32,6 +32,7 @@
         "sbom": "node scripts/license-checker.js"
     },
     "dependencies": {
+        "@codemirror/lang-jinja": "^6.0.0",
         "@electron-toolkit/preload": "^3.0.1",
         "@electron-toolkit/utils": "^3.0.0",
         "@emotion/react": "^11.14.0",

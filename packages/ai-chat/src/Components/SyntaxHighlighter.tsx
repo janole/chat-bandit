@@ -1,13 +1,13 @@
 import { langs as defaultLangs } from "@uiw/codemirror-extensions-langs";
-import { githubDark,githubLight } from "@uiw/codemirror-theme-github";
+import { githubDark, githubLight } from "@uiw/codemirror-theme-github";
 import ReactCodeMirror from "@uiw/react-codemirror";
 import { memo, useMemo } from "react";
 
 const langs = {
     ...defaultLangs,
-    js: defaultLangs.javascript,
-    ts: defaultLangs.typescript,
-    bash: defaultLangs.shell,
+    javascript: defaultLangs.js,
+    typescript: defaultLangs.ts,
+    shell: defaultLangs.bash,
 };
 
 interface SyntaxHighlighterProps

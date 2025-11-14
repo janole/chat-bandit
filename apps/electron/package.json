@@ -10,7 +10,7 @@
     "main": "./out/main/index.js",
     "type": "module",
     "config": {
-        "llamaCppRelease": "b6305"
+        "llamaCppRelease": "b6845"
     },
     "scripts": {
         "format": "prettier --write .",
@@ -19,7 +19,7 @@
         "typecheck:web": "tsc --noEmit -p tsconfig.web.json --composite false",
         "typecheck": "npm run typecheck:node && npm run typecheck:web",
         "clean": "npx -y rimraf out",
-        "llama:source": "npx --no node-llama-cpp source download --release b6305",
+        "llama:source": "npx --no node-llama-cpp source download --release b6845",
         "start": "electron-vite preview",
         "dev": "electron-vite dev --watch",
         "build": "npm run typecheck && npm run clean && electron-vite build",

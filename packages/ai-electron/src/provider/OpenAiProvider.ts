@@ -244,7 +244,7 @@ async function addOpenAiAccount(account: IAccountOpenAI): Promise<IChatModelOpen
         { name: "o3-mini", tools: true, contextLength: 200000 },
         { name: "o1-pro", vision: true, tools: true, contextLength: 200000 },
         { name: "o1", vision: true, tools: true, contextLength: 200000 },
-        { name: "o1-mini", contextLength: 128000 },
+        // { name: "o1-mini", contextLength: 128000 },
         { name: "gpt-4.1", displayName: "GPT-4.1", vision: true, contextLength: 1047576 },
         { name: "gpt-4.1-mini", displayName: "GPT-4.1 mini", vision: true, contextLength: 1047576 },
         { name: "gpt-4.1-nano", displayName: "GPT-4.1 nano", vision: true, contextLength: 1047576 },

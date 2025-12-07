@@ -16,6 +16,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder /app /app
 
+RUN addgroup -S app && adduser -S app -G app
+USER app
+
 # Port Next.js listens on
 EXPOSE 3000
 

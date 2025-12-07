@@ -94,7 +94,7 @@
   {
     "name": "@fontsource/roboto",
     "author": "Google Inc.",
-    "version": "5.2.8",
+    "version": "5.2.9",
     "description": "Self-host the Roboto font in a neatly bundled NPM package.",
     "license": "OFL-1.1",
     "homepage": "https://fontsource.org/fonts/roboto",
@@ -104,13 +104,13 @@
       "directory": "fonts/google/roboto"
     },
     "installedName": "@fontsource/roboto",
-    "installedVersion": "5.2.8",
+    "installedVersion": "5.2.9",
     "licenseText": "Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic) Roboto-Italic[wdth,wght].ttf: Copyright 2011 The Roboto Project Authors (https://github.com/googlefonts/roboto-classic)\n\nThis Font Software is licensed under the SIL Open Font License, Version 1.1.\nThis license is copied below, and is also available with a FAQ at:\nhttp://scripts.sil.org/OFL\n\n\n-----------------------------------------------------------\nSIL OPEN FONT LICENSE Version 1.1 - 26 February 2007\n-----------------------------------------------------------\n\nPREAMBLE\nThe goals of the Open Font License (OFL) are to stimulate worldwide\ndevelopment of collaborative font projects, to support the font creation\nefforts of academic and linguistic communities, and to provide a free and\nopen framework in which fonts may be shared and improved in partnership\nwith others.\n\nThe OFL allows the licensed fonts to be used, studied, modified and\nredistributed freely as long as they are not sold by themselves. The\nfonts, including any derivative works, can be bundled, embedded,\nredistributed and/or sold with any software provided that any reserved\nnames are not used by derivative works. The fonts and derivatives,\nhowever, cannot be released under any other type of license. The\nrequirement for fonts to remain under this license does not apply\nto any document created using the fonts or their derivatives.\n\nDEFINITIONS\n\"Font Software\" refers to the set of files released by the Copyright\nHolder(s) under this license and clearly marked as such. This may\ninclude source files, build scripts and documentation.\n\n\"Reserved Font Name\" refers to any names specified as such after the\ncopyright statement(s).\n\n\"Original Version\" refers to the collection of Font Software components as\ndistributed by the Copyright Holder(s).\n\n\"Modified Version\" refers to any derivative made by adding to, deleting,\nor substituting -- in part or in whole -- any of the components of the\nOriginal Version, by changing formats or by porting the Font Software to a\nnew environment.\n\n\"Author\" refers to any designer, engineer, programmer, technical\nwriter or other person who contributed to the Font Software.\n\nPERMISSION & CONDITIONS\nPermission is hereby granted, free of charge, to any person obtaining\na copy of the Font Software, to use, study, copy, merge, embed, modify,\nredistribute, and sell modified and unmodified copies of the Font\nSoftware, subject to the following conditions:\n\n1) Neither the Font Software nor any of its individual components,\nin Original or Modified Versions, may be sold by itself.\n\n2) Original or Modified Versions of the Font Software may be bundled,\nredistributed and/or sold with any software, provided that each copy\ncontains the above copyright notice and this license. These can be\nincluded either as stand-alone text files, human-readable headers or\nin the appropriate machine-readable metadata fields within text or\nbinary files as long as those fields can be easily viewed by the user.\n\n3) No Modified Version of the Font Software may use the Reserved Font\nName(s) unless explicit written permission is granted by the corresponding\nCopyright Holder. This restriction only applies to the primary font name as\npresented to the users.\n\n4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font\nSoftware shall not be used to promote, endorse or advertise any\nModified Version, except to acknowledge the contribution(s) of the\nCopyright Holder(s) and the Author(s) or with their explicit written\npermission.\n\n5) The Font Software, modified or unmodified, in part or in whole,\nmust be distributed entirely under this license, and must not be\ndistributed under any other license. The requirement for fonts to\nremain under this license does not apply to any document created\nusing the Font Software.\n\nTERMINATION\nThis license becomes null and void if any of the above conditions are\nnot met.\n\nDISCLAIMER\nTHE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT\nOF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE\nCOPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,\nINCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL\nDAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\nFROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM\nOTHER DEALINGS IN THE FONT SOFTWARE.\n"
   },
   {
     "name": "@google/genai",
     "author": "",
-    "version": "1.29.1",
+    "version": "1.31.0",
     "description": "[![NPM Downloads](https://img.shields.io/npm/dw/%40google%2Fgenai)](https://www.npmjs.com/package/@google/genai) [![Node Current](https://img.shields.io/node/v/%40google%2Fgenai)](https://www.npmjs.com/package/@google/genai)",
     "license": "Apache-2.0",
     "homepage": "https://github.com/googleapis/js-genai#readme",
@@ -141,7 +141,7 @@
   {
     "name": "@mui/icons-material",
     "author": "MUI Team",
-    "version": "7.3.5",
+    "version": "7.3.6",
     "description": "Material Design icons distributed as SVG React components.",
     "license": "MIT",
     "homepage": "https://mui.com/material-ui/material-icons/",
@@ -151,13 +151,13 @@
       "directory": "packages/mui-icons-material"
     },
     "installedName": "@mui/icons-material",
-    "installedVersion": "7.3.5",
+    "installedVersion": "7.3.6",
     "licenseText": "The MIT License (MIT)\n\nCopyright (c) 2014 Call-Em-All\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   },
   {
     "name": "@mui/material",
     "author": "MUI Team",
-    "version": "7.3.5",
+    "version": "7.3.6",
     "description": "Material UI is an open-source React component library that implements Google's Material Design. It's comprehensive and can be used in production out of the box.",
     "license": "MIT",
     "homepage": "https://mui.com/material-ui/",
@@ -167,7 +167,7 @@
       "directory": "packages/mui-material"
     },
     "installedName": "@mui/material",
-    "installedVersion": "7.3.5",
+    "installedVersion": "7.3.6",
     "licenseText": "The MIT License (MIT)\n\nCopyright (c) 2014 Call-Em-All\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   },
   {
@@ -276,16 +276,16 @@
   {
     "name": "glob",
     "author": "Isaac Z. Schlueter <i@izs.me> (https://blog.izs.me/)",
-    "version": "11.0.3",
+    "version": "13.0.0",
     "description": "the most correct and second fastest glob implementation in JavaScript",
-    "license": "ISC",
+    "license": "BlueOak-1.0.0",
     "homepage": "https://github.com/isaacs/node-glob#readme",
     "repository": {
-      "type": "git",
-      "url": "git://github.com/isaacs/node-glob.git"
+      "url": "git+ssh://git@github.com/isaacs/node-glob.git",
+      "type": "git"
     },
     "installedName": "glob",
-    "installedVersion": "11.0.3",
+    "installedVersion": "11.1.0",
     "licenseText": "The ISC License\n\nCopyright (c) 2009-2023 Isaac Z. Schlueter and Contributors\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES\nWITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR\nANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR\nIN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n"
   },
   {
@@ -304,13 +304,13 @@
   {
     "name": "lucide-react",
     "author": "Eric Fennis",
-    "version": "0.553.0",
+    "version": "0.556.0",
     "description": "A Lucide icon library package for React applications.",
     "license": "ISC",
     "homepage": "https://lucide.dev",
     "repository": {
-      "url": "git+https://github.com/lucide-icons/lucide.git",
       "type": "git",
+      "url": "git+https://github.com/lucide-icons/lucide.git",
       "directory": "packages/lucide-react"
     },
     "installedName": "lucide-react",
@@ -335,7 +335,7 @@
   {
     "name": "marked",
     "author": "Christopher Jeffrey",
-    "version": "17.0.0",
+    "version": "17.0.1",
     "description": "A markdown parser built for speed",
     "license": "MIT",
     "homepage": "https://marked.js.org",
@@ -380,7 +380,7 @@
   {
     "name": "openai",
     "author": "OpenAI <support@openai.com>",
-    "version": "6.9.0",
+    "version": "6.10.0",
     "description": "The official TypeScript library for the OpenAI API",
     "license": "Apache-2.0",
     "repository": {
@@ -393,7 +393,7 @@
   },
   {
     "name": "react-dom",
-    "version": "19.2.0",
+    "version": "19.2.1",
     "description": "React package for working with the DOM.",
     "license": "MIT",
     "homepage": "https://react.dev/",
@@ -429,8 +429,8 @@
     "license": "MIT",
     "homepage": "https://github.com/bvaughn/react-resizable-panels#readme",
     "repository": {
-      "type": "git",
-      "url": "git+https://github.com/bvaughn/react-resizable-panels.git"
+      "url": "git+https://github.com/bvaughn/react-resizable-panels.git",
+      "type": "git"
     },
     "installedName": "react-resizable-panels",
     "installedVersion": "2.1.9"
@@ -438,7 +438,7 @@
   {
     "name": "react-router-dom",
     "author": "Remix Software <hello@remix.run>",
-    "version": "7.9.6",
+    "version": "7.10.1",
     "description": "Declarative routing for React web applications",
     "license": "MIT",
     "homepage": "https://github.com/remix-run/react-router#readme",
@@ -453,7 +453,7 @@
   },
   {
     "name": "react",
-    "version": "19.2.0",
+    "version": "19.2.1",
     "description": "React is a JavaScript library for building user interfaces.",
     "license": "MIT",
     "homepage": "https://react.dev/",
@@ -551,13 +551,13 @@
       "url": "git+https://github.com/npm/node-semver.git"
     },
     "installedName": "semver",
-    "installedVersion": "7.7.2",
+    "installedVersion": "7.7.3",
     "licenseText": "The ISC License\n\nCopyright (c) Isaac Z. Schlueter and Contributors\n\nPermission to use, copy, modify, and/or distribute this software for any\npurpose with or without fee is hereby granted, provided that the above\ncopyright notice and this permission notice appear in all copies.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\" AND THE AUTHOR DISCLAIMS ALL WARRANTIES\nWITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR\nANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES\nWHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN\nACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR\nIN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.\n"
   },
   {
     "name": "ulid",
     "author": "Alizain Feerasta",
-    "version": "3.0.1",
+    "version": "3.0.2",
     "description": "A universally-unique, lexicographically-sortable, identifier generator",
     "license": "MIT",
     "homepage": "https://github.com/ulid/javascript#readme",
@@ -566,7 +566,7 @@
       "url": "git+https://github.com/ulid/javascript.git"
     },
     "installedName": "ulid",
-    "installedVersion": "3.0.1",
+    "installedVersion": "3.0.2",
     "licenseText": "The MIT License (MIT)\n\nCopyright (c) 2017 Alizain Feerasta\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   },
   {
@@ -617,7 +617,7 @@
   {
     "name": "zustand",
     "author": "Paul Henschel",
-    "version": "5.0.8",
+    "version": "5.0.9",
     "description": "🐻 Bear necessities for state management in React",
     "license": "MIT",
     "homepage": "https://github.com/pmndrs/zustand",
@@ -626,7 +626,7 @@
       "url": "git+https://github.com/pmndrs/zustand.git"
     },
     "installedName": "zustand",
-    "installedVersion": "5.0.8",
+    "installedVersion": "5.0.9",
     "licenseText": "MIT License\n\nCopyright (c) 2019 Paul Henschel\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
   }
 ]

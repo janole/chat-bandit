@@ -9,6 +9,7 @@ import path from "path";
 import writeFileAtomic from "write-file-atomic";
 
 import { getDownloadStatus, removeDownload, startDownload, stopDownload } from "./ElectronDownloader";
+import CodexAspProvider from "./provider/CodexAspProvider";
 import GoogleAiProvider from "./provider/GoogleAiProvider";
 import LlamaCppProvider from "./provider/LlamaCppProvider";
 import OllamaProvider from "./provider/OllamaProvider";
@@ -25,6 +26,14 @@ if (!existsSync(dataPath))
 }
 
 let __chats: IChat[] = [];
+const codexAspState = {
+    maxAttempts: 3,
+    attempts: 0,
+    found: false,
+    disabledForSession: false,
+    models: [] as IChat["model"][],
+};
+
 function loadChats(): Promise<IChat[]>
 {
     if (__chats.length) return Promise.resolve(__chats);
@@ -64,12 +73,42 @@ async function loadModels()
     // TODO: should be dynamic because of API key
     const openAiModels = await tryCatch(OpenAiProvider.listModels());
     const googleAiModels = await tryCatch(GoogleAiProvider.listModels());
+    let codexAspModels: IChat["model"][] = [];
+
+    if (!codexAspState.disabledForSession)
+    {
+        if (codexAspState.found)
+        {
+            codexAspModels = codexAspState.models;
+        }
+        else
+        {
+            const response = await tryCatch(CodexAspProvider.listModels());
+
+            if (response.result)
+            {
+                codexAspState.found = true;
+                codexAspState.models = response.result;
+                codexAspModels = response.result;
+            }
+            else
+            {
+                codexAspState.attempts += 1;
+
+                if (codexAspState.attempts >= codexAspState.maxAttempts)
+                {
+                    codexAspState.disabledForSession = true;
+                }
+            }
+        }
+    }
 
     return [
         ...llamaCppModels.result ?? [],
         ...ollamaModels.result ?? [],
         ...openAiModels.result ?? [],
         ...googleAiModels.result ?? [],
+        ...codexAspModels,
     ];
 }
 
@@ -92,6 +131,7 @@ export function registerAdapter({ send }: { send: TSendFunc })
         "node-llama-cpp": LlamaCppProvider.generateResponse,
         "openai": OpenAiProvider.generateResponse,
         "googleai": GoogleAiProvider.generateResponse,
+        "codexasp": CodexAspProvider.generateResponse,
     };
 
     ipcMain.removeHandler("generate-chat-response");

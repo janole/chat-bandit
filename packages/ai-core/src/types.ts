@@ -2,7 +2,7 @@ import type { GgufFileInfo } from "node-llama-cpp";
 import type { ModelResponse, ShowResponse } from "ollama";
 import { ulid } from "ulid";
 
-type TChatModelProvider = "node-llama-cpp" | "ollama" | "openai" | "googleai";
+type TChatModelProvider = "node-llama-cpp" | "ollama" | "openai" | "googleai" | "codexasp";
 
 export interface IChatModelFeatures
 {
@@ -97,12 +97,19 @@ export interface IChatModelGoogleAI extends IChatModelBase
     info?: any;
 }
 
+export interface IChatModelCodexAsp extends IChatModelBase
+{
+    provider: "codexasp";
+    info?: any;
+}
+
 export type IChatModel =
     | IChatModelOllama
     | IChatModelLlamaCpp
     | IChatModelOpenAI
     | IChatModelOpenRouter
     | IChatModelGoogleAI
+    | IChatModelCodexAsp
     ;
 
 export interface IChatModelInfo

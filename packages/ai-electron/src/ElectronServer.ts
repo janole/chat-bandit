@@ -26,13 +26,6 @@ if (!existsSync(dataPath))
 }
 
 let __chats: IChat[] = [];
-const codexAspState = {
-    maxAttempts: 3,
-    attempts: 0,
-    found: false,
-    disabledForSession: false,
-    models: [] as IChat["model"][],
-};
 
 function loadChats(): Promise<IChat[]>
 {
@@ -73,42 +66,14 @@ async function loadModels()
     // TODO: should be dynamic because of API key
     const openAiModels = await tryCatch(OpenAiProvider.listModels());
     const googleAiModels = await tryCatch(GoogleAiProvider.listModels());
-    let codexAspModels: IChat["model"][] = [];
-
-    if (!codexAspState.disabledForSession)
-    {
-        if (codexAspState.found)
-        {
-            codexAspModels = codexAspState.models;
-        }
-        else
-        {
-            const response = await tryCatch(CodexAspProvider.listModels());
-
-            if (response.result)
-            {
-                codexAspState.found = true;
-                codexAspState.models = response.result;
-                codexAspModels = response.result;
-            }
-            else
-            {
-                codexAspState.attempts += 1;
-
-                if (codexAspState.attempts >= codexAspState.maxAttempts)
-                {
-                    codexAspState.disabledForSession = true;
-                }
-            }
-        }
-    }
+    const codexAspModels = await tryCatch(CodexAspProvider.listModels());
 
     return [
         ...llamaCppModels.result ?? [],
         ...ollamaModels.result ?? [],
         ...openAiModels.result ?? [],
         ...googleAiModels.result ?? [],
-        ...codexAspModels,
+        ...codexAspModels.result ?? [],
     ];
 }
 

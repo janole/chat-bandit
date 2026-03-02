@@ -10,6 +10,13 @@ const account = {
 } as const;
 
 const codex = createCodexAppServer();
+const sessionAvailability = {
+    maxAttempts: 3,
+    attempts: 0,
+    found: false,
+    disabledForSession: false,
+    models: [] as IChatModelCodexAsp[],
+};
 
 interface ICodexListModelsResponse
 {
@@ -140,7 +147,7 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
     send("chat-state", updatedChat.id, state);
 }
 
-async function listModels(): Promise<IChatModelCodexAsp[]>
+async function listModelsFromServer(): Promise<IChatModelCodexAsp[]>
 {
     const client = new AppServerClient(new StdioTransport());
     const models: ICodexListModelsResponse["data"] = [];
@@ -189,6 +196,38 @@ async function listModels(): Promise<IChatModelCodexAsp[]>
             },
             info: model,
         }));
+}
+
+async function listModels(): Promise<IChatModelCodexAsp[]>
+{
+    if (sessionAvailability.disabledForSession)
+    {
+        return [];
+    }
+
+    if (sessionAvailability.found)
+    {
+        return sessionAvailability.models;
+    }
+
+    try
+    {
+        const models = await listModelsFromServer();
+        sessionAvailability.found = true;
+        sessionAvailability.models = models;
+        return models;
+    }
+    catch
+    {
+        sessionAvailability.attempts += 1;
+
+        if (sessionAvailability.attempts >= sessionAvailability.maxAttempts)
+        {
+            sessionAvailability.disabledForSession = true;
+        }
+
+        return [];
+    }
 }
 
 export default {

@@ -7,6 +7,12 @@
 //
 // Creates two daemon sessions: one for turns 1-3 (pong, ping reusing it, abort) and one for the
 // "session gone" turn, which must be seeded with the earlier conversation.
+//
+// Offline counterpart (fake daemon, no sessions): scripts/test-botbandit-turn.ts.
+//
+// Known limits, not exercised here: our prompt is matched by its text (the daemon's send returns
+// no id), reuse is decided by message count (an in-place edit of an earlier message goes
+// unnoticed), and every regenerate/edit leaves another visible daemon session behind.
 
 import type { IChat, IChatMessage, IChatModelBotBandit, TChatState } from "@janole/ai-core";
 
@@ -52,6 +58,10 @@ function createRecorder(initial: IChat)
         else if (channel === "chat-state")
         {
             chat = { ...chat, state: args[1] as TChatState };
+        }
+        else if (channel === "set-chat-botbandit-session")
+        {
+            chat = { ...chat, botbanditSession: args[1] };
         }
         else if (channel === "set-chat-summary")
         {

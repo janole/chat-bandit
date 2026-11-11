@@ -1,6 +1,7 @@
 import { IChat, IChatBotBanditSession, IChatMessage, IChatModelBotBandit, pluckModelInfo, sanitizeMessages, TChatState, TSendFunc } from "@janole/ai-core";
 
-import { createDaemonClient, DaemonRequestError, resolveDaemonSocketPath, TDaemonClient, TDaemonSessionEvent } from "./botbandit/daemon-client";
+import { createDaemonClient, DaemonRequestError, resolveDaemonSocketPath, TDaemonClient } from "./botbandit/daemon-client";
+import { DEFAULT_TURN_TIMINGS, ITurnTimings, runTurn } from "./botbandit/turn";
 
 // ---------------------------------------------------------------------------
 // BotBandit provider: one ChatBandit chat <-> one BotBandit daemon session.
@@ -10,8 +11,6 @@ import { createDaemonClient, DaemonRequestError, resolveDaemonSocketPath, TDaemo
 // ---------------------------------------------------------------------------
 
 const HEALTH_TIMEOUT_MS = 500;
-const CAUGHT_UP_TIMEOUT_MS = 10_000;
-const CANCEL_GRACE_MS = 15_000;
 
 let _client: TDaemonClient | undefined;
 
@@ -108,8 +107,14 @@ function promptOf(message: IChatMessage)
  * Opens the chat's daemon session when it can be reused, otherwise creates a fresh one. A session
  * is reused only when it has seen exactly the messages before the new prompt; a regenerate, an
  * edit or a model switch away and back therefore starts a fresh session seeded with the history.
+ *
+ * Known limits:
+ * - Reuse is decided by message count only, so editing an earlier message in place (without
+ *   regenerating from it) still counts as in sync and the daemon keeps the old wording.
+ * - Every regenerate or edit creates a new, visible daemon session; the old ones are not hidden,
+ *   archived or deleted (the daemon offers no route for either from here).
  */
-async function ensureSession(client: TDaemonClient, chat: IChat, model: IChatModelBotBandit, promptIndex: number)
+async function ensureSession(client: Pick<TDaemonClient, "createSession">, chat: IChat, model: IChatModelBotBandit, promptIndex: number)
 {
     const { profile, model: modelName } = model.botbandit;
     const stored = chat.botbanditSession;
@@ -141,205 +146,28 @@ async function ensureSession(client: TDaemonClient, chat: IChat, model: IChatMod
     return { sessionId: created.id, prompt: buildSeededPrompt(chat.messages.slice(0, promptIndex), prompt), reused: false };
 }
 
-interface ITurnHandlers
+export interface IGenerateOptions
 {
-    onText: (text: string) => void;
-    onReasoning: (text: string) => void;
-    onTool: (toolName: string) => void;
-    onTurnStart: () => void;
-    onTitle: (title: string) => void;
+    /** Daemon client override, for tests; defaults to the local daemon socket. */
+    client?: Pick<TDaemonClient, "createSession" | "openEventStream" | "send" | "cancel">;
+    timings?: ITurnTimings;
 }
 
-type TTurnOutcome =
-    | { outcome: "done"; }
-    | { outcome: "stopped"; }
-    | { outcome: "approval"; toolName?: string; }
-    | { outcome: "error"; error: string; };
-
-/**
- * Sends one prompt into a daemon session and follows its event stream until the agent loop that
- * consumed this prompt ends (or parks on a tool approval, or is cancelled via `signal`).
- */
-function runTurn(client: TDaemonClient, sessionId: string, prompt: string, handlers: ITurnHandlers, signal: AbortSignal): Promise<TTurnOutcome>
+/** Resolves with the promise's value, or with `undefined` as soon as `signal` aborts. */
+function unlessAborted<T>(promise: Promise<T>, signal: AbortSignal)
 {
-    return new Promise<TTurnOutcome>((resolve) =>
+    return new Promise<T | undefined>((resolve, reject) =>
     {
-        let settled = false;
-        let caughtUp = false;
-        let posted = false;
-        let ours = false;
-        let ourSendId: string | undefined;
-        let cancelled = false;
-        let retryPending = false;
-        let lastError: string | undefined;
-        let cancelTimer: ReturnType<typeof setTimeout> | undefined;
-        let caughtUpTimer: ReturnType<typeof setTimeout> | undefined;
-        let close = () => { };
+        const onAbort = () => resolve(undefined);
 
-        const finish = (outcome: TTurnOutcome) =>
-        {
-            if (settled) return;
+        if (signal.aborted) return onAbort();
 
-            settled = true;
-            clearTimeout(caughtUpTimer);
-            clearTimeout(cancelTimer);
-            signal.removeEventListener("abort", onAbort);
-            close();
-            resolve(outcome);
-        };
-
-        const onAbort = () =>
-        {
-            if (cancelled || settled) return;
-
-            cancelled = true;
-
-            if (!posted)
-            {
-                // Nothing was sent yet, so there is nothing to cancel
-                finish({ outcome: "stopped" });
-                return;
-            }
-
-            client.cancel(sessionId).catch(error => console.error("BotBandit cancel failed", error));
-
-            // Normally the cancelled loop ends promptly with a loop_end; don't wait forever for it
-            cancelTimer = setTimeout(() => finish({ outcome: "stopped" }), CANCEL_GRACE_MS);
-        };
-
-        const onEvent = (event: TDaemonSessionEvent) =>
-        {
-            if (event.type === "provisional_title")
-            {
-                handlers.onTitle(event.title);
-                return;
-            }
-
-            if (!ours)
-            {
-                // Only events after our prompt was consumed belong to this turn
-                if (event.type === "send" && (event.id === ourSendId || event.prompt === prompt))
-                {
-                    if (event.status === "queued")
-                    {
-                        ourSendId = event.id;
-                    }
-                    else if (event.status === "consumed")
-                    {
-                        ours = true;
-                    }
-                    else if (event.status === "cleared")
-                    {
-                        finish(cancelled ? { outcome: "stopped" } : { outcome: "error", error: "BotBandit dropped the prompt before running it." });
-                    }
-                }
-
-                return;
-            }
-
-            switch (event.type)
-            {
-                case "loop_start":
-                    retryPending = false;
-                    lastError = undefined;
-                    break;
-
-                case "turn_start":
-                    handlers.onTurnStart();
-                    break;
-
-                case "stream":
-                    if (event.event.type === "text-delta" && event.event.text)
-                    {
-                        handlers.onText(event.event.text);
-                    }
-                    else if (event.event.type === "reasoning-delta" && event.event.text)
-                    {
-                        handlers.onReasoning(event.event.text);
-                    }
-                    else if (event.event.type === "tool-call" && event.event.toolName)
-                    {
-                        handlers.onTool(event.event.toolName);
-                    }
-                    break;
-
-                case "turn_end":
-                    if (event.error && event.errorCode !== "aborted")
-                    {
-                        lastError = event.error;
-                    }
-                    break;
-
-                case "retry_scheduled":
-                    retryPending = true;
-                    break;
-
-                case "approval_requested":
-                    finish(cancelled ? { outcome: "stopped" } : { outcome: "approval", toolName: event.toolName });
-                    break;
-
-                case "loop_end":
-                    if (cancelled)
-                    {
-                        finish({ outcome: "stopped" });
-                    }
-                    else if (!retryPending)
-                    {
-                        finish(lastError ? { outcome: "error", error: lastError } : { outcome: "done" });
-                    }
-                    break;
-            }
-        };
-
-        caughtUpTimer = setTimeout(() => finish({ outcome: "error", error: "BotBandit daemon did not replay the session in time." }), CAUGHT_UP_TIMEOUT_MS);
-
-        close = client.openEventStream(sessionId, {
-            onFrame: frame =>
-            {
-                if ("caughtUp" in frame)
-                {
-                    if (caughtUp) return;
-
-                    caughtUp = true;
-                    clearTimeout(caughtUpTimer);
-
-                    if (signal.aborted)
-                    {
-                        finish({ outcome: "stopped" });
-                        return;
-                    }
-
-                    posted = true;
-
-                    client.send(sessionId, prompt).catch((error: Error) =>
-                    {
-                        finish({ outcome: "error", error: error instanceof DaemonRequestError && error.detail ? error.detail : error.message });
-                    });
-
-                    return;
-                }
-
-                // The replayed backlog is history the chat already has
-                if (caughtUp && !frame.replay)
-                {
-                    onEvent(frame.event);
-                }
-            },
-            onError: error => finish(cancelled ? { outcome: "stopped" } : { outcome: "error", error: error.message }),
-        });
-
-        if (signal.aborted)
-        {
-            onAbort();
-        }
-        else
-        {
-            signal.addEventListener("abort", onAbort);
-        }
+        signal.addEventListener("abort", onAbort, { once: true });
+        promise.then(resolve, reject).finally(() => signal.removeEventListener("abort", onAbort));
     });
 }
 
-async function generateResponse(_chat: IChat, _messageIndex: number, send: TSendFunc, abortController: AbortController)
+async function generateResponse(_chat: IChat, _messageIndex: number, send: TSendFunc, abortController: AbortController, options?: IGenerateOptions)
 {
     if (_chat.model.provider !== "botbandit")
     {
@@ -348,7 +176,9 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
 
     const model = _chat.model as IChatModelBotBandit;
 
-    const client = getClient();
+    const client = options?.client ?? getClient();
+
+    const signal = abortController.signal;
 
     const messageIndex = _messageIndex ?? _chat.messages.length;
 
@@ -371,9 +201,24 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
         historyIndex: _chat.messages[messageIndex]?.history?.length ?? 0,
     };
 
+    // The session link is left as it is here: it only moves once the daemon has the prompt
+    const updatedChat: IChat = {
+        ..._chat,
+        state: "working",
+        messages: [
+            ..._chat.messages.slice(0, messageIndex),
+            message,
+            ..._chat.messages.slice(messageIndex + 1)
+        ],
+        currentPrompt: { content: "", images: [] },
+    };
+
+    send("update-chat", updatedChat);
+
     let text = "";
     let reasoning = "";
     let separatorPending = false;
+    let state: TChatState = "done";
 
     const render = () =>
     {
@@ -394,10 +239,12 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
         text += delta;
     };
 
-    let botbanditSession: IChatBotBanditSession | undefined = _chat.botbanditSession;
-    let sessionId: string | undefined;
-    let prompt: string | undefined;
-    let setupError: unknown;
+    const appendNote = (note: string) =>
+    {
+        text += (text ? "\n\n" : "") + note;
+    };
+
+    const linkSession = (link: IChatBotBanditSession) => send("set-chat-botbandit-session", updatedChat.id, link);
 
     const promptIndex = messageIndex - 1;
 
@@ -405,102 +252,100 @@ async function generateResponse(_chat: IChat, _messageIndex: number, send: TSend
     {
         if (_chat.messages[promptIndex]?.role !== "user")
         {
-            throw new Error("BotBandit: there is no user message to send.");
+            throw new Error("there is no user message to send.");
         }
 
-        const session = await ensureSession(client, _chat, model, promptIndex);
+        const session = await unlessAborted(ensureSession(client, _chat, model, promptIndex), signal);
 
-        sessionId = session.sessionId;
-        prompt = session.prompt;
-
-        // The session will have seen everything up to and including this answer
-        botbanditSession = {
-            sessionId,
-            profile: model.botbandit.profile,
-            model: model.botbandit.model,
-            syncedThrough: messageIndex + 1,
-        };
-    }
-    catch (error)
-    {
-        setupError = error;
-    }
-
-    const updatedChat: IChat = {
-        ..._chat,
-        state: "working",
-        messages: [
-            ..._chat.messages.slice(0, messageIndex),
-            message,
-            ..._chat.messages.slice(messageIndex + 1)
-        ],
-        currentPrompt: { content: "", images: [] },
-        botbanditSession,
-    };
-
-    send("update-chat", updatedChat);
-
-    let state: TChatState = "done";
-
-    if (setupError || !sessionId || !prompt)
-    {
-        const reason = setupError instanceof Error ? setupError.message : String(setupError);
-        console.error("ERROR", setupError);
-
-        text += `BotBandit is not available: ${reason}`;
-    }
-    else
-    {
-        let throttle = Date.now();
-        let summarized = !!updatedChat.generatedSummary;
-
-        const update = () =>
-        {
-            render();
-
-            if (Date.now() > throttle + 25)
-            {
-                send("chat-message", updatedChat.id, messageIndex, message);
-                throttle = Date.now();
-            }
-        };
-
-        const result = await runTurn(client, sessionId, prompt, {
-            onText: delta => { appendText(delta); update(); },
-            onReasoning: delta => { reasoning += delta; update(); },
-            onTool: toolName => { appendText(`_Using tool \`${toolName}\` …_`); separatorPending = true; update(); },
-            onTurnStart: () => { separatorPending = true; },
-            onTitle: title =>
-            {
-                if (!summarized)
-                {
-                    summarized = true;
-                    send("set-chat-summary", updatedChat.id, title);
-                }
-            },
-        }, abortController.signal);
-
-        if (result.outcome === "stopped")
+        if (!session)
         {
             state = "stopped";
         }
-        else if (result.outcome === "error")
+        else
         {
-            console.error("ERROR", result.error);
+            const link: IChatBotBanditSession = {
+                sessionId: session.sessionId,
+                profile: model.botbandit.profile,
+                model: model.botbandit.model,
+                // Once consumed, the session has seen everything up to and including this answer
+                syncedThrough: messageIndex + 1,
+            };
 
-            text += (text ? "\n\n" : "") + result.error;
-        }
-        else if (result.outcome === "approval")
-        {
-            // A full approval UI is out of scope; tell the user where to decide instead of hanging
-            const tool = result.toolName ? ` to run \`${result.toolName}\`` : "";
+            let throttle = Date.now();
+            let summarized = !!updatedChat.generatedSummary;
 
-            text += (text ? "\n\n" : "") + [
-                "---",
-                `**BotBandit is waiting for approval**${tool}.`,
-                `Approve or deny it in BotBandit (web app or \`boba\` TUI, session \`${sessionId}\`), then send another message here to continue.`,
-            ].join("\n\n");
+            const update = () =>
+            {
+                render();
+
+                if (Date.now() > throttle + 25)
+                {
+                    send("chat-message", updatedChat.id, messageIndex, message);
+                    throttle = Date.now();
+                }
+            };
+
+            const result = await runTurn(client, session.sessionId, session.prompt, {
+                onConsumed: () => linkSession(link),
+                onText: delta => { appendText(delta); update(); },
+                onReasoning: delta => { reasoning += delta; update(); },
+                onTool: toolName => { appendText(`_Using tool \`${toolName}\` …_`); separatorPending = true; update(); },
+                onTurnStart: () => { separatorPending = true; },
+                onTitle: title =>
+                {
+                    if (!summarized)
+                    {
+                        summarized = true;
+                        send("set-chat-summary", updatedChat.id, title);
+                    }
+                },
+            }, signal, options?.timings ?? DEFAULT_TURN_TIMINGS);
+
+            const where = `in BotBandit (web app or \`boba\` TUI, session \`${session.sessionId}\`)`;
+
+            if (result.outcome === "stopped")
+            {
+                state = "stopped";
+            }
+            else if (result.outcome === "error")
+            {
+                console.error("ERROR", result.error);
+                appendNote(result.error);
+            }
+            else if (result.outcome === "approval")
+            {
+                // A full approval UI is out of scope; tell the user where to decide instead of hanging
+                const tool = result.toolName ? ` to run \`${result.toolName}\`` : "";
+
+                appendNote([
+                    "---",
+                    `**BotBandit is waiting for approval**${tool}.`,
+                    `Approve or deny it ${where}, then send another message here to continue.`,
+                ].join("\n\n"));
+            }
+            else if (result.outcome === "blocked")
+            {
+                const why = result.reason === "approval"
+                    ? `**This BotBandit session is waiting for a tool approval**${result.toolName ? ` (\`${result.toolName}\`)` : ""}.`
+                    : "**This BotBandit session is busy** with another run.";
+
+                appendNote([
+                    why,
+                    `Your message was **not sent**. ${result.reason === "approval" ? `Approve or deny the call ${where}` : "Wait for it to finish"}, then send your message again.`,
+                ].join("\n\n"));
+
+                if (session.reused)
+                {
+                    // The user was told the message did not arrive; keep the session for their next one
+                    linkSession(link);
+                }
+            }
         }
+    }
+    catch (error)
+    {
+        console.error("ERROR", error);
+        appendNote(`BotBandit is not available: ${error instanceof Error ? error.message : String(error)}`);
     }
 
     render();

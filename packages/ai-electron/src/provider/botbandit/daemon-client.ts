@@ -65,6 +65,8 @@ export type TDaemonSessionEvent =
     | { type: "retry_scheduled"; event_id: string; attempt: number; maxRetries: number; delayMs: number; }
     | { type: "approval_requested"; event_id: string; approvalId: string; toolCallId: string; toolName?: string; }
     | { type: "approval_decided"; event_id: string; approvalId: string; approved: boolean; }
+    | { type: "approval_deferred"; event_id: string; toolCallId: string; decision: string; }
+    | { type: "interrupted"; event_id: string; toolCallIds?: string[]; }
     | { type: "cancel"; event_id: string; }
     | { type: "notice"; event_id: string; variant: "debug" | "info" | "warning" | "error"; text: string; }
     | { type: "provisional_title"; event_id: string; title: string; }

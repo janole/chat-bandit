@@ -1,6 +1,6 @@
 import { ElectronAPI } from "@electron-toolkit/preload";
 import { useNavigationStore } from "@janole/ai-chat";
-import { ChatClientContext, ChatStoreContext, createChatStore, duplicateChat, IChat, IChatClient, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TDownloadStatus, TDownloadStatusMap, TRemoveAccount, TRemoveChatModel, TReturn, useChatModelConfigStore, useChatStore, useChatTitle, useDownloadStore } from "@janole/ai-core";
+import { ChatClientContext, ChatStoreContext, createChatStore, duplicateChat, IChat, IChatBotBanditSession, IChatClient, IChatMessage, IChatModel, TAddAccount, TAddChatModel, TChatState, TDownloadStatus, TDownloadStatusMap, TRemoveAccount, TRemoveChatModel, TReturn, useChatModelConfigStore, useChatStore, useChatTitle, useDownloadStore } from "@janole/ai-core";
 import { ReactNode, useCallback, useEffect, useMemo } from "react";
 import { ulid } from "ulid";
 import { create } from "zustand";
@@ -83,6 +83,12 @@ registerListener("update-chat", (_event, chat: IChat) =>
 registerListener("set-chat-summary", (_event, chatId: string, generatedSummary: string) =>
 {
     chatStore.setState(state => ({ chats: { ...state.chats, [chatId]: { ...state.chats[chatId], generatedSummary } } }));
+});
+
+/** Links a chat to its BotBandit daemon session once the daemon has taken the prompt. */
+registerListener("set-chat-botbandit-session", (_event, chatId: string, botbanditSession: IChatBotBanditSession | undefined) =>
+{
+    chatStore.setState(state => state.chats[chatId] ? ({ chats: { ...state.chats, [chatId]: { ...state.chats[chatId], botbanditSession, updatedAt: Date.now() } } }) : state);
 });
 
 /** Updates a chat message in the chat store when a "chat-message" event is received from the backend. */

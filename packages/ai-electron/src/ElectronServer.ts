@@ -9,6 +9,7 @@ import path from "path";
 import writeFileAtomic from "write-file-atomic";
 
 import { getDownloadStatus, removeDownload, startDownload, stopDownload } from "./ElectronDownloader";
+import BotBanditProvider from "./provider/BotBanditProvider";
 import GoogleAiProvider from "./provider/GoogleAiProvider";
 import LlamaCppProvider from "./provider/LlamaCppProvider";
 import OllamaProvider from "./provider/OllamaProvider";
@@ -64,12 +65,14 @@ async function loadModels()
     // TODO: should be dynamic because of API key
     const openAiModels = await tryCatch(OpenAiProvider.listModels());
     const googleAiModels = await tryCatch(GoogleAiProvider.listModels());
+    const botBanditModels = await tryCatch(BotBanditProvider.listModels());
 
     return [
         ...llamaCppModels.result ?? [],
         ...ollamaModels.result ?? [],
         ...openAiModels.result ?? [],
         ...googleAiModels.result ?? [],
+        ...botBanditModels.result ?? [],
     ];
 }
 
@@ -92,6 +95,7 @@ export function registerAdapter({ send }: { send: TSendFunc })
         "node-llama-cpp": LlamaCppProvider.generateResponse,
         "openai": OpenAiProvider.generateResponse,
         "googleai": GoogleAiProvider.generateResponse,
+        "botbandit": BotBanditProvider.generateResponse,
     };
 
     ipcMain.removeHandler("generate-chat-response");

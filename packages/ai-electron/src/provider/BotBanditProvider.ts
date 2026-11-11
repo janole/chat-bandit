@@ -1,6 +1,6 @@
 import { IChat, IChatBotBanditSession, IChatMessage, IChatModelBotBandit, pluckModelInfo, sanitizeMessages, TChatState, TSendFunc } from "@janole/ai-core";
 
-import { createDaemonClient, DaemonRequestError, TDaemonClient, TDaemonSessionEvent } from "./botbandit/daemon-client";
+import { createDaemonClient, DaemonRequestError, resolveDaemonSocketPath, TDaemonClient, TDaemonSessionEvent } from "./botbandit/daemon-client";
 
 // ---------------------------------------------------------------------------
 // BotBandit provider: one ChatBandit chat <-> one BotBandit daemon session.
@@ -17,7 +17,14 @@ let _client: TDaemonClient | undefined;
 
 function getClient()
 {
-    return _client ??= createDaemonClient();
+    const socketPath = resolveDaemonSocketPath();
+
+    if (_client?.socketPath !== socketPath)
+    {
+        _client = createDaemonClient(socketPath);
+    }
+
+    return _client;
 }
 
 const accountId = (profile: string) => `botbandit::${profile}`;

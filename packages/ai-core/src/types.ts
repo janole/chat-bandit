@@ -2,7 +2,7 @@ import type { GgufFileInfo } from "node-llama-cpp";
 import type { ModelResponse, ShowResponse } from "ollama";
 import { ulid } from "ulid";
 
-type TChatModelProvider = "node-llama-cpp" | "ollama" | "openai" | "googleai";
+type TChatModelProvider = "node-llama-cpp" | "ollama" | "openai" | "googleai" | "botbandit";
 
 export interface IChatModelFeatures
 {
@@ -97,12 +97,20 @@ export interface IChatModelGoogleAI extends IChatModelBase
     info?: any;
 }
 
+/** A BotBandit profile (and optional model override) served by the local `boba daemon`. */
+export interface IChatModelBotBandit extends IChatModelBase
+{
+    provider: "botbandit";
+    botbandit: { profile: string; model?: string; };
+}
+
 export type IChatModel =
     | IChatModelOllama
     | IChatModelLlamaCpp
     | IChatModelOpenAI
     | IChatModelOpenRouter
     | IChatModelGoogleAI
+    | IChatModelBotBandit
     ;
 
 export interface IChatModelInfo
@@ -188,6 +196,16 @@ export const sanitizeMessages = (m: IChatMessage) => ["user", "system", "assista
 
 export type TChatState = "working" | "done" | "stopped";
 
+/** Links a chat to the BotBandit daemon session that backs it. */
+export interface IChatBotBanditSession
+{
+    sessionId: string;
+    profile: string;
+    model?: string;
+    /** Number of chat messages (from the start) the daemon session has already seen. */
+    syncedThrough: number;
+}
+
 export interface IChat
 {
     id: string;
@@ -204,6 +222,7 @@ export interface IChat
     showSettings?: boolean;
     updatedAt?: number;
     deletedAt?: number | "deleted";
+    botbanditSession?: IChatBotBanditSession;
 }
 
 export type TProviderInfo = { [key: string]: any };
@@ -237,6 +256,8 @@ export function duplicateChat(chat: IChat, messageIndex?: number): IChat
         favorite: false,
         updatedAt: undefined,
         deletedAt: undefined,
+        // A copy must not keep talking to the original's BotBandit session
+        botbanditSession: undefined,
         // TODO: filter empty / working messages?
         messages: copy.messages.slice(0, messageIndex ? messageIndex + 1 : copy.messages.length).map(m => ({ ...m, state: "done" })),
     }) satisfies IChat;
